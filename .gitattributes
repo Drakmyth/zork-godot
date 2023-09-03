@@ -1,0 +1,10 @@
+* text=auto
+
+.gitattributes text export-ignore
+.gitignore     text export-ignore
+
+*.godot  text eol=lf
+*.import text eol=lf
+*.md     text diff=markdown
+
+*.svg binary
