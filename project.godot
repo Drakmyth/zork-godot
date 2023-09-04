@@ -11,8 +11,22 @@ config_version=5
 [application]
 
 config/name="zork-godot"
+run/main_scene="res://ui/Game.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[filesystem]
+
+import/blender/enabled=false
+
+[gui]
+
+theme/custom="res://themes/default.tres"
+theme/custom_font="res://fonts/LessPerfectDOSVGA.ttf"
+theme/default_font_antialiasing=0
+theme/default_font_hinting=0
+theme/default_font_subpixel_positioning=0
+theme/lcd_subpixel_layout=0
 
 [rendering]
 

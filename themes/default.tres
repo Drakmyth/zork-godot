@@ -1,0 +1,23 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cunyh4pgg5h64"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7ndf"]
+bg_color = Color(0.666667, 0.666667, 0.666667, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s1sno"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfgky"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5e85"]
+bg_color = Color(0, 0, 0, 1)
+
+[resource]
+HeaderLabel/base_type = &"Label"
+HeaderLabel/colors/font_color = Color(0, 0, 0, 1)
+HeaderPanelContainer/base_type = &"PanelContainer"
+HeaderPanelContainer/styles/panel = SubResource("StyleBoxFlat_n7ndf")
+Label/colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+LineEdit/colors/caret_color = Color(0.666667, 0.666667, 0.666667, 1)
+LineEdit/colors/font_color = Color(0.666667, 0.666667, 0.666667, 1)
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_s1sno")
+LineEdit/styles/normal = SubResource("StyleBoxEmpty_lfgky")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_f5e85")

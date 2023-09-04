@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj6g5k4dxx8q0"]
+
+[ext_resource type="Script" path="res://ui/Prompt.gd" id="1_1knig"]
+
+[node name="Prompt" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 19.0
+grow_horizontal = 2
+script = ExtResource("1_1knig")
+
+[node name="PromptLabel" type="Label" parent="."]
+layout_mode = 2
+text = ">"
+vertical_alignment = 1
+
+[node name="PromptInput" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+caret_blink = true
+caret_blink_interval = 0.1

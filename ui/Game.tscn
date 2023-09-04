@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqgple0nvjstt"]
+
+[ext_resource type="PackedScene" uid="uid://dv4bbp626njre" path="res://ui/Header.tscn" id="1_ciir3"]
+[ext_resource type="PackedScene" uid="uid://ox1ewbaqbn2q" path="res://ui/ResponseHistory.tscn" id="2_pjk61"]
+[ext_resource type="PackedScene" uid="uid://cj6g5k4dxx8q0" path="res://ui/Prompt.tscn" id="3_hb5rq"]
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="Header" parent="Margin/Layout" instance=ExtResource("1_ciir3")]
+layout_mode = 2
+
+[node name="ResponseHistory" parent="Margin/Layout" instance=ExtResource("2_pjk61")]
+layout_mode = 2
+
+[node name="Prompt" parent="Margin/Layout" instance=ExtResource("3_hb5rq")]
+layout_mode = 2

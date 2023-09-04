@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://dv4bbp626njre"]
+
+[node name="Header" type="PanelContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 17.0
+grow_horizontal = 2
+theme_type_variation = &"HeaderPanelContainer"
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = -3
+
+[node name="Layout" type="HBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="lblRoom" type="Label" parent="Margin/Layout"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"HeaderLabel"
+text = "Room Name"
+
+[node name="ScoreBox" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="Margin/Layout/ScoreBox"]
+layout_mode = 2
+theme_type_variation = &"HeaderLabel"
+text = "Score: "
+
+[node name="Score" type="Label" parent="Margin/Layout/ScoreBox"]
+layout_mode = 2
+theme_type_variation = &"HeaderLabel"
+text = "0"
+
+[node name="MovesBoxMargin" type="MarginContainer" parent="Margin/Layout"]
+layout_mode = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_right = 36
+
+[node name="MovesBox" type="HBoxContainer" parent="Margin/Layout/MovesBoxMargin"]
+layout_mode = 2
+
+[node name="MovesLabel" type="Label" parent="Margin/Layout/MovesBoxMargin/MovesBox"]
+layout_mode = 2
+theme_type_variation = &"HeaderLabel"
+text = "Moves: "
+
+[node name="Moves" type="Label" parent="Margin/Layout/MovesBoxMargin/MovesBox"]
+layout_mode = 2
+theme_type_variation = &"HeaderLabel"
+text = "0"
