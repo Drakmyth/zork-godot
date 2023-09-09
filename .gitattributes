@@ -3,6 +3,7 @@
 .gitattributes text export-ignore
 .gitignore     text export-ignore
 
+*.gd     text
 *.godot  text
 *.import text
 *.md     text diff=markdown
