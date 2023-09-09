@@ -7,7 +7,7 @@ func parse_input(input: String) -> Array[Command]:
 
 	print("Raw input: %s" % input)
 
-	# Wrap spaces around punctuation that starts a new clause
+	# Wrap spaces around punctuation that starts a new phrase
 	var punctuation_tokens = [".", ",", "\""]
 	for token in punctuation_tokens:
 		input = input.replace(token, " %s " % token)
@@ -24,21 +24,21 @@ func parse_input(input: String) -> Array[Command]:
 
 	var commands = [] as Array[Command]
 
-	var start_of_clause = 0
-	var end_of_clause = _get_end_of_clause(tokens, start_of_clause)
+	var start_of_phrase = 0
+	var end_of_phrase = _get_end_of_phrase(tokens, start_of_phrase)
 
-	# Loop over each clause
-	while end_of_clause <= len(tokens):
+	# Loop over each phrase
+	while end_of_phrase <= len(tokens):
 		var command = Command.new()
 		# Parse input word by word
-		for ptr in range(start_of_clause, end_of_clause):
+		for ptr in range(start_of_phrase, end_of_phrase):
 			var word = tokens[ptr]
 
 			# Buzzwords are either skipped entirely or have special handling where relevant
 			if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.BUZZWORD):
 				continue
 
-			var next_word = _find_next_word_in_clause(tokens, ptr + 1, end_of_clause)
+			var next_word = _find_next_word_in_phrase(tokens, ptr + 1, end_of_phrase)
 
 			# Moving around may not provide a verb, so process directions first
 			if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.DIRECTION) \
@@ -76,12 +76,12 @@ func parse_input(input: String) -> Array[Command]:
 			if next_word == "":
 				commands.append(command)
 
-		start_of_clause = end_of_clause + 1
-		end_of_clause = _get_end_of_clause(tokens, start_of_clause)
+		start_of_phrase = end_of_phrase + 1
+		end_of_phrase = _get_end_of_phrase(tokens, start_of_phrase)
 
 	return commands
 
-func _get_end_of_clause(tokens: Array, start: int) -> int:
+func _get_end_of_phrase(tokens: Array, start: int) -> int:
 	if start >= len(tokens): return len(tokens) + 1
 
 	var end = tokens.find("then", start)
@@ -89,7 +89,7 @@ func _get_end_of_clause(tokens: Array, start: int) -> int:
 		end = len(tokens)
 	return end
 
-func _find_next_word_in_clause(tokens: Array, start: int, end: int = len(tokens)) -> String:
+func _find_next_word_in_phrase(tokens: Array, start: int, end: int = len(tokens)) -> String:
 	for ptr in range(start, end):
 		var word = tokens[ptr]
 		if not Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.BUZZWORD):
