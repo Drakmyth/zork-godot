@@ -13,6 +13,7 @@ enum PartOfSpeech {
 const _syntax_directions := ["north", "east", "west", "south", "ne", "nw", "se", "sw", "up", "down", "in", "out", "land"]
 const _syntax_buzzwords := ["again", "g", "oops", "a", "an", "the", "is", "of", "then", "all", "one", "except", "\"", "yes", "no", "here"]
 const _syntax_synonyms := {
+		"and": [","],
 		"answer": ["reply"],
 		"attack": ["fight", "hurt", "injure", "hit"],
 		"brush": ["clean"],
@@ -73,7 +74,7 @@ const _syntax_synonyms := {
 		"swing": ["thrust"],
 		"take": ["get", "hold", "carry", "remove", "grab", "catch"],
 		"tell": ["ask"],
-		"then": [".", "and"],
+		"then": ["."],
 		"throw": ["hurl", "chuck", "toss"],
 		"tie": ["fasten", "secure", "attach"],
 		"treasure": ["temple"],

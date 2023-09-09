@@ -87,13 +87,34 @@ func _get_end_of_clause(tokens: Array, start: int) -> int:
 	var end = tokens.find("then", start)
 	if end == -1:
 		end = len(tokens)
+
+	var and_index = tokens.find("and", start)
+	while(and_index > -1 and and_index < end):
+		if _is_word_clause_terminator(tokens, and_index):
+			end = and_index
+			break;
+		and_index = tokens.find("and", and_index + 1)
+
 	return end
 
 func _find_next_word_in_clause(tokens: Array, start: int, end: int = len(tokens)) -> String:
 	for ptr in range(start, end):
 		var word = tokens[ptr]
+		if ["and", "then"].has(word):
+			# "and" is not a buzzword, so we want to return it if it's not a terminator
+			return word if not _is_word_clause_terminator(tokens, ptr) else ""
 		if not Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.BUZZWORD):
 			return word
-		if word == "then":
-			return ""
 	return ""
+
+func _is_word_clause_terminator(tokens: Array, ptr: int) -> bool:
+	var word = tokens[ptr]
+	if word == "then": return true
+	if word != "and": return false
+
+	# if "and" is the last word it is a terminator so we're done
+	if ptr + 1 == len(tokens): return true
+	var next_word = tokens[ptr + 1]
+
+	return Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.DIRECTION) \
+		or Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.VERB)
