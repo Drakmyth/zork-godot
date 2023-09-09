@@ -3,7 +3,7 @@ extends Node
 const KEEP_EMPTY_TOKENS = false
 
 
-func parse_command(input: String) -> Array[Command]:
+func parse_input(input: String) -> Array[Command]:
 
 	print("Raw input: %s" % input)
 
@@ -13,7 +13,7 @@ func parse_command(input: String) -> Array[Command]:
 		input = input.replace(token, " %s " % token)
 
 	# Tokenize input and replace synonyms
-	var tokens = Array(input.split(" ", KEEP_EMPTY_TOKENS)).map(func(word): return Vocabulary.resolve(word))
+	var tokens: Array = Array(input.split(" ", KEEP_EMPTY_TOKENS)).map(func(word): return Vocabulary.resolve(word))
 
 	print("Processed input: %s" % " ".join(tokens))
 
@@ -23,35 +23,77 @@ func parse_command(input: String) -> Array[Command]:
 		return []
 
 	var commands = [] as Array[Command]
-	var command = Command.new()
 
-	var words_remaining = len(tokens)
+	var start_of_clause = 0
+	var end_of_clause = _get_end_of_clause(tokens, start_of_clause)
 
-	# Parse input word by word
-	for ptr in range(len(tokens)):
-		var word = tokens[ptr]
-		words_remaining -= 1
-		var next_word = tokens[ptr + 1] if words_remaining > 0 else ""
+	# Loop over each clause
+	while end_of_clause <= len(tokens):
+		var command = Command.new()
+		# Parse input word by word
+		for ptr in range(start_of_clause, end_of_clause):
+			var word = tokens[ptr]
 
-		# Buzzwords are either skipped entirely or have special handling where relevant
-		if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.BUZZWORD):
-			continue
+			# Buzzwords are either skipped entirely or have special handling where relevant
+			if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.BUZZWORD):
+				continue
 
-		# Moving around may not provide a verb, so process movement first
-		if _check_walk(command, word, next_word):
-			command.verb = "walk" # This may override the verb, but only if it's already "walk" so it's fine
-			command.object1 = word
-			print("Command: %s" % command.as_phrase())
-			commands.append(command)
-			if next_word == "then":
-				command = Command.new()
-		# All other commands require a verb to be specified
-		elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.VERB):
-			command.verb = word
+			var next_word = _find_next_word_in_clause(tokens, ptr + 1, end_of_clause)
+
+			# Moving around may not provide a verb, so process directions first
+			if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.DIRECTION) \
+				and ["", "walk"].has(command.verb):
+					command.verb = "walk" # This may override the verb, but only if it's already "walk" so it's fine
+					command.object1 = word
+					if next_word == "":
+						commands.append(command)
+					continue
+
+			if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.VERB):
+				if command.verb != "":
+					print("You used the word %s in a way that I don't understand." % word)
+					break
+				command.verb = word
+			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.PREPOSITION):
+				if not Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.OBJECT):
+						print("That sentence isn't one I recognize.")
+						break
+				var preposition_was_set = command.try_set_preposition(word)
+				if not preposition_was_set:
+					print("That sentence isn't one I recognize.")
+					break
+			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.OBJECT):
+				var object_was_set = command.try_set_object(word)
+				if not object_was_set:
+					print("There were too many nouns in that sentence.")
+					break
+			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.ADJECTIVE):
+				pass
+			else:
+				print("I don't know the word \"%s\"." % word)
+				break
+
+			if next_word == "":
+				commands.append(command)
+
+		start_of_clause = end_of_clause + 1
+		end_of_clause = _get_end_of_clause(tokens, start_of_clause)
+
 	return commands
 
-func _check_walk(command:Command, word: String, next_word: String) -> bool:
-	if not Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.DIRECTION): return false
-	if not ["", "walk"].has(command.verb): return false
-	if next_word == "": return true
-	return next_word == "then"
+func _get_end_of_clause(tokens: Array, start: int) -> int:
+	if start >= len(tokens): return len(tokens) + 1
+
+	var end = tokens.find("then", start)
+	if end == -1:
+		end = len(tokens)
+	return end
+
+func _find_next_word_in_clause(tokens: Array, start: int, end: int = len(tokens)) -> String:
+	for ptr in range(start, end):
+		var word = tokens[ptr]
+		if not Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.BUZZWORD):
+			return word
+		if word == "then":
+			return ""
+	return ""

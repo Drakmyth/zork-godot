@@ -108,7 +108,14 @@ func _init() -> void:
 		register_buzzword(word)
 	for word in _syntax_synonyms:
 		register_synonyms(word, _syntax_synonyms[word])
-	
+
+	# Debug objects to test the parser
+	breakpoint
+	register_object("tree")
+	register_object("log")
+	register_object("lamp")
+	register_adjective("green")
+
 	const commands_dir := "res://commands"
 	var files := DirAccess.get_files_at(commands_dir)
 	for filepath in files:
@@ -140,7 +147,7 @@ func register_adjective(adj: String) -> void:
 
 func register_object(obj: String) -> void:
 	_objects[obj] = false
-	
+
 func register_buzzword(buzz: String) -> void:
 	_buzzwords[buzz] = false
 
@@ -166,4 +173,3 @@ func register_synonyms(word: String, synonyms: Array) -> void:
 		if _synonym_map.has(synonym):
 			push_warning("Warning: duplicate synonym '%s' registered to '%s' and '%s'." % [synonym, _synonym_map[synonym], word])
 		_synonym_map[synonym] = word
-	

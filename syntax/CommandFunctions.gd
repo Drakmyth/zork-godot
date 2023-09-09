@@ -14,3 +14,6 @@ func burn():
 
 func preburn():
 	print("Pre-Burning...")
+
+func walk():
+	print("Walking...")
