@@ -73,7 +73,7 @@ const _syntax_synonyms := {
 		"swing": ["thrust"],
 		"take": ["get", "hold", "carry", "remove", "grab", "catch"],
 		"tell": ["ask"],
-		"then": [".", ",", "and"],
+		"then": [".", "and"],
 		"throw": ["hurl", "chuck", "toss"],
 		"tie": ["fasten", "secure", "attach"],
 		"treasure": ["temple"],
@@ -120,7 +120,7 @@ func _init() -> void:
 	var files := DirAccess.get_files_at(commands_dir)
 	for filepath in files:
 		var command := load("%s/%s" % [commands_dir, filepath]) as Command
-		print("Loaded '%s'" % command.as_phrase())
+		print("Loaded '%s'" % command.as_string())
 		if _commands.has(command.verb):
 			_commands[command.verb].append(command)
 		else:

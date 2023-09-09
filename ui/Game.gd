@@ -6,4 +6,4 @@ func _ready() -> void:
 func _on_Prompt_command_submitted(new_text: String) -> void:
 	var commands = $CommandParser.parse_input(new_text)
 	for command in commands:
-		print("Command: %s" % command.as_phrase())
+		print("Command: %s" % command.as_string())

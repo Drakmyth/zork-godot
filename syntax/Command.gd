@@ -9,7 +9,7 @@ class_name Command
 @export var action: String
 @export var preaction: String
 
-func as_phrase() -> String:
+func as_string() -> String:
 	return " ".join([verb, preposition1, object1, preposition2, object2].filter(func(x): return not x.is_empty()))
 
 func execute() -> void:
