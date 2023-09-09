@@ -11,7 +11,7 @@ enum PartOfSpeech {
 }
 
 const _syntax_directions := ["north", "east", "west", "south", "ne", "nw", "se", "sw", "up", "down", "in", "out", "land"]
-const _syntax_buzzwords := ["again", "g", "oops", "a", "an", "the", "is", "and", "of", "then", "all", "one", "but", "except", ".", ",", "\"", "yes", "no", "y", "here"]
+const _syntax_buzzwords := ["again", "g", "oops", "a", "an", "the", "is", "of", "then", "all", "one", "except", "\"", "yes", "no", "here"]
 const _syntax_synonyms := {
 		"answer": ["reply"],
 		"attack": ["fight", "hurt", "injure", "hit"],
@@ -28,6 +28,7 @@ const _syntax_synonyms := {
 		"east": ["e"],
 		"eat": ["consume", "taste", "bite"],
 		"examine": ["describe", "what", "whats"],
+		"except": ["but"],
 		"exorcise": ["banish", "cast", "drive", "begone"],
 		"extinguish": ["douse"],
 		"find": ["where", "seek", "see"],
@@ -87,7 +88,8 @@ const _syntax_synonyms := {
 		"west": ["w"],
 		"win": ["winnage"],
 		"with": ["using", "through", "thru"],
-		"yell": ["scream", "shout"]
+		"yell": ["scream", "shout"],
+		"yes": ["y"]
 	}
 
 var _synonym_map := {}
