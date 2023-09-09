@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Command" load_steps=2 format=3 uid="uid://b465o7mrcigr5"]
+
+[ext_resource type="Script" path="res://syntax/Command.gd" id="1_42yev"]
+
+[resource]
+script = ExtResource("1_42yev")
+verb = "brief"
+preposition1 = ""
+object1 = false
+preposition2 = ""
+object2 = false
+action = "brief"
+preaction = ""

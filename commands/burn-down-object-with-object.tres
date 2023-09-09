@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Command" load_steps=2 format=3 uid="uid://dkkfn5fcccfgo"]
+
+[ext_resource type="Script" path="res://syntax/Command.gd" id="1_yxcx4"]
+
+[resource]
+script = ExtResource("1_yxcx4")
+verb = "burn"
+preposition1 = "down"
+object1 = "OBJECT"
+preposition2 = "with"
+object2 = "OBJECT"
+action = "burn"
+preaction = "preburn"

@@ -15,6 +15,11 @@ run/main_scene="res://ui/Game.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Vocabulary="*res://syntax/Vocabulary.gd"
+CommandFunctions="*res://syntax/CommandFunctions.gd"
+
 [filesystem]
 
 import/blender/enabled=false
