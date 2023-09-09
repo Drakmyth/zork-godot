@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqgple0nvjstt"]
+[gd_scene load_steps=6 format=3 uid="uid://cqgple0nvjstt"]
 
 [ext_resource type="PackedScene" uid="uid://dv4bbp626njre" path="res://ui/Header.tscn" id="1_ciir3"]
+[ext_resource type="Script" path="res://managers/CommandParser.gd" id="1_f4dba"]
+[ext_resource type="Script" path="res://ui/Game.gd" id="1_xd72k"]
 [ext_resource type="PackedScene" uid="uid://ox1ewbaqbn2q" path="res://ui/ResponseHistory.tscn" id="2_pjk61"]
 [ext_resource type="PackedScene" uid="uid://cj6g5k4dxx8q0" path="res://ui/Prompt.tscn" id="3_hb5rq"]
 
@@ -11,6 +13,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_xd72k")
+
+[node name="CommandParser" type="Node" parent="."]
+script = ExtResource("1_f4dba")
 
 [node name="Background" type="PanelContainer" parent="."]
 layout_mode = 1
