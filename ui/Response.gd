@@ -8,6 +8,9 @@ func _set_input(input_text: String):
 	input = input_text
 	$Layout/Prompt.text = input_text
 
+	if input_text == "":
+		$Layout.visible = false
+
 func _set_response(response_text: String):
 	response = response_text
 	$ResponseText.text = response_text

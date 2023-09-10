@@ -4,6 +4,7 @@ const KEEP_EMPTY_TOKENS = false
 
 
 func parse_input(input: String, player: Player) -> Array[Command]:
+	if input.is_empty(): return []
 
 	print("Raw input: %s" % input)
 
@@ -18,11 +19,6 @@ func parse_input(input: String, player: Player) -> Array[Command]:
 	var tokens: Array = Array(input.split(" ", KEEP_EMPTY_TOKENS)).map(func(word): return Vocabulary.resolve(word))
 
 	print("Processed input: %s" % " ".join(tokens))
-
-	# No input, no command
-	if len(tokens) == 0:
-		print("I beg your pardon?")
-		return []
 
 	var commands = [] as Array[Command]
 

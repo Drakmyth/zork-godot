@@ -8,5 +8,5 @@ func _ready() -> void:
 	$Layout/PromptInput.grab_focus()
 
 func _on_PromptInput_text_submitted(new_text: String) -> void:
-	command_submitted.emit(new_text)
+	command_submitted.emit(new_text.strip_edges())
 	$Layout/PromptInput.clear()

@@ -9,7 +9,14 @@ func _ready() -> void:
 	print(player.get_room().describe())
 
 func _on_Prompt_command_submitted(new_text: String) -> void:
+	# No input, no command
+	if new_text.is_empty():
+		$Margin/Layout/ResponseHistory.add_response(" ", "I beg your pardon?")
+		return
+
 	var commands = $CommandParser.parse_input(new_text, player)
+
+	var display_input = new_text
 	for command in commands:
 		print("Command: %s\n" % command.as_string())
 		var real_command = Vocabulary.get_command(command.verb)
@@ -31,4 +38,5 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 			if response != "":
 				break
 
-		$Margin/Layout/ResponseHistory.add_response(new_text, response)
+		$Margin/Layout/ResponseHistory.add_response(display_input, response)
+		display_input = ""
