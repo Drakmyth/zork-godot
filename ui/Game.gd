@@ -3,6 +3,9 @@ extends Control
 var player: Player
 @onready var history = $Margin/Layout/ResponseHistory
 
+const EMPTY_PROMPT = " "
+const HIDE_PROMPT = ""
+
 const BEGIN_TEXT = "\
 ZORK I: The Great Underground Empire
 Copyright (c) 1981, 1982, 1983 Infocom, Inc. All rights reserved.
@@ -14,13 +17,13 @@ func _ready() -> void:
 	$Margin/Layout/Prompt.connect("command_submitted", _on_Prompt_command_submitted)
 
 	player = get_tree().get_first_node_in_group("Player") as Player
-	history.add_response("", BEGIN_TEXT)
-	history.add_response("", player.get_room().describe())
+	history.add_response(HIDE_PROMPT, BEGIN_TEXT)
+	history.add_response(HIDE_PROMPT, player.get_room().describe())
 
 func _on_Prompt_command_submitted(new_text: String) -> void:
 	# No input, no command
 	if new_text.is_empty():
-		history.add_response(" ", "I beg your pardon?")
+		history.add_response(EMPTY_PROMPT, "I beg your pardon?")
 		return
 
 	var commands = $CommandParser.parse_input(new_text, player)
