@@ -15,7 +15,11 @@ class_name Room
 @export_node_path("Room") var down: NodePath
 
 func describe() -> String:
-	return description
+	return "%s\n%s" % [title, description] % describe_tokens()
+
+func describe_tokens() -> Array[String]:
+	# Implemented by room script
+	return []
 
 func on_enter() -> void:
 	# Implemented by room script
