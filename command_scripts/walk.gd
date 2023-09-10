@@ -1,4 +1,4 @@
 extends Command
 
-func action() -> void:
-	print("Walking...")
+func action() -> String:
+	return "Walking..."

@@ -2,19 +2,29 @@
 
 [ext_resource type="Script" path="res://ui/Prompt.gd" id="1_1knig"]
 
-[node name="Prompt" type="HBoxContainer"]
-anchors_preset = 10
-anchor_right = 1.0
+[node name="Prompt" type="MarginContainer"]
+offset_right = 1152.0
 offset_bottom = 19.0
-grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 script = ExtResource("1_1knig")
 
-[node name="PromptLabel" type="Label" parent="."]
+[node name="Layout" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+theme_override_constants/margin_right = 4
+
+[node name="PromptLabel" type="Label" parent="Layout/Margin"]
 layout_mode = 2
 text = ">"
 vertical_alignment = 1
 
-[node name="PromptInput" type="LineEdit" parent="."]
+[node name="PromptInput" type="LineEdit" parent="Layout"]
 layout_mode = 2
 size_flags_horizontal = 3
 caret_blink = true

@@ -21,13 +21,13 @@ func on_enter() -> void:
 	# Implemented by room script
 	pass
 
-func on_begin_command() -> void:
+func on_begin_command() -> String:
 	# Implemented by room script
-	pass
+	return ""
 
-func on_end_command() -> void:
+func on_end_command() -> String:
 	# Implemented by room script
-	pass
+	return ""
 
 func get_things() -> Array:
 	return find_children("", "Thing", false)

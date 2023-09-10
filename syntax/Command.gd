@@ -12,13 +12,13 @@ var and_flag = false
 func as_string() -> String:
 	return " ".join([verb, preposition1, " and ".join(object1), preposition2, " and ".join(object2)].filter(func(x): return not x.is_empty()))
 
-func action() -> void:
+func action() -> String:
 	# Implemented by command script
-	pass
+	return ""
 
-func preaction() -> void:
+func preaction() -> String:
 	# Implemented by command script
-	pass
+	return ""
 
 func set_and_flag() -> void:
 	and_flag = true

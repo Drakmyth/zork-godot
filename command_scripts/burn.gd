@@ -1,7 +1,8 @@
 extends Command
 
-func action() -> void:
-	print("Burning...")
+func action() -> String:
+	return "Burning..."
 
-func preaction() -> void:
+func preaction() -> String:
 	print("Pre-Burning...")
+	return ""

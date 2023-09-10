@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://i073t0qnnq0a"]
+
+[ext_resource type="Script" path="res://ui/Response.gd" id="1_7sn5r"]
+
+[node name="Response" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 38.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = -2
+script = ExtResource("1_7sn5r")
+
+[node name="Layout" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+theme_override_constants/margin_right = 4
+
+[node name="PromptLabel" type="Label" parent="Layout/Margin"]
+layout_mode = 2
+text = ">"
+vertical_alignment = 1
+
+[node name="Prompt" type="Label" parent="Layout"]
+layout_mode = 2
+
+[node name="ResponseText" type="Label" parent="."]
+layout_mode = 2
+autowrap_mode = 3

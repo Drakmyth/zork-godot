@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://ox1ewbaqbn2q"]
+[gd_scene load_steps=2 format=3 uid="uid://ox1ewbaqbn2q"]
+
+[ext_resource type="Script" path="res://ui/ResponseHistory.gd" id="1_2wvxn"]
 
 [node name="ResponseHistory" type="ScrollContainer"]
 anchors_preset = 15
@@ -7,8 +9,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
+script = ExtResource("1_2wvxn")
 
 [node name="Layout" type="VBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 10
+theme_override_constants/separation = 12
