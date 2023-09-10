@@ -21,3 +21,6 @@ func is_known_object(word: String) -> bool:
 		if thing.title == word: return true
 		if thing.synonyms.has(word): return true
 	return false
+
+func action() -> String:
+	return ""

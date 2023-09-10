@@ -42,6 +42,10 @@ title = "mailbox"
 synonyms = Array[String](["box"])
 adjectives = Array[String](["small"])
 
+[node name="Tree" type="Node" parent="Rooms/west-of-house"]
+script = ExtResource("5_ot5vp")
+title = "tree"
+
 [node name="north-of-house" type="Node" parent="Rooms"]
 script = ExtResource("3_i2kar")
 title = "North of House"

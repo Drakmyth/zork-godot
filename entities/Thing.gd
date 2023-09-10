@@ -9,5 +9,5 @@ class_name Thing
 func describe() -> String:
 	return description
 
-func action() -> void:
-	pass
+func action() -> String:
+	return ""
