@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cqgple0nvjstt"]
+[gd_scene load_steps=10 format=3 uid="uid://cqgple0nvjstt"]
 
 [ext_resource type="PackedScene" uid="uid://dv4bbp626njre" path="res://ui/Header.tscn" id="1_ciir3"]
 [ext_resource type="Script" path="res://managers/CommandParser.gd" id="1_f4dba"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://entities/Room.gd" id="3_i2kar"]
 [ext_resource type="Script" path="res://entities/Player.gd" id="4_ewft8"]
 [ext_resource type="Script" path="res://room_scripts/east-of-house.gd" id="5_f26kq"]
+[ext_resource type="Script" path="res://entities/Thing.gd" id="5_ot5vp"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -34,6 +35,12 @@ southeast = NodePath("../south-of-house")
 
 [node name="Player" type="Node" parent="Rooms/west-of-house" groups=["Player"]]
 script = ExtResource("4_ewft8")
+
+[node name="Mailbox" type="Node" parent="Rooms/west-of-house"]
+script = ExtResource("5_ot5vp")
+title = "mailbox"
+synonyms = Array[String](["box"])
+adjectives = Array[String](["small"])
 
 [node name="north-of-house" type="Node" parent="Rooms"]
 script = ExtResource("3_i2kar")

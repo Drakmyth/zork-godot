@@ -28,3 +28,6 @@ func on_begin_command() -> void:
 func on_end_command() -> void:
 	# Implemented by room script
 	pass
+
+func get_things() -> Array:
+	return find_children("", "Thing", false)

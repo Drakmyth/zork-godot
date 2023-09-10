@@ -3,7 +3,7 @@ extends Node
 const KEEP_EMPTY_TOKENS = false
 
 
-func parse_input(input: String) -> Array[Command]:
+func parse_input(input: String, player: Player) -> Array[Command]:
 
 	print("Raw input: %s" % input)
 
@@ -11,6 +11,8 @@ func parse_input(input: String) -> Array[Command]:
 	var punctuation_tokens = [".", ",", "\""]
 	for token in punctuation_tokens:
 		input = input.replace(token, " %s " % token)
+	
+	Vocabulary.set_context(player)
 
 	# Tokenize input and replace synonyms
 	var tokens: Array = Array(input.split(" ", KEEP_EMPTY_TOKENS)).map(func(word): return Vocabulary.resolve(word))

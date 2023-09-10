@@ -98,9 +98,10 @@ var _commands := {}
 
 var _directions := {}
 var _prepositions := {}
-var _adjectives := {}
-var _objects := {}
 var _buzzwords := {}
+# TODO: build global list of objects and adjectives to provide better error responses for things not currently visible to the player
+
+var _context: Player
 
 func _init() -> void:
 	for word in _syntax_directions:
@@ -109,13 +110,6 @@ func _init() -> void:
 		register_buzzword(word)
 	for word in _syntax_synonyms:
 		register_synonyms(word, _syntax_synonyms[word])
-
-	# Debug objects to test the parser
-	breakpoint
-	register_object("tree")
-	register_object("log")
-	register_object("lamp")
-	register_adjective("green")
 
 	const commands_dir := "res://commands"
 	var files := DirAccess.get_files_at(commands_dir)
@@ -132,7 +126,10 @@ func _init() -> void:
 			register_preposition(command.preposition2)
 	print("")
 
-func get_command(verb):
+func set_context(player: Player) -> void:
+	_context = player
+
+func get_command(verb: String) -> Command:
 	# TODO: Retrieve command that matches syntax
 	return _commands[verb][0]
 
@@ -144,12 +141,6 @@ func register_direction(dir: String) -> void:
 
 func register_preposition(prep: String) -> void:
 	_prepositions[prep] = false
-
-func register_adjective(adj: String) -> void:
-	_adjectives[adj] = false
-
-func register_object(obj: String) -> void:
-	_objects[obj] = false
 
 func register_buzzword(buzz: String) -> void:
 	_buzzwords[buzz] = false
@@ -163,13 +154,13 @@ func is_part_of_speech(word: String, pos: PartOfSpeech) -> bool:
 		PartOfSpeech.PREPOSITION:
 			return _prepositions.has(word)
 		PartOfSpeech.ADJECTIVE:
-			return _adjectives.has(word)
+			return _context.is_known_adjective(word)
 		PartOfSpeech.OBJECT:
-			return _objects.has(word)
+			return _context.is_known_object(word)
 		PartOfSpeech.BUZZWORD:
 			return _buzzwords.has(word)
-		_:
-			return false
+
+	return false
 
 func register_synonyms(word: String, synonyms: Array) -> void:
 	for synonym in synonyms:
