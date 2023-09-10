@@ -40,11 +40,20 @@ func parse_input(input: String) -> Array[Command]:
 
 			var next_word = _find_next_word_in_clause(tokens, ptr + 1, end_of_clause)
 
+			if word == "and":
+				if _is_word_clause_terminator(tokens, ptr): continue
+				if not Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.ADJECTIVE) \
+					and not Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.OBJECT):
+						print("That sentence isn't one I recognize.")
+						break
+				else:
+					continue
+
 			# Moving around may not provide a verb, so process directions first
 			if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.DIRECTION) \
 				and ["", "walk"].has(command.verb):
 					command.verb = "walk" # This may override the verb, but only if it's already "walk" so it's fine
-					command.object1 = word
+					command.try_set_object(word)
 					if next_word == "":
 						commands.append(command)
 					continue
@@ -67,6 +76,8 @@ func parse_input(input: String) -> Array[Command]:
 				if not object_was_set:
 					print("There were too many nouns in that sentence.")
 					break
+				if next_word == "and":
+					command.set_and_flag()
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.ADJECTIVE):
 				pass
 			else:
@@ -115,6 +126,9 @@ func _is_word_clause_terminator(tokens: Array, ptr: int) -> bool:
 	# if "and" is the last word it is a terminator so we're done
 	if ptr + 1 == len(tokens): return true
 	var next_word = tokens[ptr + 1]
+
+	if ptr > 0 and Vocabulary.is_part_of_speech(tokens[ptr - 1], Vocabulary.PartOfSpeech.VERB):
+		return true
 
 	return Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.DIRECTION) \
 		or Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.VERB)

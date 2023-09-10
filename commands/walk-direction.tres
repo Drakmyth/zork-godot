@@ -6,8 +6,8 @@
 script = ExtResource("1_f1tdg")
 verb = "walk"
 preposition1 = ""
-object1 = "OBJECT"
+object1 = PackedStringArray("DIRECTION")
 preposition2 = ""
-object2 = ""
+object2 = PackedStringArray()
 action = "walk"
 preaction = ""

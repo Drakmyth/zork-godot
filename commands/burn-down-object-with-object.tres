@@ -6,8 +6,8 @@
 script = ExtResource("1_yxcx4")
 verb = "burn"
 preposition1 = "down"
-object1 = "OBJECT"
+object1 = PackedStringArray("OBJECT")
 preposition2 = "with"
-object2 = "OBJECT"
+object2 = PackedStringArray("OBJECT")
 action = "burn"
 preaction = "preburn"

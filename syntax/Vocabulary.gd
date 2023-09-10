@@ -10,8 +10,8 @@ enum PartOfSpeech {
 	BUZZWORD
 }
 
-const _syntax_directions := ["north", "east", "west", "south", "ne", "nw", "se", "sw", "up", "down", "in", "out", "land"]
-const _syntax_buzzwords := ["again", "g", "oops", "a", "an", "the", "is", "of", "then", "all", "one", "except", "\"", "yes", "no", "here"]
+const _syntax_directions := ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest", "up", "down", "in", "out", "land"]
+const _syntax_buzzwords := ["a", "again", "all", "an", "except", "g", "here", "is", "no", "of", "one", "oops", "the", "then", "yes", "\""]
 const _syntax_synonyms := {
 		"and": [","],
 		"answer": ["reply"],
@@ -47,9 +47,9 @@ const _syntax_synonyms := {
 		"lubricate": ["oil", "grease"],
 		"melt": ["liquify"],
 		"mumble": ["sigh"],
-		"ne": ["northeast"],
 		"north": ["n"],
-		"nw": ["northwest"],
+		"northeast": ["ne"],
+		"northwest": ["nw"],
 		"odysseus": ["ulysses"],
 		"on": ["onto"],
 		"plug": ["glue", "patch", "repair", "fix"],
@@ -64,12 +64,12 @@ const _syntax_synonyms := {
 		"read": ["skim"],
 		"ring": ["peal"],
 		"rub": ["touch", "feel", "pat", "pet"],
-		"se": ["southeast"],
 		"skip": ["hop"],
 		"smell": ["sniff"],
 		"south": ["s"],
 		"super": ["superbrief"],
-		"sw": ["southwest"],
+		"southeast": ["se"],
+		"southwest": ["sw"],
 		"swim": ["bathe", "wade"],
 		"swing": ["thrust"],
 		"take": ["get", "hold", "carry", "remove", "grab", "catch"],
