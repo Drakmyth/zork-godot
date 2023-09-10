@@ -1,13 +1,11 @@
-[gd_resource type="Resource" script_class="Command" load_steps=2 format=3 uid="uid://bhfqhiw2sga3"]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bhfqhiw2sga3"]
 
-[ext_resource type="Script" path="res://syntax/Command.gd" id="1_f1tdg"]
+[ext_resource type="Script" path="res://command_scripts/walk.gd" id="1_27fu5"]
 
 [resource]
-script = ExtResource("1_f1tdg")
+script = ExtResource("1_27fu5")
 verb = "walk"
 preposition1 = ""
 object1 = PackedStringArray("DIRECTION")
 preposition2 = ""
 object2 = PackedStringArray()
-action = "walk"
-preaction = ""

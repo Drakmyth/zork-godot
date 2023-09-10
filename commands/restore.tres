@@ -1,13 +1,11 @@
-[gd_resource type="Resource" script_class="Command" load_steps=2 format=3 uid="uid://bspnej2lbuuf0"]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bspnej2lbuuf0"]
 
-[ext_resource type="Script" path="res://syntax/Command.gd" id="1_fqi8w"]
+[ext_resource type="Script" path="res://command_scripts/restore.gd" id="1_deh00"]
 
 [resource]
-script = ExtResource("1_fqi8w")
+script = ExtResource("1_deh00")
 verb = "restore"
 preposition1 = ""
 object1 = PackedStringArray()
 preposition2 = ""
 object2 = PackedStringArray()
-action = "restore"
-preaction = ""

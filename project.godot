@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 Vocabulary="*res://syntax/Vocabulary.gd"
-CommandFunctions="*res://syntax/CommandFunctions.gd"
 
 [filesystem]
 

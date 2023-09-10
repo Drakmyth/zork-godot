@@ -1,13 +1,11 @@
-[gd_resource type="Resource" script_class="Command" load_steps=2 format=3 uid="uid://dy7jckruh6u6m"]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dy7jckruh6u6m"]
 
-[ext_resource type="Script" path="res://syntax/Command.gd" id="1_771ja"]
+[ext_resource type="Script" path="res://command_scripts/verbose.gd" id="1_swi1p"]
 
 [resource]
-script = ExtResource("1_771ja")
+script = ExtResource("1_swi1p")
 verb = "verbose"
 preposition1 = ""
-object1 = false
+object1 = PackedStringArray()
 preposition2 = ""
-object2 = false
-action = "verbose"
-preaction = ""
+object2 = PackedStringArray()

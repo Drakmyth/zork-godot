@@ -6,18 +6,19 @@ class_name Command
 @export var object1: PackedStringArray
 @export var preposition2: String
 @export var object2: PackedStringArray
-@export var action: String
-@export var preaction: String
 
 var and_flag = false
 
 func as_string() -> String:
 	return " ".join([verb, preposition1, " and ".join(object1), preposition2, " and ".join(object2)].filter(func(x): return not x.is_empty()))
 
-func execute() -> void:
-	if not preaction.is_empty():
-		CommandFunctions.call(preaction)
-	CommandFunctions.call(action)
+func action() -> void:
+	# Implemented by command script
+	pass
+
+func preaction() -> void:
+	# Implemented by command script
+	pass
 
 func set_and_flag() -> void:
 	and_flag = true

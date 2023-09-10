@@ -1,13 +1,11 @@
-[gd_resource type="Resource" script_class="Command" load_steps=2 format=3 uid="uid://co6jc1j0bjq7h"]
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://co6jc1j0bjq7h"]
 
-[ext_resource type="Script" path="res://syntax/Command.gd" id="1_3qhd4"]
+[ext_resource type="Script" path="res://command_scripts/restart.gd" id="1_dicp4"]
 
 [resource]
-script = ExtResource("1_3qhd4")
+script = ExtResource("1_dicp4")
 verb = "restart"
 preposition1 = ""
 object1 = PackedStringArray()
 preposition2 = ""
 object2 = PackedStringArray()
-action = "restart"
-preaction = ""

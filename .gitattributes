@@ -3,12 +3,13 @@
 .gitattributes text export-ignore
 .gitignore     text export-ignore
 
-*.gd     text
-*.godot  text
-*.import text
-*.md     text diff=markdown
-*.tres   text
-*.tscn   text
+*.gd       text
+*.gdignore text
+*.godot    text
+*.import   text
+*.md       text diff=markdown
+*.tres     text
+*.tscn     text
 
 *.svg binary
 *.ttf binary

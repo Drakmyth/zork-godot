@@ -8,5 +8,6 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 	for command in commands:
 		print("Command: %s\n" % command.as_string())
 		var real_command = Vocabulary.get_command(command.verb)
-		real_command.execute()
+		real_command.preaction()
+		real_command.action()
 		print("\n")
