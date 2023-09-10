@@ -14,6 +14,17 @@ class_name Room
 @export_node_path("Room") var up: NodePath
 @export_node_path("Room") var down: NodePath
 
-func action() -> void:
+func describe() -> String:
+	return description
+
+func on_enter() -> void:
+	# Implemented by room script
+	pass
+
+func on_begin_command() -> void:
+	# Implemented by room script
+	pass
+
+func on_end_command() -> void:
 	# Implemented by room script
 	pass
