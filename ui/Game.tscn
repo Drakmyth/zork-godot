@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://ui/Game.gd" id="1_xd72k"]
 [ext_resource type="PackedScene" uid="uid://ox1ewbaqbn2q" path="res://ui/ResponseHistory.tscn" id="2_pjk61"]
 [ext_resource type="PackedScene" uid="uid://cj6g5k4dxx8q0" path="res://ui/Prompt.tscn" id="3_hb5rq"]
-[ext_resource type="Script" path="res://ui/Room.gd" id="3_w05iu"]
-[ext_resource type="Script" path="res://ui/Player.gd" id="4_vo0fr"]
+[ext_resource type="Script" path="res://entities/Room.gd" id="3_i2kar"]
+[ext_resource type="Script" path="res://entities/Player.gd" id="4_ewft8"]
 [ext_resource type="Script" path="res://room_scripts/east-of-house.gd" id="5_f26kq"]
 
 [node name="Game" type="Control"]
@@ -24,7 +24,7 @@ script = ExtResource("1_f4dba")
 [node name="Rooms" type="Node" parent="."]
 
 [node name="west-of-house" type="Node" parent="Rooms"]
-script = ExtResource("3_w05iu")
+script = ExtResource("3_i2kar")
 title = "West of House"
 description = "You are standing in an open field west of a white house, with a boarded front door."
 north = NodePath("../north-of-house")
@@ -33,10 +33,10 @@ northeast = NodePath("../north-of-house")
 southeast = NodePath("../south-of-house")
 
 [node name="Player" type="Node" parent="Rooms/west-of-house" groups=["Player"]]
-script = ExtResource("4_vo0fr")
+script = ExtResource("4_ewft8")
 
 [node name="north-of-house" type="Node" parent="Rooms"]
-script = ExtResource("3_w05iu")
+script = ExtResource("3_i2kar")
 title = "North of House"
 description = "You are facing the north side of a white house. There is no door here, and all the windows are boarded up. To the north a narrow path winds through the trees."
 east = NodePath("../east-of-house")
@@ -45,7 +45,7 @@ southeast = NodePath("../east-of-house")
 southwest = NodePath("../west-of-house")
 
 [node name="south-of-house" type="Node" parent="Rooms"]
-script = ExtResource("3_w05iu")
+script = ExtResource("3_i2kar")
 title = "South of House"
 description = "You are facing the south side of a white house. There is no door here, and all the windows are boarded."
 east = NodePath("../east-of-house")
@@ -63,13 +63,13 @@ northwest = NodePath("../north-of-house")
 southwest = NodePath("../south-of-house")
 
 [node name="kitchen" type="Node" parent="Rooms"]
-script = ExtResource("3_w05iu")
+script = ExtResource("3_i2kar")
 
 [node name="attic" type="Node" parent="Rooms"]
-script = ExtResource("3_w05iu")
+script = ExtResource("3_i2kar")
 
 [node name="living-room" type="Node" parent="Rooms"]
-script = ExtResource("3_w05iu")
+script = ExtResource("3_i2kar")
 
 [node name="Background" type="PanelContainer" parent="."]
 layout_mode = 1
