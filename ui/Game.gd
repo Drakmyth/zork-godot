@@ -3,10 +3,18 @@ extends Control
 var player: Player
 @onready var history = $Margin/Layout/ResponseHistory
 
+const BEGIN_TEXT = "\
+ZORK I: The Great Underground Empire
+Copyright (c) 1981, 1982, 1983 Infocom, Inc. All rights reserved.
+ZORK is a registered trademark of Infocom, Inc.
+Revision 88 / Serial number 840726
+"
+
 func _ready() -> void:
 	$Margin/Layout/Prompt.connect("command_submitted", _on_Prompt_command_submitted)
 
 	player = get_tree().get_first_node_in_group("Player") as Player
+	history.add_response("", BEGIN_TEXT)
 	history.add_response("", player.get_room().describe())
 
 func _on_Prompt_command_submitted(new_text: String) -> void:
