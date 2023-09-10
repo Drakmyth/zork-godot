@@ -10,7 +10,7 @@ enum PartOfSpeech {
 	BUZZWORD
 }
 
-const _syntax_directions := ["north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest", "up", "down", "in", "out", "land"]
+const _syntax_directions := ["north", "east", "south", "west", "northeast", "northwest", "southeast", "southwest", "up", "down", "in", "out", "land"]
 const _syntax_buzzwords := ["a", "again", "all", "an", "except", "g", "here", "is", "no", "of", "one", "oops", "the", "then", "yes", "\""]
 const _syntax_synonyms := {
 		"and": [","],

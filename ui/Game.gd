@@ -1,7 +1,12 @@
 extends Control
 
+var player: Player
+
 func _ready() -> void:
 	$Margin/Layout/Prompt.connect("command_submitted", _on_Prompt_command_submitted)
+
+	player = get_tree().get_first_node_in_group("Player") as Player
+	print(player.get_room().description)
 
 func _on_Prompt_command_submitted(new_text: String) -> void:
 	var commands = $CommandParser.parse_input(new_text)
