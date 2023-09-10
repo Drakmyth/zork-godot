@@ -18,8 +18,7 @@ func is_known_object(word: String) -> bool:
 	var things = room.get_things() as Array[Thing]
 	# TODO: cache things and regenerate cache on room change
 	for thing in things:
-		if thing.title == word: return true
-		if thing.synonyms.has(word): return true
+		if thing.nouns.has(word): return true
 	return false
 
 func action() -> String:

@@ -3,7 +3,7 @@ extends Node
 const KEEP_EMPTY_TOKENS = false
 
 
-func parse_input(input: String, player: Player) -> Array[Command]:
+func parse_input(input: String, player: Player) -> Array:
 	if input.is_empty(): return []
 
 	print("Raw input: %s" % input)

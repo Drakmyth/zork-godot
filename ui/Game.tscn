@@ -38,13 +38,25 @@ script = ExtResource("4_ewft8")
 
 [node name="Mailbox" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("5_ot5vp")
-title = "mailbox"
-synonyms = Array[String](["box"])
+description = "small mailbox"
+nouns = Array[String](["mailbox", "box"])
 adjectives = Array[String](["small"])
 
 [node name="Tree" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("5_ot5vp")
-title = "tree"
+flags = 2
+description = "tree"
+nouns = Array[String](["tree", "branch"])
+adjectives = Array[String](["large", "storm"])
+
+[node name="Lamp" type="Node" parent="Rooms/west-of-house"]
+script = ExtResource("5_ot5vp")
+flags = 3
+description = "brass lantern"
+first_description = "A battery-powered brass lantern is on the trophy case."
+floor_description = "There is a brass lantern (battery-powered) here."
+nouns = Array[String](["lamp", "lantern", "light"])
+adjectives = Array[String](["brass"])
 
 [node name="north-of-house" type="Node" parent="Rooms"]
 script = ExtResource("3_i2kar")

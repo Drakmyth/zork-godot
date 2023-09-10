@@ -15,9 +15,13 @@ class_name Room
 @export_node_path("Room") var down: NodePath
 
 func describe() -> String:
-	return "%s\n%s" % [title, description] % describe_tokens()
+	var descriptions = [title, description % describe_tokens()]
+	var thing_descriptions = get_things().map(func(thing):return thing.describe()).filter(func(desc):return not desc.is_empty())
+	thing_descriptions.sort()
+	descriptions.append_array(thing_descriptions)
+	return "\n".join(descriptions)
 
-func describe_tokens() -> Array[String]:
+func describe_tokens() -> Array:
 	# Implemented by room script
 	return []
 

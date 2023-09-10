@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 Vocabulary="*res://syntax/Vocabulary.gd"
 
+[display]
+
+window/size/viewport_width=648
+window/size/viewport_height=406
+
 [filesystem]
 
 import/blender/enabled=false
