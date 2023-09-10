@@ -35,16 +35,14 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 			history.add_response(display_input, command.error_response)
 			break
 
-		var real_command = Vocabulary.get_command(command.verb)
-
 		var request_chain = [
 			player.action,
 			player.get_room().on_begin_command,
-			real_command.preaction,
+			command.preaction,
 			# indirect.action,
 			# if not walk, container.action
 			# if not walk, direct.action # M-LOOK, M-ENTER happen as part of verb handling
-			real_command.action,
+			command.action,
 			player.get_room().on_end_command # TODO: This should be the room the player moved to, not the room they came from
 		]
 

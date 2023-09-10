@@ -128,9 +128,8 @@ func _init() -> void:
 func set_context(player: Player) -> void:
 	_context = player
 
-func get_command(verb: String) -> Command:
-	# TODO: Retrieve command that matches syntax
-	return _commands[verb][0]
+func get_commands(verb: String) -> Array:
+	return _commands[verb]
 
 func resolve(word: String) -> String:
 	return _synonym_map.get(word, word)

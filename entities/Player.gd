@@ -9,7 +9,7 @@ func is_known_adjective(word: String) -> bool:
 	var room = get_room()
 	var things = room.get_things() as Array[Thing]
 	# TODO: cache things and regenerate cache on room change
-	for thing in get_room().get_things() as Array[Thing]:
+	for thing in things:
 		if thing.adjectives.has(word): return true
 	return false
 

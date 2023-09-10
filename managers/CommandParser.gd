@@ -80,6 +80,7 @@ func parse_input(input: String, player: Player) -> Array:
 				command.error_response = "I don't know the word \"%s\"." % word
 				break
 
+		command = _match_to_known_command(command)
 		commands.append(command)
 		if not command.error_response.is_empty():
 			break
@@ -129,3 +130,7 @@ func _is_word_clause_terminator(tokens: Array, ptr: int) -> bool:
 
 	return Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.DIRECTION) \
 		or Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.VERB)
+
+func _match_to_known_command(parsed_command: Command) -> Command:
+	var known_commands = Vocabulary.get_commands(parsed_command.verb)
+	return known_commands[0]
