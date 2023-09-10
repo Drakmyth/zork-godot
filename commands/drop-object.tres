@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Command" load_steps=2 format=3 uid="uid://cpmhdos47h42u"]
+
+[ext_resource type="Script" path="res://syntax/Command.gd" id="1_odvtm"]
+
+[resource]
+script = ExtResource("1_odvtm")
+verb = "drop"
+preposition1 = ""
+object1 = PackedStringArray("OBJECT")
+preposition2 = ""
+object2 = PackedStringArray()
+action = "drop"
+preaction = "predrop"

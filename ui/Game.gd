@@ -6,4 +6,7 @@ func _ready() -> void:
 func _on_Prompt_command_submitted(new_text: String) -> void:
 	var commands = $CommandParser.parse_input(new_text)
 	for command in commands:
-		print("Command: %s" % command.as_string())
+		print("Command: %s\n" % command.as_string())
+		var real_command = Vocabulary.get_command(command.verb)
+		real_command.execute()
+		print("\n")

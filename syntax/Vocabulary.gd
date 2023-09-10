@@ -130,8 +130,10 @@ func _init() -> void:
 			register_preposition(command.preposition1)
 		if not command.preposition2.is_empty():
 			register_preposition(command.preposition2)
+	print("")
 
 func get_command(verb):
+	# TODO: Retrieve command that matches syntax
 	return _commands[verb][0]
 
 func resolve(word: String) -> String:

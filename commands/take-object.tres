@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Command" load_steps=2 format=3 uid="uid://dp8qb7pu0ik5d"]
+
+[ext_resource type="Script" path="res://syntax/Command.gd" id="1_ojeip"]
+
+[resource]
+script = ExtResource("1_ojeip")
+verb = "take"
+preposition1 = ""
+object1 = PackedStringArray("OBJECT")
+preposition2 = ""
+object2 = PackedStringArray()
+action = "take"
+preaction = "pretake"
