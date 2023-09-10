@@ -7,7 +7,8 @@ class_name Command
 @export var preposition2: String
 @export var object2: PackedStringArray
 
-var and_flag = false
+var and_flag := false
+var error_response := ""
 
 func as_string() -> String:
 	return " ".join([verb, preposition1, " and ".join(object1), preposition2, " and ".join(object2)].filter(func(x): return not x.is_empty()))
@@ -24,8 +25,8 @@ func set_and_flag() -> void:
 	and_flag = true
 
 func try_set_preposition(preposition: String) -> bool:
-	if preposition1 != "" and preposition2 != "": return false
-	if preposition1 == "" and object1.is_empty():
+	if not preposition1.is_empty() and not preposition2.is_empty(): return false
+	if preposition1.is_empty() and object1.is_empty():
 		preposition1 = preposition
 	else:
 		preposition2 = preposition

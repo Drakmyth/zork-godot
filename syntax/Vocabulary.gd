@@ -124,7 +124,6 @@ func _init() -> void:
 			register_preposition(command.preposition1)
 		if not command.preposition2.is_empty():
 			register_preposition(command.preposition2)
-	print("")
 
 func set_context(player: Player) -> void:
 	_context = player

@@ -42,7 +42,7 @@ func parse_input(input: String, player: Player) -> Array[Command]:
 				if _is_word_clause_terminator(tokens, ptr): continue
 				if not Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.ADJECTIVE) \
 					and not Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.OBJECT):
-						print("That sentence isn't one I recognize.")
+						command.error_response = "That sentence isn't one I recognize."
 						break
 				else:
 					continue
@@ -52,38 +52,37 @@ func parse_input(input: String, player: Player) -> Array[Command]:
 				and ["", "walk"].has(command.verb):
 					command.verb = "walk" # This may override the verb, but only if it's already "walk" so it's fine
 					command.try_set_object(word)
-					if next_word == "":
-						commands.append(command)
 					continue
 
 			if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.VERB):
-				if command.verb != "":
-					print("You used the word %s in a way that I don't understand." % word)
+				if not command.verb.is_empty():
+					command.error_response = "You used the word %s in a way that I don't understand." % word
 					break
 				command.verb = word
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.PREPOSITION):
 				if not Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.OBJECT):
-						print("That sentence isn't one I recognize.")
+						command.error_response = "That sentence isn't one I recognize."
 						break
 				var preposition_was_set = command.try_set_preposition(word)
 				if not preposition_was_set:
-					print("That sentence isn't one I recognize.")
+					command.error_response = "That sentence isn't one I recognize."
 					break
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.OBJECT):
 				var object_was_set = command.try_set_object(word)
 				if not object_was_set:
-					print("There were too many nouns in that sentence.")
+					command.error_response = "There were too many nouns in that sentence."
 					break
 				if next_word == "and":
 					command.set_and_flag()
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.ADJECTIVE):
 				pass
 			else:
-				print("I don't know the word \"%s\"." % word)
+				command.error_response = "I don't know the word \"%s\"." % word
 				break
 
-			if next_word == "":
-				commands.append(command)
+		commands.append(command)
+		if not command.error_response.is_empty():
+			break
 
 		start_of_clause = end_of_clause + 1
 		end_of_clause = _get_end_of_clause(tokens, start_of_clause)
