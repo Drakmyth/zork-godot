@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cb1f4453tno23"]
+
+[ext_resource type="Script" path="res://command_scripts/burn.gd" id="1_ojpsd"]
+
+[resource]
+script = ExtResource("1_ojpsd")
+verb = "burn"
+preposition1 = ""
+object1 = PackedStringArray("OBJECT")
+preposition2 = "with"
+object2 = PackedStringArray("OBJECT")

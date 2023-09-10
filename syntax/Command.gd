@@ -13,6 +13,14 @@ var error_response := ""
 func as_string() -> String:
 	return " ".join([verb, preposition1, " and ".join(object1), preposition2, " and ".join(object2)].filter(func(x): return not x.is_empty()))
 
+func populate_from(command: Command) -> Command:
+	verb = command.verb
+	preposition1 = command.preposition1
+	object1 = command.object1
+	preposition2 = command.preposition2
+	object2 = command.object2
+	return self
+
 func action() -> String:
 	# Implemented by command script
 	return ""

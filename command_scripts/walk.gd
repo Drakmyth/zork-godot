@@ -1,4 +1,4 @@
 extends Command
 
 func action() -> String:
-	return "Walking..."
+	return "Walking %s..." % object1[0]

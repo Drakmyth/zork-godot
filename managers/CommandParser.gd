@@ -12,7 +12,7 @@ func parse_input(input: String, player: Player) -> Array:
 	var punctuation_tokens = [".", ",", "\""]
 	for token in punctuation_tokens:
 		input = input.replace(token, " %s " % token)
-	
+
 	Vocabulary.set_context(player)
 
 	# Tokenize input and replace synonyms
@@ -61,8 +61,8 @@ func parse_input(input: String, player: Player) -> Array:
 				command.verb = word
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.PREPOSITION):
 				if not Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.OBJECT):
-						command.error_response = "That sentence isn't one I recognize."
-						break
+					command.error_response = "That sentence isn't one I recognize."
+					break
 				var preposition_was_set = command.try_set_preposition(word)
 				if not preposition_was_set:
 					command.error_response = "That sentence isn't one I recognize."
@@ -80,9 +80,11 @@ func parse_input(input: String, player: Player) -> Array:
 				command.error_response = "I don't know the word \"%s\"." % word
 				break
 
-		command = _match_to_known_command(command)
-		commands.append(command)
-		if not command.error_response.is_empty():
+		if command.error_response.is_empty():
+			command = _match_to_known_command(command)
+			commands.append(command)
+		else:
+			commands.append(command)
 			break
 
 		start_of_clause = end_of_clause + 1
@@ -133,4 +135,27 @@ func _is_word_clause_terminator(tokens: Array, ptr: int) -> bool:
 
 func _match_to_known_command(parsed_command: Command) -> Command:
 	var known_commands = Vocabulary.get_commands(parsed_command.verb)
-	return known_commands[0]
+
+	var _preposition1_filter = func(c: Command) -> bool:
+		return c.preposition1 == parsed_command.preposition1
+
+	var _object1_filter = func(c: Command) -> bool:
+		return len(c.object1) == len(parsed_command.object1)
+
+	var _preposition2_filter = func(c: Command) -> bool:
+		return c.preposition2 == parsed_command.preposition2
+
+	var _object2_filter = func(c: Command) -> bool:
+		return len(c.object2) == len(parsed_command.object2)
+
+	known_commands = known_commands.filter(_preposition1_filter) \
+		.filter(_object1_filter) \
+		.filter(_preposition2_filter) \
+		.filter(_object2_filter)
+
+	if len(known_commands) > 1:
+		var matched_commands = known_commands.map(func(c): return c.as_string())
+		push_warning("Ambiguous commands matched. Input: \"%s\", Matches: \"%s\"." % [parsed_command.as_string(), "\", \"".join(matched_commands)])
+		known_commands = [known_commands[0]]
+
+	return known_commands[0].populate_from(parsed_command)
