@@ -3,16 +3,21 @@ class_name Room
 
 @export var title: String
 @export_multiline var description: String
-@export_node_path("Room") var north: NodePath
-@export_node_path("Room") var east: NodePath
-@export_node_path("Room") var south: NodePath
-@export_node_path("Room") var west: NodePath
-@export_node_path("Room") var northeast: NodePath
-@export_node_path("Room") var northwest: NodePath
-@export_node_path("Room") var southeast: NodePath
-@export_node_path("Room") var southwest: NodePath
-@export_node_path("Room") var up: NodePath
-@export_node_path("Room") var down: NodePath
+
+@export_group("Exits", "exit_")
+@export var exit_north: Exit
+@export var exit_east: Exit
+@export var exit_south: Exit
+@export var exit_west: Exit
+@export var exit_northeast: Exit
+@export var exit_northwest: Exit
+@export var exit_southeast: Exit
+@export var exit_southwest: Exit
+@export var exit_in: Exit
+@export var exit_out: Exit
+@export var exit_up: Exit
+@export var exit_down: Exit
+@export var exit_land: Exit
 
 func describe() -> String:
 	var descriptions = [title, description % describe_tokens()]

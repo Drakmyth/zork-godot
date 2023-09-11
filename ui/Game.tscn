@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cqgple0nvjstt"]
+[gd_scene load_steps=38 format=3 uid="uid://cqgple0nvjstt"]
 
 [ext_resource type="PackedScene" uid="uid://dv4bbp626njre" path="res://ui/Header.tscn" id="1_ciir3"]
 [ext_resource type="Script" path="res://managers/CommandParser.gd" id="1_f4dba"]
@@ -6,9 +6,105 @@
 [ext_resource type="PackedScene" uid="uid://ox1ewbaqbn2q" path="res://ui/ResponseHistory.tscn" id="2_pjk61"]
 [ext_resource type="PackedScene" uid="uid://cj6g5k4dxx8q0" path="res://ui/Prompt.tscn" id="3_hb5rq"]
 [ext_resource type="Script" path="res://entities/Room.gd" id="3_i2kar"]
+[ext_resource type="Script" path="res://entities/Door.gd" id="3_nkh6b"]
 [ext_resource type="Script" path="res://entities/Player.gd" id="4_ewft8"]
 [ext_resource type="Script" path="res://room_scripts/east-of-house.gd" id="5_f26kq"]
+[ext_resource type="Script" path="res://resources/BlockedExit.gd" id="5_krq4v"]
 [ext_resource type="Script" path="res://entities/Thing.gd" id="5_ot5vp"]
+[ext_resource type="Script" path="res://resources/StandardExit.gd" id="6_yfin1"]
+[ext_resource type="Script" path="res://resources/DoorExit.gd" id="10_n1bda"]
+[ext_resource type="Script" path="res://room_scripts/kitchen.gd" id="11_ytplj"]
+[ext_resource type="Script" path="res://living-room.gd" id="12_34fga"]
+
+[sub_resource type="Resource" id="Resource_mwru5"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../north-of-house")
+
+[sub_resource type="Resource" id="Resource_n3n8k"]
+script = ExtResource("5_krq4v")
+response = "The door is boarded and you can't remove the boards."
+
+[sub_resource type="Resource" id="Resource_t3bji"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../south-of-house")
+
+[sub_resource type="Resource" id="Resource_lps3j"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../north-of-house")
+
+[sub_resource type="Resource" id="Resource_os7qw"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../south-of-house")
+
+[sub_resource type="Resource" id="Resource_qe6dg"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../east-of-house")
+
+[sub_resource type="Resource" id="Resource_fx2va"]
+script = ExtResource("5_krq4v")
+response = "The windows are all boarded."
+
+[sub_resource type="Resource" id="Resource_ds8w7"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../west-of-house")
+
+[sub_resource type="Resource" id="Resource_s3rhb"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../east-of-house")
+
+[sub_resource type="Resource" id="Resource_n1r1v"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../west-of-house")
+
+[sub_resource type="Resource" id="Resource_lr3an"]
+script = ExtResource("5_krq4v")
+response = "The windows are all boarded."
+
+[sub_resource type="Resource" id="Resource_r4wph"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../east-of-house")
+
+[sub_resource type="Resource" id="Resource_1t8vr"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../west-of-house")
+
+[sub_resource type="Resource" id="Resource_35wi4"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../east-of-house")
+
+[sub_resource type="Resource" id="Resource_lxi2y"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../west-of-house")
+
+[sub_resource type="Resource" id="Resource_xylte"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../north-of-house")
+
+[sub_resource type="Resource" id="Resource_gqx0w"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../south-of-house")
+
+[sub_resource type="Resource" id="Resource_va0yn"]
+script = ExtResource("10_n1bda")
+door = NodePath("../../GlobalObjects/KitchenWindow")
+destination = NodePath("../kitchen")
+
+[sub_resource type="Resource" id="Resource_d5y7f"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../north-of-house")
+
+[sub_resource type="Resource" id="Resource_q1484"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../south-of-house")
+
+[sub_resource type="Resource" id="Resource_51q8f"]
+script = ExtResource("10_n1bda")
+door = NodePath("../../GlobalObjects/KitchenWindow")
+destination = NodePath("../kitchen")
+
+[sub_resource type="Resource" id="Resource_5cwd6"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../kitchen")
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -22,16 +118,22 @@ script = ExtResource("1_xd72k")
 [node name="CommandParser" type="Node" parent="."]
 script = ExtResource("1_f4dba")
 
+[node name="GlobalObjects" type="Node" parent="."]
+
+[node name="KitchenWindow" type="Node" parent="GlobalObjects"]
+script = ExtResource("3_nkh6b")
+
 [node name="Rooms" type="Node" parent="."]
 
 [node name="west-of-house" type="Node" parent="Rooms"]
 script = ExtResource("3_i2kar")
 title = "West of House"
 description = "You are standing in an open field west of a white house, with a boarded front door."
-north = NodePath("../north-of-house")
-south = NodePath("../south-of-house")
-northeast = NodePath("../north-of-house")
-southeast = NodePath("../south-of-house")
+exit_north = SubResource("Resource_mwru5")
+exit_east = SubResource("Resource_n3n8k")
+exit_south = SubResource("Resource_t3bji")
+exit_northeast = SubResource("Resource_lps3j")
+exit_southeast = SubResource("Resource_os7qw")
 
 [node name="Player" type="Node" parent="Rooms/west-of-house" groups=["Player"]]
 script = ExtResource("4_ewft8")
@@ -62,37 +164,48 @@ adjectives = Array[String](["brass"])
 script = ExtResource("3_i2kar")
 title = "North of House"
 description = "You are facing the north side of a white house. There is no door here, and all the windows are boarded up. To the north a narrow path winds through the trees."
-east = NodePath("../east-of-house")
-west = NodePath("../west-of-house")
-southeast = NodePath("../east-of-house")
-southwest = NodePath("../west-of-house")
+exit_east = SubResource("Resource_qe6dg")
+exit_south = SubResource("Resource_fx2va")
+exit_west = SubResource("Resource_ds8w7")
+exit_southeast = SubResource("Resource_s3rhb")
+exit_southwest = SubResource("Resource_n1r1v")
 
 [node name="south-of-house" type="Node" parent="Rooms"]
 script = ExtResource("3_i2kar")
 title = "South of House"
 description = "You are facing the south side of a white house. There is no door here, and all the windows are boarded."
-east = NodePath("../east-of-house")
-west = NodePath("../west-of-house")
-northeast = NodePath("../east-of-house")
-northwest = NodePath("../west-of-house")
+exit_north = SubResource("Resource_lr3an")
+exit_east = SubResource("Resource_r4wph")
+exit_west = SubResource("Resource_1t8vr")
+exit_northeast = SubResource("Resource_35wi4")
+exit_northwest = SubResource("Resource_lxi2y")
 
 [node name="east-of-house" type="Node" parent="Rooms"]
 script = ExtResource("5_f26kq")
 title = "Behind House"
 description = "You are behind the white house. A path leads into the forest to the east. In one corner of the house there is a small window which is %s."
-north = NodePath("../north-of-house")
-south = NodePath("../south-of-house")
-northwest = NodePath("../north-of-house")
-southwest = NodePath("../south-of-house")
+exit_north = SubResource("Resource_xylte")
+exit_south = SubResource("Resource_gqx0w")
+exit_west = SubResource("Resource_va0yn")
+exit_northwest = SubResource("Resource_d5y7f")
+exit_southwest = SubResource("Resource_q1484")
+exit_in = SubResource("Resource_51q8f")
 
 [node name="kitchen" type="Node" parent="Rooms"]
-script = ExtResource("3_i2kar")
+script = ExtResource("11_ytplj")
+title = "Kitchen"
+description = "You are in the kitchen of the white house. A table seems to have been used recently for the preparation of food. A passage leads to the west and a dark staircase can be seen leading upward. A dark chimney leads down and to the east is a small window which is %s."
 
 [node name="attic" type="Node" parent="Rooms"]
 script = ExtResource("3_i2kar")
+title = "Attic"
+description = "This is the attic. The only exit is a stairway leading down."
+exit_down = SubResource("Resource_5cwd6")
 
 [node name="living-room" type="Node" parent="Rooms"]
-script = ExtResource("3_i2kar")
+script = ExtResource("12_34fga")
+title = "Living Room"
+description = "You are in the living room. There is a doorway to the east%s, a trophy case, and %s."
 
 [node name="Background" type="PanelContainer" parent="."]
 layout_mode = 1

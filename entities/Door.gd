@@ -1,4 +1,5 @@
 extends Thing
+class_name Door
 
 @export var open = false
 
