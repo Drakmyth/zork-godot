@@ -3,6 +3,7 @@ class_name Room
 
 @export var title: String
 @export_multiline var description: String
+@export var local_objects: Array[NodePath]
 
 @export_group("Exits", "exit_")
 @export var exit_north: Exit
@@ -42,8 +43,17 @@ func on_end_command(_command: Command, _player: Player) -> String:
 	# Implemented by room script
 	return ""
 
+func get_local_object(name: String) -> Thing:
+	for object_path in local_objects:
+		var object = get_node(object_path)
+		if object.name == name: return object
+	return null
+
 func get_things(noun: String = "", adjective: String = "") -> Array:
 	var things = find_children("", "Thing", false)
+	things.append_array(get_tree().get_nodes_in_group("GlobalObjects"))
+	things.append_array(local_objects.map(func(o): return get_node(o)))
+
 	if not noun.is_empty():
 		things = things.filter(func(t): return t.nouns.has(noun))
 	if not adjective.is_empty():
