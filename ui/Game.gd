@@ -41,9 +41,9 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 			command.preaction,
 			# indirect.action,
 			# if not walk, container.action
-			# if not walk, direct.action # M-LOOK, M-ENTER happen as part of verb handling
+			# if not walk, direct.action
 			command.action,
-			player.get_room().on_end_command # TODO: This should be the room the player moved to, not the room they came from
+			player.get_room().on_end_command # TODO: always call, even if previous function handled command
 		]
 
 		var response := ""

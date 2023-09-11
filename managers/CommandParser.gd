@@ -136,22 +136,7 @@ func _is_word_clause_terminator(tokens: Array, ptr: int) -> bool:
 func _match_to_known_command(parsed_command: Command) -> Command:
 	var known_commands = Vocabulary.get_commands(parsed_command.verb)
 
-	var _preposition1_filter = func(c: Command) -> bool:
-		return c.preposition1 == parsed_command.preposition1
-
-	var _object1_filter = func(c: Command) -> bool:
-		return len(c.object1) == len(parsed_command.object1)
-
-	var _preposition2_filter = func(c: Command) -> bool:
-		return c.preposition2 == parsed_command.preposition2
-
-	var _object2_filter = func(c: Command) -> bool:
-		return len(c.object2) == len(parsed_command.object2)
-
-	known_commands = known_commands.filter(_preposition1_filter) \
-		.filter(_object1_filter) \
-		.filter(_preposition2_filter) \
-		.filter(_object2_filter)
+	known_commands = known_commands.filter(func(c): return c.first_preposition == parsed_command.first_preposition and c.second_preposition == parsed_command.second_preposition)
 
 	if len(known_commands) > 1:
 		var matched_commands = known_commands.map(func(c): return c.as_string())

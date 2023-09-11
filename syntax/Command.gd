@@ -1,24 +1,28 @@
 extends Resource
 class_name Command
 
+const FLAG_ALLOW_MULTIPLE = 1
+
 @export var verb: String
-@export var preposition1: String
-@export var object1: PackedStringArray
-@export var preposition2: String
-@export var object2: PackedStringArray
+@export var first_preposition: String
+@export var direct_objects: PackedStringArray
+@export_flags("Multiple") var direct_object_flags: int
+@export var second_preposition: String
+@export var indirect_objects: PackedStringArray
+@export_flags("Multiple") var indirect_object_flags: int
 
 var and_flag := false
 var error_response := ""
 
 func as_string() -> String:
-	return " ".join([verb, preposition1, " and ".join(object1), preposition2, " and ".join(object2)].filter(func(x): return not x.is_empty()))
+	return " ".join([verb, first_preposition, " and ".join(direct_objects), second_preposition, " and ".join(indirect_objects)].filter(func(x): return not x.is_empty()))
 
 func populate_from(command: Command) -> Command:
 	verb = command.verb
-	preposition1 = command.preposition1
-	object1 = command.object1
-	preposition2 = command.preposition2
-	object2 = command.object2
+	first_preposition = command.first_preposition
+	direct_objects = command.direct_objects
+	second_preposition = command.second_preposition
+	indirect_objects = command.indirect_objects
 	return self
 
 func action() -> String:
@@ -33,26 +37,26 @@ func set_and_flag() -> void:
 	and_flag = true
 
 func try_set_preposition(preposition: String) -> bool:
-	if not preposition1.is_empty() and not preposition2.is_empty(): return false
-	if preposition1.is_empty() and object1.is_empty():
-		preposition1 = preposition
+	if not first_preposition.is_empty() and not second_preposition.is_empty(): return false
+	if first_preposition.is_empty() and direct_objects.is_empty():
+		first_preposition = preposition
 	else:
-		preposition2 = preposition
+		second_preposition = preposition
 	return true
 
 func try_set_object(object: String) -> bool:
-	if not object1.is_empty() and not object2.is_empty() and not and_flag: return false
+	if not direct_objects.is_empty() and not indirect_objects.is_empty() and not and_flag: return false
 
-	if not object2.is_empty() and and_flag:
-		object2.append(object)
-	elif not object1.is_empty() and and_flag:
-		object1.append(object)
-	elif object1.is_empty():
+	if not indirect_objects.is_empty() and and_flag:
+		indirect_objects.append(object)
+	elif not direct_objects.is_empty() and and_flag:
+		direct_objects.append(object)
+	elif direct_objects.is_empty():
 		if and_flag:
 			push_warning("'and_flag' set but no objects to append to. Ignoring...")
-		object1.append(object)
+		direct_objects.append(object)
 	else:
-		object2.append(object)
+		indirect_objects.append(object)
 
 	and_flag = false
 	return true

@@ -120,10 +120,10 @@ func _init() -> void:
 			_commands[command.verb].append(command)
 		else:
 			_commands[command.verb] = [command]
-		if not command.preposition1.is_empty():
-			register_preposition(command.preposition1)
-		if not command.preposition2.is_empty():
-			register_preposition(command.preposition2)
+		if not command.first_preposition.is_empty():
+			register_preposition(command.first_preposition)
+		if not command.second_preposition.is_empty():
+			register_preposition(command.second_preposition)
 
 func set_context(player: Player) -> void:
 	_context = player
