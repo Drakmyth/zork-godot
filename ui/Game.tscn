@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cqgple0nvjstt"]
+[gd_scene load_steps=43 format=3 uid="uid://cqgple0nvjstt"]
 
 [ext_resource type="PackedScene" uid="uid://dv4bbp626njre" path="res://ui/Header.tscn" id="1_ciir3"]
 [ext_resource type="Script" path="res://managers/CommandParser.gd" id="1_f4dba"]
@@ -87,6 +87,7 @@ destination = NodePath("../south-of-house")
 [sub_resource type="Resource" id="Resource_va0yn"]
 script = ExtResource("10_n1bda")
 door = NodePath("../../GlobalObjects/KitchenWindow")
+closed_response = ""
 destination = NodePath("../kitchen")
 
 [sub_resource type="Resource" id="Resource_d5y7f"]
@@ -100,9 +101,34 @@ destination = NodePath("../south-of-house")
 [sub_resource type="Resource" id="Resource_51q8f"]
 script = ExtResource("10_n1bda")
 door = NodePath("../../GlobalObjects/KitchenWindow")
+closed_response = ""
 destination = NodePath("../kitchen")
 
+[sub_resource type="Resource" id="Resource_r0pn6"]
+script = ExtResource("10_n1bda")
+door = NodePath("../../GlobalObjects/KitchenWindow")
+closed_response = ""
+destination = NodePath("../east-of-house")
+
+[sub_resource type="Resource" id="Resource_8dral"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../living-room")
+
+[sub_resource type="Resource" id="Resource_b7cpq"]
+script = ExtResource("10_n1bda")
+door = NodePath("../../GlobalObjects/KitchenWindow")
+closed_response = ""
+destination = NodePath("../east-of-house")
+
+[sub_resource type="Resource" id="Resource_io8lv"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../attic")
+
 [sub_resource type="Resource" id="Resource_5cwd6"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../kitchen")
+
+[sub_resource type="Resource" id="Resource_x7cgp"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../kitchen")
 
@@ -122,6 +148,9 @@ script = ExtResource("1_f4dba")
 
 [node name="KitchenWindow" type="Node" parent="GlobalObjects"]
 script = ExtResource("3_nkh6b")
+description = "kitchen window"
+nouns = Array[String](["window"])
+adjectives = Array[String](["kitchen", "small"])
 
 [node name="Rooms" type="Node" parent="."]
 
@@ -195,6 +224,10 @@ exit_in = SubResource("Resource_51q8f")
 script = ExtResource("11_ytplj")
 title = "Kitchen"
 description = "You are in the kitchen of the white house. A table seems to have been used recently for the preparation of food. A passage leads to the west and a dark staircase can be seen leading upward. A dark chimney leads down and to the east is a small window which is %s."
+exit_east = SubResource("Resource_r0pn6")
+exit_west = SubResource("Resource_8dral")
+exit_out = SubResource("Resource_b7cpq")
+exit_up = SubResource("Resource_io8lv")
 
 [node name="attic" type="Node" parent="Rooms"]
 script = ExtResource("3_i2kar")
@@ -206,6 +239,7 @@ exit_down = SubResource("Resource_5cwd6")
 script = ExtResource("12_34fga")
 title = "Living Room"
 description = "You are in the living room. There is a doorway to the east%s, a trophy case, and %s."
+exit_east = SubResource("Resource_x7cgp")
 
 [node name="Background" type="PanelContainer" parent="."]
 layout_mode = 1

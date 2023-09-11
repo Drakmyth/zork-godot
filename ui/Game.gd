@@ -54,7 +54,10 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 			if not response.is_empty():
 				break
 
-		player.get_room().on_end_command(command, player)
-
 		history.add_response(display_input, response)
+		response = player.get_room().on_end_command(command, player)
+
+		if not response.is_empty():
+			history.add_response(display_input, response)
+
 		display_input = ""

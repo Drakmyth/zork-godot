@@ -49,3 +49,33 @@ func get_things(noun: String = "", adjective: String = "") -> Array:
 	if not adjective.is_empty():
 		things = things.filter(func(t): return t.adjectives.has(adjective))
 	return things
+
+func get_exit(direction: String) -> Exit:
+	match direction:
+		"north":
+			return exit_north
+		"east":
+			return exit_east
+		"south":
+			return exit_south
+		"west":
+			return exit_west
+		"northeast":
+			return exit_northeast
+		"northwest":
+			return exit_northwest
+		"southeast":
+			return exit_southeast
+		"southwest":
+			return exit_southwest
+		"in":
+			return exit_in
+		"out":
+			return exit_out
+		"up":
+			return exit_up
+		"down":
+			return exit_down
+		"land":
+			return exit_land
+	return BlockedExit.UnknownDirection()
