@@ -1,8 +1,9 @@
 extends Node
 class_name Thing
 
-const FLAG_TOUCHED = 1 # Set after player has taken object at least once
-const FLAG_HIDE_DESCRIPTION = 2 # Prevents item from describing itself
+# parser_flags
+const FLAG_TOUCHED = 1
+const FLAG_HIDE_DESCRIPTION = 2
 
 const DEFAULT_FLOOR_DESC = "There is a %s here."
 

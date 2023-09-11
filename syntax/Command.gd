@@ -1,16 +1,28 @@
 extends Resource
 class_name Command
 
+# object_flags
 const FLAG_ALLOW_MULTIPLE = 1
 
+## The action to be taken. This is the keyword the player must enter to execute this command.
 @export var verb: String
+## Optional preposition for the direct object.
 @export var first_preposition: String
+## The maximum number of direct objects this command can process. Set to [param -1] for infinite.
 @export_range(-1, 1) var max_direct_objects: int
 var direct_objects: Array[Thing]
+## Parser rules. Impacts how the CommandParser identifies valid direct objects to pass to this command.[br]
+## [br]
+## [b]Multiple[/b]: Unused. Placeholder.[br]
 @export_flags("Multiple") var direct_object_flags: int
+## Optional preposition for the indirect object.
 @export var second_preposition: String
+## The maximum number of indirect objects this command can process. Set to [param -1] for infinite.
 @export_range(-1, 1) var max_indirect_objects: int
 var indirect_objects: Array[Thing]
+## Parser rules. Impacts how the CommandParser identifies valid indirect objects to pass to this command.[br]
+## [br]
+## [b]Multiple[/b]: Unused. Placeholder.[br]
 @export_flags("Multiple") var indirect_object_flags: int
 
 var and_flag := false
