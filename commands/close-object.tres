@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bo5g3ft0qb44e"]
+
+[ext_resource type="Script" path="res://command_scripts/close.gd" id="1_gn30c"]
+
+[resource]
+script = ExtResource("1_gn30c")
+verb = "close"
+first_preposition = ""
+max_direct_objects = 1
+direct_object_flags = 0
+second_preposition = ""
+max_indirect_objects = 0
+indirect_object_flags = 0
