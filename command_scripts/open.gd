@@ -4,7 +4,7 @@ const DEFAULT_RESPONSE = "You must tell me how to do that to a %s."
 
 func action(command: Command, player: Player) -> String:
 	var object = command.direct_objects[0]
-	# TODO: if container with > 0 capacity
+
 	if object is Bag:
 		return _handle_bag(object as Bag, command, player)
 	elif object is Door:

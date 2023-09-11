@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://do2hkvd86uk0b"]
+
+[ext_resource type="Script" path="res://command_scripts/open.gd" id="1_yogox"]
+
+[resource]
+script = ExtResource("1_yogox")
+verb = "open"
+first_preposition = ""
+max_direct_objects = 1
+direct_object_flags = 0
+second_preposition = "with"
+max_indirect_objects = 1
+indirect_object_flags = 0
