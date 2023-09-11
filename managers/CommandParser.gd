@@ -40,10 +40,9 @@ func parse_input(input: String, player: Player) -> Array:
 
 			if word == "and":
 				if _is_word_clause_terminator(tokens, ptr): continue
-				if not Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.ADJECTIVE) \
-					and not Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.OBJECT):
-						command.error_response = "That sentence isn't one I recognize."
-						break
+				if not _in_noun_phrase(next_word):
+					command.error_response = "That sentence isn't one I recognize."
+					break
 				else:
 					continue
 
@@ -60,7 +59,7 @@ func parse_input(input: String, player: Player) -> Array:
 					break
 				command.verb = word
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.PREPOSITION):
-				if not Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.OBJECT):
+				if not _in_noun_phrase(next_word):
 					command.error_response = "That sentence isn't one I recognize."
 					break
 				var preposition_was_set = command.try_set_preposition(word)
@@ -91,6 +90,10 @@ func parse_input(input: String, player: Player) -> Array:
 		end_of_clause = _get_end_of_clause(tokens, start_of_clause)
 
 	return commands
+
+func _in_noun_phrase(word: String) -> bool:
+	return Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.ADJECTIVE) \
+		or Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.OBJECT)
 
 func _get_end_of_clause(tokens: Array, start: int) -> int:
 	if start >= len(tokens): return len(tokens) + 1

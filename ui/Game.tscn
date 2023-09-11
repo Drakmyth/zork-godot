@@ -44,17 +44,17 @@ adjectives = Array[String](["small"])
 
 [node name="Tree" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("5_ot5vp")
-flags = 2
 description = "tree"
+parser_flags = 2
 nouns = Array[String](["tree", "branch"])
 adjectives = Array[String](["large", "storm"])
 
 [node name="Lamp" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("5_ot5vp")
-flags = 3
 description = "brass lantern"
 first_description = "A battery-powered brass lantern is on the trophy case."
 floor_description = "There is a brass lantern (battery-powered) here."
+parser_flags = 2
 nouns = Array[String](["lamp", "lantern", "light"])
 adjectives = Array[String](["brass"])
 
