@@ -16,7 +16,7 @@ class_name Room
 
 func describe() -> String:
 	var descriptions = [title, description % describe_tokens()]
-	var thing_descriptions = get_things().map(func(thing):return thing.describe()).filter(func(desc):return not desc.is_empty())
+	var thing_descriptions = get_things().map(func(thing): return thing.describe()).filter(func(desc): return not desc.is_empty())
 	thing_descriptions.sort()
 	descriptions.append_array(thing_descriptions)
 	return "\n".join(descriptions)
@@ -37,5 +37,10 @@ func on_end_command() -> String:
 	# Implemented by room script
 	return ""
 
-func get_things() -> Array:
-	return find_children("", "Thing", false)
+func get_things(noun: String = "", adjective: String = "") -> Array:
+	var things = find_children("", "Thing", false)
+	if not noun.is_empty():
+		things = things.filter(func(t): return t.nouns.has(noun))
+	if not adjective.is_empty():
+		things = things.filter(func(t): return t.adjectives.has(adjective))
+	return things

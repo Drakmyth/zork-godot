@@ -28,6 +28,9 @@ func parse_input(input: String, player: Player) -> Array:
 	# Loop over each clause
 	while end_of_clause <= len(tokens):
 		var command = Command.new()
+		command.max_direct_objects = -1
+		command.max_indirect_objects = -1
+		var adj_flag = false
 		# Parse input word by word
 		for ptr in range(start_of_clause, end_of_clause):
 			var word = tokens[ptr]
@@ -67,14 +70,31 @@ func parse_input(input: String, player: Player) -> Array:
 					command.error_response = "That sentence isn't one I recognize."
 					break
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.OBJECT):
-				var object_was_set = command.try_set_object(word)
-				if not object_was_set:
-					command.error_response = "There were too many nouns in that sentence."
-					break
+				if not adj_flag:
+					var objects = player.get_things(word)
+					if len(objects) == 0:
+						command.error_response = "You can't see any %s here." % word
+						break
+					# TODO: elif len(objects) > 1:
+					var object_was_set = command.try_set_object(objects[0])
+					if not object_was_set:
+						command.error_response = "There were too many nouns in that sentence."
+						break
+				adj_flag = false
 				if next_word == "and":
 					command.set_and_flag()
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.ADJECTIVE):
-				pass
+				var noun = next_word if Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.OBJECT) else ""
+				var objects = player.get_things(noun, word)
+				if len(objects) == 0:
+					command.error_response = "You can't see any %s here" % " ".join([word, noun])
+					break
+				# TODO: elif len(objects) > 1:
+				var object_was_set = command.try_set_object(objects[0])
+				if not object_was_set:
+					command.error_response = "There were too many nouns in that sentence."
+					break
+				adj_flag = true
 			else:
 				command.error_response = "I don't know the word \"%s\"." % word
 				break
@@ -138,12 +158,18 @@ func _is_word_clause_terminator(tokens: Array, ptr: int) -> bool:
 
 func _match_to_known_command(parsed_command: Command) -> Command:
 	var known_commands = Vocabulary.get_commands(parsed_command.verb)
+	var first_command = known_commands[0]
 
-	known_commands = known_commands.filter(func(c): return c.first_preposition == parsed_command.first_preposition and c.second_preposition == parsed_command.second_preposition)
+	var matched_commands = known_commands.filter(func(c): return c.first_preposition == parsed_command.first_preposition and c.second_preposition == parsed_command.second_preposition)
 
-	if len(known_commands) > 1:
-		var matched_commands = known_commands.map(func(c): return c.as_string())
-		push_warning("Ambiguous commands matched. Input: \"%s\", Matches: \"%s\"." % [parsed_command.as_string(), "\", \"".join(matched_commands)])
-		known_commands = [known_commands[0]]
+	if matched_commands.is_empty():
+		matched_commands = known_commands.filter(func(c): return c.first_preposition.is_empty() and c.second_preposition.is_empty())
+		if matched_commands.is_empty():
+			matched_commands = [first_command]
 
-	return known_commands[0].populate_from(parsed_command)
+	if len(matched_commands) > 1:
+		var matched_command_strings = known_commands.map(func(c): return c.as_string())
+		push_warning("Ambiguous commands matched. Input: \"%s\", Matches: \"%s\"." % [parsed_command.as_string(), "\", \"".join(matched_command_strings)])
+		matched_commands = [matched_commands[0]]
+
+	return matched_commands[0].duplicate().populate_from(parsed_command)

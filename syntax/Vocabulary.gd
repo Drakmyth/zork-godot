@@ -152,9 +152,9 @@ func is_part_of_speech(word: String, pos: PartOfSpeech) -> bool:
 		PartOfSpeech.PREPOSITION:
 			return _prepositions.has(word)
 		PartOfSpeech.ADJECTIVE:
-			return _context.is_known_adjective(word)
+			return not _context.get_things("", word).is_empty()
 		PartOfSpeech.OBJECT:
-			return _context.is_known_object(word)
+			return not _context.get_things(word).is_empty()
 		PartOfSpeech.BUZZWORD:
 			return _buzzwords.has(word)
 

@@ -6,8 +6,8 @@
 script = ExtResource("1_r36um")
 verb = "brief"
 first_preposition = ""
-direct_objects = PackedStringArray()
+max_direct_objects = 0
 direct_object_flags = 0
 second_preposition = ""
-indirect_objects = PackedStringArray()
+max_indirect_objects = 0
 indirect_object_flags = 0
