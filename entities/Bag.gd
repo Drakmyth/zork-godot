@@ -17,3 +17,11 @@ const FLAG_TRANSPARENT = 2
 
 func is_open() -> bool:
 	return open
+
+func get_things(noun: String = "", adjective: String = "") -> Array:
+	var things = find_children("", "Thing", false)
+	if not noun.is_empty():
+		things = things.filter(func(t): return t.nouns.has(noun))
+	if not adjective.is_empty():
+		things = things.filter(func(t): return t.adjectives.has(adjective))
+	return things
