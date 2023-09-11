@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://managers/GlobalObjects.gd" id="3_2cyov"]
 [ext_resource type="PackedScene" uid="uid://cj6g5k4dxx8q0" path="res://ui/Prompt.tscn" id="3_hb5rq"]
 [ext_resource type="Script" path="res://entities/Room.gd" id="3_i2kar"]
-[ext_resource type="Script" path="res://entities/Door.gd" id="3_nkh6b"]
+[ext_resource type="Script" path="res://KitchenWindow.gd" id="4_a807g"]
 [ext_resource type="Script" path="res://entities/Player.gd" id="4_ewft8"]
 [ext_resource type="Script" path="res://room_scripts/east-of-house.gd" id="5_f26kq"]
 [ext_resource type="Script" path="res://resources/BlockedExit.gd" id="5_krq4v"]
@@ -152,7 +152,7 @@ script = ExtResource("3_2cyov")
 [node name="LocalObjects" type="Node" parent="."]
 
 [node name="KitchenWindow" type="Node" parent="LocalObjects"]
-script = ExtResource("3_nkh6b")
+script = ExtResource("4_a807g")
 description = "kitchen window"
 parser_flags = 4
 nouns = Array[String](["window"])

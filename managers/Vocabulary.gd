@@ -93,6 +93,10 @@ const _syntax_synonyms := {
 		"yes": ["y"]
 	}
 
+const _dummy_responses := [ "Look around.", "Too late for that.", "Have your eyes checked." ]
+const _yuk_responses := [ "A valiant attempt.", "You can't be serious.", "An interesting idea...", "What a concept!" ]
+const _hello_responses := [ "Hello.", "Good day.", "Nice weather we've been having lately.", "Goodbye." ]
+
 var _synonym_map := {}
 var _commands := {}
 
@@ -130,6 +134,9 @@ func set_context(player: Player) -> void:
 
 func get_commands(verb: String) -> Array:
 	return _commands[verb]
+
+func get_random_dummy_response() -> String:
+	return _dummy_responses.pick_random()
 
 func resolve(word: String) -> String:
 	return _synonym_map.get(word, word)
