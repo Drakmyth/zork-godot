@@ -42,10 +42,13 @@ func describe() -> String:
 	return first_description % _first_description_tokens()
 
 func _first_description_tokens() -> Array:
+	# Implemented by thing script
 	return []
 
 func _floor_description_tokens() -> Array:
+	# Implemented by thing script
 	return [description] if floor_description.is_empty() else []
 
 func action(_command: Command, _player: Player) -> String:
+	# Implemented by thing script
 	return ""
