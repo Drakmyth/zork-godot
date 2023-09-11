@@ -53,7 +53,9 @@ func parse_input(input: String, player: Player) -> Array:
 			if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.DIRECTION) \
 				and ["", "walk"].has(command.verb):
 					command.verb = "walk" # This may override the verb, but only if it's already "walk" so it's fine
-					command.try_set_object(word)
+					var direction = Thing.new()
+					direction.description = word
+					command.try_set_object(direction)
 					continue
 
 			if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.VERB):
