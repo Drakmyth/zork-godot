@@ -29,11 +29,11 @@ func on_enter() -> void:
 	# Implemented by room script
 	pass
 
-func on_begin_command() -> String:
+func on_begin_command(_command: Command, _player: Player) -> String:
 	# Implemented by room script
 	return ""
 
-func on_end_command() -> String:
+func on_end_command(_command: Command, _player: Player) -> String:
 	# Implemented by room script
 	return ""
 

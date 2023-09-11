@@ -38,19 +38,23 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 		var request_chain = [
 			player.action,
 			player.get_room().on_begin_command,
-			command.preaction,
-			# indirect.action,
-			# if not walk, container.action
-			# if not walk, direct.action
-			command.action,
-			player.get_room().on_end_command # TODO: always call, even if previous function handled command
+			command.preaction
 		]
+
+		request_chain.append_array(command.indirect_objects.map(func(i): return i.action))
+		if command.verb != "walk":
+			# container.action
+			request_chain.append_array(command.direct_objects.map(func(d): return d.action))
+
+		request_chain.append(command.action)
 
 		var response := ""
 		for action in request_chain:
-			response = action.call()
+			response = action.call(command, player)
 			if not response.is_empty():
 				break
+
+		player.get_room().on_end_command(command, player)
 
 		history.add_response(display_input, response)
 		display_input = ""

@@ -54,11 +54,11 @@ func populate_from(command: Command) -> Command:
 
 	return self
 
-func action() -> String:
+func action(_command: Command, _player: Player) -> String:
 	# Implemented by command script
 	return ""
 
-func preaction() -> String:
+func preaction(_command: Command, _player: Player) -> String:
 	# Implemented by command script
 	return ""
 

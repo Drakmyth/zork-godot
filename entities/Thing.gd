@@ -47,5 +47,5 @@ func _first_description_tokens() -> Array:
 func _floor_description_tokens() -> Array:
 	return [description] if floor_description.is_empty() else []
 
-func action() -> String:
+func action(_command: Command, _player: Player) -> String:
 	return ""

@@ -1,8 +1,8 @@
 extends Command
 
-func action() -> String:
+func action(_command: Command, _player: Player) -> String:
 	return "Burning %s %s..." % [first_preposition, direct_objects[0].description]
 
-func preaction() -> String:
+func preaction(_command: Command, _player: Player) -> String:
 	print("Pre-Burning...")
 	return ""
