@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://entities/Bag.gd" id="8_dgj43"]
 [ext_resource type="Script" path="res://resources/DoorExit.gd" id="10_n1bda"]
 [ext_resource type="Script" path="res://room_scripts/kitchen.gd" id="11_ytplj"]
-[ext_resource type="Script" path="res://living-room.gd" id="12_34fga"]
+[ext_resource type="Script" path="res://room_scripts/living-room.gd" id="14_ghroo"]
 
 [sub_resource type="Resource" id="Resource_mwru5"]
 script = ExtResource("6_yfin1")
@@ -244,7 +244,7 @@ description = "This is the attic. The only exit is a stairway leading down."
 exit_down = SubResource("Resource_5cwd6")
 
 [node name="living-room" type="Node" parent="Rooms"]
-script = ExtResource("12_34fga")
+script = ExtResource("14_ghroo")
 title = "Living Room"
 description = "You are in the living room. There is a doorway to the east%s, a trophy case, and %s."
 exit_east = SubResource("Resource_x7cgp")
