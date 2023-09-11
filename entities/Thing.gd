@@ -2,8 +2,11 @@ extends Node
 class_name Thing
 
 # parser_flags
-const FLAG_TOUCHED = 1
-const FLAG_HIDE_DESCRIPTION = 2
+const FLAG_LIGHTWEIGHT = 1
+const FLAG_TOUCHED = 2
+const FLAG_HIDE_DESCRIPTION = 4
+const FLAG_LIGHT_SOURCE = 8
+const FLAG_FLAMING = 16
 
 const DEFAULT_FLOOR_DESC = "There is a %s here."
 
@@ -20,12 +23,18 @@ const DEFAULT_FLOOR_DESC = "There is a %s here."
 
 ## Parser rules. Impacts how this thing is detected and interacted with by the CommandParser.[br]
 ## [br]
+## [b]Lightweight[/b]: Able to be taken by the player.[br]
+## [br]
 ## [b]Touched[/b]: Set automatically after player has taken object at least once. Switches active
 ## description text from [member first_description] to [member floor_description].[br]
 ## [br]
 ## [b]Hide Description[/b]: Prevent this thing from being listed by room descriptions. Useful if the
-## room's description already contains text indicating existance of this thing.
-@export_flags("Touched", "Hide Description") var parser_flags: int
+## room's description already contains text indicating existance of this thing.[br]
+## [br]
+## [b]Light Source[/b]: This thing emits light.[br]
+## [br]
+## [b]Flaming[/b]: This thing is on fire. Does not imply [code]Light Source[/code]
+@export_flags("Lightweight", "Touched", "Hide Description", "Light Source", "Flaming") var parser_flags: int
 @export var nouns: Array[String] = []
 @export var adjectives: Array[String] = []
 
@@ -48,6 +57,10 @@ func _first_description_tokens() -> Array:
 func _floor_description_tokens() -> Array:
 	# Implemented by thing script
 	return [description] if floor_description.is_empty() else []
+
+func on_failed_preaction(_command: Command, _player: Player) -> String:
+	# Implemented by thing script
+	return ""
 
 func action(_command: Command, _player: Player) -> String:
 	# Implemented by thing script
