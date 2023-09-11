@@ -7,3 +7,5 @@ func add_response(input: String, response: String):
 	response_node.input = input
 	response_node.response = response
 	$Layout.add_child(response_node)
+	await get_tree().process_frame
+	ensure_control_visible(response_node)
