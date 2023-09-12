@@ -51,8 +51,8 @@ func parse_input(input: String, player: Player) -> Array:
 
 			# Moving around may not provide a verb, so process directions first
 			if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.DIRECTION) \
-				and ["", "walk"].has(command.verb):
-					command.verb = "walk" # This may override the verb, but only if it's already "walk" so it's fine
+				and ["", Vocabulary.Verbs.WALK].has(command.verb):
+					command.verb = Vocabulary.Verbs.WALK # This may override the verb, but only if it's already "walk" so it's fine
 					var direction = Thing.new()
 					direction.description = word
 					command.try_set_object(direction)

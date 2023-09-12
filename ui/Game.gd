@@ -17,7 +17,7 @@ Revision 88 / Serial number 840726
 func _ready() -> void:
 	$Margin/Layout/Prompt.connect("command_submitted", _on_Prompt_command_submitted)
 
-	player = get_tree().get_first_node_in_group("Player") as Player
+	player = get_tree().get_first_node_in_group(Vocabulary.Groups.PLAYER) as Player
 	header.set_room_name(player.get_room().title)
 	player.connect("room_changed", _on_Player_room_changed)
 
@@ -46,7 +46,7 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 		]
 
 		request_chain.append_array(command.indirect_objects.map(func(i): return i.action))
-		if command.verb != "walk":
+		if command.verb != Vocabulary.Verbs.WALK:
 			# container.action
 			request_chain.append_array(command.direct_objects.map(func(d): return d.action))
 
