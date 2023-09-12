@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cp1ve5cos4co"]
+
+[ext_resource type="Script" path="res://command_scripts/enter.gd" id="1_wr6kb"]
+
+[resource]
+script = ExtResource("1_wr6kb")
+verb = "enter"
+first_preposition = ""
+max_direct_objects = 0
+direct_object_flags = 0
+second_preposition = ""
+max_indirect_objects = 0
+indirect_object_flags = 0
