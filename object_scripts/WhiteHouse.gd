@@ -1,33 +1,40 @@
 extends Thing
 
 func action(command: Command, player: Player) -> String:
+	var room = player.get_room()
+
+	if not room.is_in_group(Vocabulary.Groups.ROOMS_AROUND_HOUSE) and command.verb != Vocabulary.Verbs.FIND:
+		return "You're not at the house."
+
 	match(command.verb):
-		"find":
-			return _handle_find(command, player)
-		"examine":
-			return _handle_examine(command, player)
-		"enter":
-			return _handle_open(command, player)
-		"open":
-			return _handle_open(command, player)
-		"burn":
-			return _handle_burn(command, player)
-	
-	if command.verb == "walk" and command.preposition == "around":
-		return _handle_walk_around(command, player)
+		Vocabulary.Verbs.FIND:
+			return _handle_find(player)
+		Vocabulary.Verbs.EXAMINE:
+			return "The house is a beautiful colonial house which is painted white. It is clear that the owners must have been extremely wealthy."
+		Vocabulary.Verbs.ENTER:
+			return _handle_open(player)
+		Vocabulary.Verbs.OPEN:
+			return _handle_open(player)
+		Vocabulary.Verbs.BURN:
+			return "You must be joking."
+		Vocabulary.Verbs.WALK:
+			return _handle_walk(command, player)
 
 	return ""
 
-func _handle_find(_command:Command, _player: Player) -> String:
-	return ""
+func _handle_find(player: Player) -> String:
+	var room = player.get_room()
+	if room.is_in_group(Vocabulary.Groups.ROOMS_AROUND_HOUSE):
+		return "It's right here! Are you blind or something?"
+	elif room.name == "clearing":
+		return "It seems to be to the west"
+	else:
+		return "It was here just a minute ago...."
 
-func _handle_examine(_command:Command, _player: Player) -> String:
-	return ""
-
-func _handle_open(_command:Command, player: Player) -> String:
+func _handle_open(player: Player) -> String:
 	var room = player.get_room()
 	if room.name != "east-of-house": return "I can't see how to get in from here."
-	
+
 	var kitchen_window = room.get_local_object("kitchen-window") as Door
 	if kitchen_window.is_open():
 		var kitchen = room.get_node("../kitchen")
@@ -35,8 +42,10 @@ func _handle_open(_command:Command, player: Player) -> String:
 	else:
 		return "The window is closed."
 
-func _handle_burn(_command:Command, _player: Player) -> String:
-	return ""
+func _handle_walk(command:Command, player: Player) -> String:
+	if command.preposition != Vocabulary.Prepositions.AROUND: return ""
 
-func _handle_walk_around(_command:Command, _player: Player) -> String:
-	return ""
+	var rooms = get_tree().get_nodes_in_group(Vocabulary.Groups.ROOMS_AROUND_HOUSE)
+	var index = rooms.find(player.get_room())
+	index = (index + 1) % len(rooms)
+	return player.move_to(rooms[index])
