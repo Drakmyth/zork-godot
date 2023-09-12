@@ -45,7 +45,4 @@ func _handle_open(player: Player) -> String:
 func _handle_walk(command:Command, player: Player) -> String:
 	if command.preposition != Vocabulary.Prepositions.AROUND: return ""
 
-	var rooms = get_tree().get_nodes_in_group(Vocabulary.Groups.ROOMS_AROUND_HOUSE)
-	var index = rooms.find(player.get_room())
-	index = (index + 1) % len(rooms)
-	return player.move_to(rooms[index])
+	return player.move_to_next_room_in_group(Vocabulary.Groups.ROOMS_AROUND_HOUSE)

@@ -20,6 +20,12 @@ func move_to(room: Room) -> String:
 	room_changed.emit(room)
 	return room.describe()
 
+func move_to_next_room_in_group(group_name: String) -> String:
+	var rooms = get_tree().get_nodes_in_group(group_name)
+	var index = rooms.find(get_room())
+	index = (index + 1) % len(rooms)
+	return move_to(rooms[index])
+
 func move(direction: String) -> String:
 	var exit = get_room().get_exit(direction)
 	if exit == null:
