@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cqgple0nvjstt"]
+[gd_scene load_steps=46 format=3 uid="uid://cqgple0nvjstt"]
 
 [ext_resource type="PackedScene" uid="uid://dv4bbp626njre" path="res://ui/Header.tscn" id="1_ciir3"]
 [ext_resource type="Script" path="res://managers/CommandParser.gd" id="1_f4dba"]
@@ -12,69 +12,70 @@
 [ext_resource type="Script" path="res://room_scripts/east-of-house.gd" id="5_f26kq"]
 [ext_resource type="Script" path="res://resources/BlockedExit.gd" id="5_krq4v"]
 [ext_resource type="Script" path="res://entities/Thing.gd" id="5_ot5vp"]
+[ext_resource type="Script" path="res://object_scripts/WhiteHouse.gd" id="5_u2got"]
 [ext_resource type="Script" path="res://resources/StandardExit.gd" id="6_yfin1"]
 [ext_resource type="Script" path="res://entities/Bag.gd" id="8_dgj43"]
 [ext_resource type="Script" path="res://resources/DoorExit.gd" id="10_n1bda"]
 [ext_resource type="Script" path="res://room_scripts/kitchen.gd" id="11_ytplj"]
 [ext_resource type="Script" path="res://room_scripts/living-room.gd" id="14_ghroo"]
 
-[sub_resource type="Resource" id="Resource_mwru5"]
+[sub_resource type="Resource" id="Resource_nesmq"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../north-of-house")
 
-[sub_resource type="Resource" id="Resource_n3n8k"]
+[sub_resource type="Resource" id="Resource_kb371"]
 script = ExtResource("5_krq4v")
 response = "The door is boarded and you can't remove the boards."
 
-[sub_resource type="Resource" id="Resource_t3bji"]
+[sub_resource type="Resource" id="Resource_01dtq"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../south-of-house")
 
-[sub_resource type="Resource" id="Resource_lps3j"]
+[sub_resource type="Resource" id="Resource_f6w5n"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../north-of-house")
 
-[sub_resource type="Resource" id="Resource_os7qw"]
+[sub_resource type="Resource" id="Resource_s7grd"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../south-of-house")
 
-[sub_resource type="Resource" id="Resource_qe6dg"]
-script = ExtResource("6_yfin1")
-destination = NodePath("../east-of-house")
-
-[sub_resource type="Resource" id="Resource_fx2va"]
+[sub_resource type="Resource" id="Resource_cr07c"]
 script = ExtResource("5_krq4v")
 response = "The windows are all boarded."
 
-[sub_resource type="Resource" id="Resource_ds8w7"]
-script = ExtResource("6_yfin1")
-destination = NodePath("../west-of-house")
-
-[sub_resource type="Resource" id="Resource_s3rhb"]
+[sub_resource type="Resource" id="Resource_g6gbc"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../east-of-house")
 
-[sub_resource type="Resource" id="Resource_n1r1v"]
+[sub_resource type="Resource" id="Resource_pl04h"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../west-of-house")
 
-[sub_resource type="Resource" id="Resource_lr3an"]
+[sub_resource type="Resource" id="Resource_xbjk2"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../east-of-house")
+
+[sub_resource type="Resource" id="Resource_5oyug"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../west-of-house")
+
+[sub_resource type="Resource" id="Resource_yv8vk"]
 script = ExtResource("5_krq4v")
 response = "The windows are all boarded."
 
-[sub_resource type="Resource" id="Resource_r4wph"]
+[sub_resource type="Resource" id="Resource_rev8c"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../east-of-house")
 
-[sub_resource type="Resource" id="Resource_1t8vr"]
+[sub_resource type="Resource" id="Resource_8jpq7"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../west-of-house")
 
-[sub_resource type="Resource" id="Resource_35wi4"]
+[sub_resource type="Resource" id="Resource_m2c2a"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../east-of-house")
 
-[sub_resource type="Resource" id="Resource_lxi2y"]
+[sub_resource type="Resource" id="Resource_fykv2"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../west-of-house")
 
@@ -151,12 +152,19 @@ script = ExtResource("3_2cyov")
 
 [node name="LocalObjects" type="Node" parent="."]
 
-[node name="KitchenWindow" type="Node" parent="LocalObjects"]
+[node name="kitchen-window" type="Node" parent="LocalObjects"]
 script = ExtResource("4_bmbhw")
 description = "kitchen window"
 parser_flags = 4
 nouns = Array[String](["window"])
 adjectives = Array[String](["kitchen", "small"])
+
+[node name="white-house" type="Node" parent="LocalObjects"]
+script = ExtResource("5_u2got")
+description = "white house"
+parser_flags = 4
+nouns = Array[String](["house"])
+adjectives = Array[String](["white", "beautiful", "colonial"])
 
 [node name="Rooms" type="Node" parent="."]
 
@@ -164,29 +172,30 @@ adjectives = Array[String](["kitchen", "small"])
 script = ExtResource("3_i2kar")
 title = "West of House"
 description = "You are standing in an open field west of a white house, with a boarded front door."
-exit_north = SubResource("Resource_mwru5")
-exit_east = SubResource("Resource_n3n8k")
-exit_south = SubResource("Resource_t3bji")
-exit_northeast = SubResource("Resource_lps3j")
-exit_southeast = SubResource("Resource_os7qw")
+local_objects = Array[NodePath]([NodePath("../../LocalObjects/white-house")])
+exit_north = SubResource("Resource_nesmq")
+exit_east = SubResource("Resource_kb371")
+exit_south = SubResource("Resource_01dtq")
+exit_northeast = SubResource("Resource_f6w5n")
+exit_southeast = SubResource("Resource_s7grd")
 
 [node name="Player" type="Node" parent="Rooms/west-of-house" groups=["Player"]]
 script = ExtResource("4_ewft8")
 
-[node name="Mailbox" type="Node" parent="Rooms/west-of-house"]
+[node name="mailbox" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("8_dgj43")
 description = "small mailbox"
 nouns = Array[String](["mailbox", "box"])
 adjectives = Array[String](["small"])
 
-[node name="Tree" type="Node" parent="Rooms/west-of-house"]
+[node name="tree" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("5_ot5vp")
 description = "tree"
 parser_flags = 4
 nouns = Array[String](["tree", "branch"])
 adjectives = Array[String](["large", "storm"])
 
-[node name="Lamp" type="Node" parent="Rooms/west-of-house"]
+[node name="lamp" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("5_ot5vp")
 description = "brass lantern"
 first_description = "A battery-powered brass lantern is on the trophy case."
@@ -199,27 +208,29 @@ adjectives = Array[String](["brass"])
 script = ExtResource("3_i2kar")
 title = "North of House"
 description = "You are facing the north side of a white house. There is no door here, and all the windows are boarded up. To the north a narrow path winds through the trees."
-exit_east = SubResource("Resource_qe6dg")
-exit_south = SubResource("Resource_fx2va")
-exit_west = SubResource("Resource_ds8w7")
-exit_southeast = SubResource("Resource_s3rhb")
-exit_southwest = SubResource("Resource_n1r1v")
+local_objects = Array[NodePath]([NodePath("../../LocalObjects/white-house")])
+exit_north = SubResource("Resource_cr07c")
+exit_east = SubResource("Resource_g6gbc")
+exit_west = SubResource("Resource_pl04h")
+exit_southeast = SubResource("Resource_xbjk2")
+exit_southwest = SubResource("Resource_5oyug")
 
 [node name="south-of-house" type="Node" parent="Rooms"]
 script = ExtResource("3_i2kar")
 title = "South of House"
 description = "You are facing the south side of a white house. There is no door here, and all the windows are boarded."
-exit_north = SubResource("Resource_lr3an")
-exit_east = SubResource("Resource_r4wph")
-exit_west = SubResource("Resource_1t8vr")
-exit_northeast = SubResource("Resource_35wi4")
-exit_northwest = SubResource("Resource_lxi2y")
+local_objects = Array[NodePath]([NodePath("../../LocalObjects/white-house")])
+exit_north = SubResource("Resource_yv8vk")
+exit_east = SubResource("Resource_rev8c")
+exit_west = SubResource("Resource_8jpq7")
+exit_northeast = SubResource("Resource_m2c2a")
+exit_northwest = SubResource("Resource_fykv2")
 
 [node name="east-of-house" type="Node" parent="Rooms"]
 script = ExtResource("5_f26kq")
 title = "Behind House"
 description = "You are behind the white house. A path leads into the forest to the east. In one corner of the house there is a small window which is %s."
-local_objects = Array[NodePath]([NodePath("../../LocalObjects/KitchenWindow")])
+local_objects = Array[NodePath]([NodePath("../../LocalObjects/kitchen-window"), NodePath("../../LocalObjects/white-house")])
 exit_north = SubResource("Resource_xylte")
 exit_south = SubResource("Resource_gqx0w")
 exit_west = SubResource("Resource_va0yn")
@@ -231,7 +242,7 @@ exit_in = SubResource("Resource_51q8f")
 script = ExtResource("11_ytplj")
 title = "Kitchen"
 description = "You are in the kitchen of the white house. A table seems to have been used recently for the preparation of food. A passage leads to the west and a dark staircase can be seen leading upward. A dark chimney leads down and to the east is a small window which is %s."
-local_objects = Array[NodePath]([NodePath("../../LocalObjects/KitchenWindow")])
+local_objects = Array[NodePath]([NodePath("../../LocalObjects/kitchen-window")])
 exit_east = SubResource("Resource_r0pn6")
 exit_west = SubResource("Resource_8dral")
 exit_out = SubResource("Resource_b7cpq")
