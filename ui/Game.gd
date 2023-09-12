@@ -2,6 +2,7 @@ extends Control
 
 var player: Player
 @onready var history = $Margin/Layout/ResponseHistory
+@onready var header = $Margin/Layout/Header
 
 const EMPTY_PROMPT = " "
 const HIDE_PROMPT = ""
@@ -17,6 +18,9 @@ func _ready() -> void:
 	$Margin/Layout/Prompt.connect("command_submitted", _on_Prompt_command_submitted)
 
 	player = get_tree().get_first_node_in_group("Player") as Player
+	header.set_room_name(player.get_room().title)
+	player.connect("room_changed", _on_Player_room_changed)
+
 	history.add_response(HIDE_PROMPT, BEGIN_TEXT)
 	history.add_response(HIDE_PROMPT, player.get_room().describe())
 
@@ -61,3 +65,6 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 			history.add_response(display_input, response)
 
 		display_input = ""
+
+func _on_Player_room_changed(room: Room):
+	header.set_room_name(room.title)

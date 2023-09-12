@@ -1,6 +1,8 @@
 extends Node
 class_name Player
 
+signal room_changed
+
 func get_room() -> Room:
 	# TODO: Walk up tree in case Player is "inside" something
 	return get_parent() as Room
@@ -15,6 +17,7 @@ func get_things(noun: String = "", adjective: String = "") -> Array:
 
 func move_to(room: Room) -> String:
 	reparent(room)
+	room_changed.emit(room)
 	return room.describe()
 
 func move(direction: String) -> String:

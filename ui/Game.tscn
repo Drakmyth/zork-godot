@@ -89,7 +89,7 @@ destination = NodePath("../south-of-house")
 
 [sub_resource type="Resource" id="Resource_va0yn"]
 script = ExtResource("10_n1bda")
-door = NodePath("../../LocalObjects/KitchenWindow")
+door = NodePath("../../LocalObjects/kitchen-window")
 closed_response = ""
 destination = NodePath("../kitchen")
 
@@ -103,13 +103,13 @@ destination = NodePath("../south-of-house")
 
 [sub_resource type="Resource" id="Resource_51q8f"]
 script = ExtResource("10_n1bda")
-door = NodePath("../../LocalObjects/KitchenWindow")
+door = NodePath("../../LocalObjects/kitchen-window")
 closed_response = ""
 destination = NodePath("../kitchen")
 
 [sub_resource type="Resource" id="Resource_r0pn6"]
 script = ExtResource("10_n1bda")
-door = NodePath("../../LocalObjects/KitchenWindow")
+door = NodePath("../../LocalObjects/kitchen-window")
 closed_response = ""
 destination = NodePath("../east-of-house")
 
@@ -119,7 +119,7 @@ destination = NodePath("../living-room")
 
 [sub_resource type="Resource" id="Resource_b7cpq"]
 script = ExtResource("10_n1bda")
-door = NodePath("../../LocalObjects/KitchenWindow")
+door = NodePath("../../LocalObjects/kitchen-window")
 closed_response = ""
 destination = NodePath("../east-of-house")
 

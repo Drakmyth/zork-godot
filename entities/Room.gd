@@ -43,10 +43,10 @@ func on_end_command(_command: Command, _player: Player) -> String:
 	# Implemented by room script
 	return ""
 
-func get_local_object(name: String) -> Thing:
+func get_local_object(object_name: String) -> Thing:
 	for object_path in local_objects:
 		var object = get_node(object_path)
-		if object.name == name: return object
+		if object.name == object_name: return object
 	return null
 
 func get_things(noun: String = "", adjective: String = "") -> Array:
