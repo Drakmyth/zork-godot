@@ -20,7 +20,7 @@ func action(command: Command, player: Player) -> String:
 	return ""
 
 func _handle_open_close(command:Command) -> String:
-	parser_flags &= Thing.FLAG_TOUCHED
+	parser_flags |= Thing.FLAG_TOUCHED
 	if command.verb == Vocabulary.Verbs.OPEN and open: return Vocabulary.get_random_dummy_response()
 	if command.verb == Vocabulary.Verbs.CLOSE and not open: return Vocabulary.get_random_dummy_response()
 
