@@ -101,6 +101,9 @@ func parse_input(input: String, player: Player) -> Array:
 				command.error_response = "I don't know the word \"%s\"." % word
 				break
 
+		if command.verb.is_empty():
+			command.error_response = "There was no verb in that sentence!"
+
 		if command.error_response.is_empty():
 			command = _match_to_known_command(command)
 			commands.append(command)
