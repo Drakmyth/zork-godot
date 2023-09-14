@@ -58,10 +58,7 @@ func parse_input(input: String, player: Player) -> Array:
 					command.try_set_object(direction)
 					continue
 
-			if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.VERB):
-				if not command.verb.is_empty():
-					command.error_response = "You used the word %s in a way that I don't understand." % word
-					break
+			if Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.VERB) and command.verb.is_empty():
 				command.verb = word
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.PREPOSITION):
 				if not _in_noun_phrase(next_word):
@@ -97,9 +94,13 @@ func parse_input(input: String, player: Player) -> Array:
 					command.error_response = "There were too many nouns in that sentence."
 					break
 				adj_flag = true
+			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.VERB):
+				command.error_response = "You used the word %s in a way I don't understand." % word
+				break
 			else:
 				command.error_response = "I don't know the word \"%s\"." % word
 				break
+
 
 		if command.verb.is_empty():
 			command.error_response = "There was no verb in that sentence!"
@@ -162,19 +163,21 @@ func _is_word_clause_terminator(tokens: Array, ptr: int) -> bool:
 		or Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.VERB)
 
 func _match_to_known_command(parsed_command: Command) -> Command:
-	var known_commands = Vocabulary.get_commands(parsed_command.verb)
-	var first_command = known_commands[0]
-
-	var matched_commands = known_commands.filter(func(c): return c.first_preposition == parsed_command.first_preposition and c.second_preposition == parsed_command.second_preposition)
-
-	if matched_commands.is_empty():
-		matched_commands = known_commands.filter(func(c): return c.first_preposition.is_empty() and c.second_preposition.is_empty())
-		if matched_commands.is_empty():
-			matched_commands = [first_command]
+	var matched_commands = Vocabulary.get_commands(parsed_command.verb)
+	var last_best_match = matched_commands[0]
 
 	if len(matched_commands) > 1:
-		var matched_command_strings = known_commands.map(func(c): return c.as_string())
-		push_warning("Ambiguous commands matched. Input: \"%s\", Matches: \"%s\"." % [parsed_command.as_string(), "\", \"".join(matched_command_strings)])
-		matched_commands = [matched_commands[0]]
+		matched_commands = matched_commands.filter(func(c): return c.first_preposition == parsed_command.first_preposition)
+		if not matched_commands.is_empty(): last_best_match = matched_commands[0]
 
-	return matched_commands[0].duplicate().populate_from(parsed_command)
+	if len(matched_commands) > 1:
+		matched_commands = matched_commands.filter(func(c): return c.second_preposition == parsed_command.second_preposition)
+		if not matched_commands.is_empty(): last_best_match = matched_commands[0]
+
+	if not parsed_command.second_preposition.is_empty() \
+		and (parsed_command.second_preposition != last_best_match.second_preposition or parsed_command.first_preposition != last_best_match.first_preposition):
+		return Command.ErrorCommand("That sentence isn't one I recognize.")
+	elif not parsed_command.first_preposition.is_empty() and parsed_command.first_preposition != last_best_match.first_preposition:
+		return Command.ErrorCommand("That sentence isn't one I recognize.")
+
+	return last_best_match.duplicate().populate_from(parsed_command)

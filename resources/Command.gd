@@ -28,6 +28,11 @@ var indirect_objects: Array[Thing]
 var and_flag := false
 var error_response := ""
 
+static func ErrorCommand(response: String) -> Command:
+	var command = Command.new()
+	command.error_response = response
+	return command
+
 func as_string() -> String:
 	return " ".join([
 		verb,
