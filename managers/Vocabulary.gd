@@ -197,6 +197,7 @@ class Buzzwords:
 # This should probably be in Rooms or something. It's not really Vocabulary, but there's nowhere
 # else globally available on start and creating a new autoload just for this seems overkill.
 class Groups:
+	const GLOBAL_OBJECTS = "GlobalObjects"
 	const PLAYER = "Player"
 	const ROOMS_AROUND_HOUSE = "Rooms_Around_House"
 
@@ -308,6 +309,18 @@ func _init() -> void:
 			register_preposition(command.first_preposition)
 		if not command.second_preposition.is_empty():
 			register_preposition(command.second_preposition)
+
+	for verb in _commands:
+		_commands[verb].sort_custom(sort_commands)
+
+func sort_commands(a: Command, b:Command) -> bool:
+	if a.verb == b.verb:
+		if a.first_preposition == b.first_preposition:
+			return a.second_preposition.nocasecmp_to(b.second_preposition) > -1
+		else:
+			return a.first_preposition.nocasecmp_to(b.first_preposition) > -1
+	else:
+		return a.verb.nocasecmp_to(b.verb) > -1
 
 func set_context(player: Player) -> void:
 	_context = player
