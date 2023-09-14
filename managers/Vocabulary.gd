@@ -198,6 +198,7 @@ class Buzzwords:
 # else globally available on start and creating a new autoload just for this seems overkill.
 class Groups:
 	const GLOBAL_OBJECTS = "GlobalObjects"
+	const OBJECTS = "Objects"
 	const PLAYER = "Player"
 	const ROOMS_AROUND_HOUSE = "Rooms_Around_House"
 
@@ -290,8 +291,6 @@ var _synonym_map := {}
 var _commands := {}
 var _prepositions := {}
 
-var _context: Player
-
 func _init() -> void:
 	for word in _syntax_synonyms:
 		register_synonyms(word, _syntax_synonyms[word])
@@ -322,9 +321,6 @@ func sort_commands(a: Command, b:Command) -> bool:
 	else:
 		return a.verb.nocasecmp_to(b.verb) > -1
 
-func set_context(player: Player) -> void:
-	_context = player
-
 func get_commands(verb: String) -> Array:
 	return _commands[verb]
 
@@ -352,9 +348,9 @@ func is_part_of_speech(word: String, pos: PartOfSpeech) -> bool:
 			# Commands should not be dependent on it.
 			return _prepositions.has(word)
 		PartOfSpeech.ADJECTIVE:
-			return not _context.get_things("", word).is_empty()
+			return get_tree().get_nodes_in_group(Groups.OBJECTS).any(func(o: Thing): return o.adjectives.has(word))
 		PartOfSpeech.OBJECT:
-			return not _context.get_things(word).is_empty()
+			return get_tree().get_nodes_in_group(Groups.OBJECTS).any(func(o: Thing): return o.nouns.has(word))
 		PartOfSpeech.BUZZWORD:
 			return Buzzwords.ALL_WORDS.has(word)
 

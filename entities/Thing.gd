@@ -38,6 +38,9 @@ const DEFAULT_FLOOR_DESC = "There is a %s here."
 @export var nouns: Array[String] = []
 @export var adjectives: Array[String] = []
 
+func _ready() -> void:
+	add_to_group(Vocabulary.Groups.OBJECTS)
+
 func describe() -> String:
 	if parser_flags & FLAG_HIDE_DESCRIPTION:
 		return ""
