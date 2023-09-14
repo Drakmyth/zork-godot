@@ -218,6 +218,18 @@ description = "board"
 parser_flags = 4
 nouns = Array[String](["boards", "board"])
 
+[node name="pump" type="Node" parent="Rooms/west-of-house"]
+script = ExtResource("5_ot5vp")
+description = "hand-held air pump"
+nouns = Array[String](["pump", "air-pump", "tool", "tools"])
+adjectives = Array[String](["small", "hand-held"])
+
+[node name="inflatable-boat" type="Node" parent="Rooms/west-of-house"]
+script = ExtResource("5_ot5vp")
+description = "pile of plastic"
+nouns = Array[String](["boat", "pile", "plastic", "valve"])
+adjectives = Array[String](["plastic", "inflatable"])
+
 [node name="north-of-house" type="Node" parent="Rooms" groups=["Rooms-Around-House"]]
 script = ExtResource("3_i2kar")
 title = "North of House"

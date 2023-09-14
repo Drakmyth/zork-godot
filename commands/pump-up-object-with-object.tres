@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Command" load_steps=2 format=3 uid="uid://b05bggq4jjlw3"]
+
+[ext_resource type="Script" path="res://resources/Command.gd" id="1_ooyi7"]
+
+[resource]
+script = ExtResource("1_ooyi7")
+verb = "pump"
+first_preposition = "up"
+max_direct_objects = 1
+direct_object_flags = 0
+second_preposition = "with"
+max_indirect_objects = 1
+indirect_object_flags = 0
