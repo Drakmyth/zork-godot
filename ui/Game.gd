@@ -34,6 +34,7 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 
 	var display_input = new_text
 	for command in commands:
+		command.apply_holding_errors(player)
 		print("Command: %s\n" % command.as_string())
 		if not command.error_response.is_empty():
 			history.add_response(display_input, command.error_response)

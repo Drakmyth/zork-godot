@@ -2,7 +2,8 @@ extends Resource
 class_name Command
 
 # object_flags
-const FLAG_ALLOW_MULTIPLE = 1
+const FLAG_TAKE = 1
+const FLAG_HOLDING = 2
 
 ## The action to be taken. This is the keyword the player must enter to execute this command.
 @export var verb: String
@@ -11,19 +12,27 @@ const FLAG_ALLOW_MULTIPLE = 1
 ## The maximum number of direct objects this command can process. Set to [param -1] for infinite.
 @export_range(-1, 1) var max_direct_objects: int
 var direct_objects: Array[Thing]
-## Parser rules. Impacts how the CommandParser identifies valid direct objects to pass to this command.[br]
+## Execution flags impart extra requirements on the direct object or execute extra behavior upon
+## command execution.[br]
 ## [br]
-## [b]Multiple[/b]: Unused. Placeholder.[br]
-@export_flags("Multiple") var direct_object_flags: int
+## [b]Take[/b]: Attempt to add the item to the player's inventory prior to command execution. If
+## the player's inventory is not able to hold the item, the command will be executed regardless.[br]
+## [br]
+## [b]Holding[/b]: The direct object must be in the player's inventory for the command to succeed.[br]
+@export_flags("Take", "Holding") var direct_object_execution_flags: int
 ## Optional preposition for the indirect object.
 @export var second_preposition: String
 ## The maximum number of indirect objects this command can process. Set to [param -1] for infinite.
 @export_range(-1, 1) var max_indirect_objects: int
 var indirect_objects: Array[Thing]
-## Parser rules. Impacts how the CommandParser identifies valid indirect objects to pass to this command.[br]
+## Execution flags impart extra requirements on the indirect object or execute extra behavior upon
+## command execution.[br]
 ## [br]
-## [b]Multiple[/b]: Unused. Placeholder.[br]
-@export_flags("Multiple") var indirect_object_flags: int
+## [b]Take[/b]: Attempt to add the item to the player's inventory prior to command execution. If
+## the player's inventory is not able to hold the item, the command will be executed regardless.[br]
+## [br]
+## [b]Holding[/b]: The indirect object must be in the player's inventory for the command to succeed.[br]
+@export_flags("Take", "Holding") var indirect_object_execution_flags: int
 
 var and_flag := false
 var error_response := ""
@@ -58,6 +67,19 @@ func populate_from(command: Command) -> Command:
 		error_response = "You can't use multiple indirect objects with \"%s\"" % verb
 
 	return self
+
+func apply_holding_errors(player: Player) -> void:
+	if direct_object_execution_flags & FLAG_HOLDING:
+		for do in direct_objects:
+			if not player.is_carrying(do):
+				error_response = "You don't have the %s" % do.description
+				return
+
+	if indirect_object_execution_flags & FLAG_HOLDING:
+		for io in indirect_objects:
+			if not player.is_carrying(io):
+				error_response = "You don't have the %s" % io.description
+				return
 
 func action(_command: Command, _player: Player) -> String:
 	# Implemented by command script

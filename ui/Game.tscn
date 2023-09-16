@@ -205,7 +205,7 @@ script = ExtResource("5_ot5vp")
 description = "brass lantern"
 first_description = "A battery-powered brass lantern is on the trophy case."
 floor_description = "There is a brass lantern (battery-powered) here."
-parser_flags = 5
+parser_flags = 1
 nouns = Array[String](["lamp", "lantern", "light"])
 adjectives = Array[String](["brass"])
 

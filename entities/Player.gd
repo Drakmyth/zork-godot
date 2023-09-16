@@ -15,6 +15,9 @@ func get_things(noun: String = "", adjective: String = "") -> Array:
 	# TODO: also look in inventory
 	return things
 
+func is_carrying(thing: Thing) -> bool:
+	return is_ancestor_of(thing)
+
 func move_to(room: Room) -> String:
 	reparent(room)
 	room_changed.emit(room)

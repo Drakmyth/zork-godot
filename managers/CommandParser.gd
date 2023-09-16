@@ -75,7 +75,7 @@ func parse_input(input: String, player: Player) -> Array:
 					# TODO: elif len(objects) > 1:
 					var object_was_set = command.try_set_object(objects[0])
 					if not object_was_set:
-						command.error_response = "There were too many nouns in that sentence."
+						command.error_response = "That sentence isn't one I recognize."
 						break
 				adj_flag = false
 				if next_word == "and":
@@ -89,7 +89,7 @@ func parse_input(input: String, player: Player) -> Array:
 				# TODO: elif len(objects) > 1:
 				var object_was_set = command.try_set_object(objects[0])
 				if not object_was_set:
-					command.error_response = "There were too many nouns in that sentence."
+					command.error_response = "That sentence isn't one I recognize."
 					break
 				adj_flag = true
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.VERB):
