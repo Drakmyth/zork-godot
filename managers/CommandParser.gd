@@ -157,6 +157,9 @@ func _is_word_clause_terminator(tokens: Array, ptr: int) -> bool:
 	if ptr > 0 and Vocabulary.is_part_of_speech(tokens[ptr - 1], Vocabulary.PartOfSpeech.VERB):
 		return true
 
+	if _in_noun_phrase(next_word):
+		return false
+
 	return Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.DIRECTION) \
 		or Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.VERB)
 
