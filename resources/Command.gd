@@ -68,18 +68,41 @@ func populate_from(command: Command) -> Command:
 
 	return self
 
-func apply_holding_errors(player: Player) -> void:
-	if direct_object_execution_flags & FLAG_HOLDING:
-		for do in direct_objects:
-			if not player.is_carrying(do):
-				error_response = "You don't have the %s" % do.description
-				return
+func try_take(player: Player) -> String:
+	if direct_object_execution_flags & FLAG_TAKE:
+		if max_direct_objects != 1:
+			push_warning("Invalid command configuration for \"%s\" - Max Direct Objects: %d != 1, Take Flag: True" % [as_string(), max_direct_objects])
+		if not direct_objects.is_empty() and not player.is_carrying(direct_objects[0]):
+			var take_response = player.take(direct_objects[0])
+				# TODO: if object not here: "You don't have that!"
+				# TODO: if object is here but failed: "You don't have the %s.
+			if take_response.is_empty():
+				return "(Taken)"
 
-	if indirect_object_execution_flags & FLAG_HOLDING:
-		for io in indirect_objects:
+	if indirect_object_execution_flags & FLAG_TAKE:
+		if max_indirect_objects != 1:
+			push_warning("Invalid command configuration for \"%s\" - Max Indirect Objects: %d != 1, Take Flag: True" % [as_string(), max_indirect_objects])
+		if not indirect_objects.is_empty() and not player.is_carrying(indirect_objects[0]):
+			var take_response = player.take(indirect_objects[0])
+				# TODO: if object not here: "You don't have that!"
+				# TODO: if object is here but failed: "You don't have the %s.
+			if take_response.is_empty():
+				return "(Taken)"
+
+	return ""
+
+static func check_holding(command:Command, player: Player) -> String:
+	if command.direct_object_execution_flags & FLAG_HOLDING:
+		for do in command.direct_objects:
+			if not player.is_carrying(do):
+				return "You don't have the %s" % do.description
+
+	if command.indirect_object_execution_flags & FLAG_HOLDING:
+		for io in command.indirect_objects:
 			if not player.is_carrying(io):
-				error_response = "You don't have the %s" % io.description
-				return
+				return "You don't have the %s" % io.description
+
+	return ""
 
 func action(_command: Command, _player: Player) -> String:
 	# Implemented by command script

@@ -15,6 +15,9 @@ func get_things(noun: String = "", adjective: String = "") -> Array:
 	# TODO: also look in inventory
 	return things
 
+func take(thing: Thing) -> String:
+	return ""
+
 func is_carrying(thing: Thing) -> bool:
 	return is_ancestor_of(thing)
 

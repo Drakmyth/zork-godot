@@ -34,13 +34,21 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 
 	var display_input = new_text
 	for command in commands:
-		command.apply_holding_errors(player)
 		print("Command: %s\n" % command.as_string())
+
+		var response = []
+		var taken_response = command.try_take(player)
+		if ["", "(Taken)"].has(taken_response):
+			response.append(taken_response)
+
 		if not command.error_response.is_empty():
-			history.add_response(display_input, command.error_response)
+			response.append(command.error_response)
+			response = response.filter(func(r): return not r.is_empty())
+			history.add_response(display_input, "\n".join(response))
 			break
 
 		var request_chain = [
+			command.check_holding,
 			player.action,
 			player.get_room().on_begin_command,
 			command.preaction
@@ -53,17 +61,18 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 
 		request_chain.append(command.action)
 
-		var response := ""
+		var action_response := ""
 		for action in request_chain:
-			response = action.call(command, player)
-			if not response.is_empty():
+			action_response = action.call(command, player)
+			if not action_response.is_empty():
+				response.append(action_response)
 				break
 
+		response = response.filter(func(r): return not r.is_empty())
+		response = "\n".join(response)
 		history.add_response(display_input, response)
 		response = player.get_room().on_end_command(command, player)
-
-		if not response.is_empty():
-			history.add_response(display_input, response)
+		history.add_response(display_input, response)
 
 		display_input = ""
 
