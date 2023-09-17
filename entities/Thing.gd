@@ -35,6 +35,7 @@ const DEFAULT_FLOOR_DESC = "There is a %s here."
 ## [br]
 ## [b]Flaming[/b]: This thing is on fire. Does not imply [code]Light Source[/code]
 @export_flags("Lightweight", "Touched", "Hide Description", "Light Source", "Flaming") var parser_flags: int
+@export_range(0, 0, 1, "or_greater") var weight: int
 @export var nouns: Array[String] = []
 @export var adjectives: Array[String] = []
 

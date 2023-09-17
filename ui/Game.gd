@@ -36,45 +36,37 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 	for command in commands:
 		print("Command: %s\n" % command.as_string())
 
-		var response = []
-		var taken_response = command.try_take(player)
-		if ["", "(Taken)"].has(taken_response):
-			response.append(taken_response)
-
+		# Error occurred during parsing and/or matching
 		if not command.error_response.is_empty():
-			response.append(command.error_response)
-			response = response.filter(func(r): return not r.is_empty())
-			history.add_response(display_input, "\n".join(response))
+			history.add_response(display_input, command.error_response)
 			break
 
-		var request_chain = [
-			command.check_holding,
-			player.action,
-			player.get_room().on_begin_command,
-			command.preaction
-		]
-
-		request_chain.append_array(command.indirect_objects.map(func(i): return i.action))
-		if command.verb != Vocabulary.Verbs.WALK:
-			# container.action
-			request_chain.append_array(command.direct_objects.map(func(d): return d.action))
-
-		request_chain.append(command.action)
-
-		var action_response := ""
-		for action in request_chain:
-			action_response = action.call(command, player)
-			if not action_response.is_empty():
-				response.append(action_response)
-				break
-
-		response = response.filter(func(r): return not r.is_empty())
-		response = "\n".join(response)
-		history.add_response(display_input, response)
-		response = player.get_room().on_end_command(command, player)
-		history.add_response(display_input, response)
+		var object_commands = command.split_object_commands()
+		for obj_command in object_commands:
+			var response = _execute_command(obj_command)
+			history.add_response(display_input, response)
 
 		display_input = ""
+
+func _execute_command(command: Command):
+	var response = []
+	var taken_response = command.try_take(player)
+	if taken_response == "(Taken)":
+		response.append(taken_response)
+
+	var request_chain = command.get_request_chain(player)
+
+	var action_response := ""
+	for action in request_chain:
+		action_response = action.call(command, player)
+		if not action_response.is_empty():
+			response.append(action_response)
+			break
+
+	response.append(player.get_room().on_end_command(command, player))
+	response = response.filter(func(r): return not r.is_empty())
+	response[0] = "%s%s" % [command.prefix, response[0]]
+	return "\n".join(response)
 
 func _on_Player_room_changed(room: Room):
 	header.set_room_name(room.title)

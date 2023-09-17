@@ -1,6 +1,9 @@
 extends Node
 class_name Player
 
+const LOAD_ALLOWED = 100
+const LOAD_MAX = 100
+
 signal room_changed
 
 func get_room() -> Room:
@@ -16,7 +19,25 @@ func get_things(noun: String = "", adjective: String = "") -> Array:
 	return things
 
 func take(thing: Thing) -> String:
+	if not thing.parser_flags & Thing.FLAG_LIGHTWEIGHT:
+		return Vocabulary.get_random_yuk_response()
+
+	if thing is Bag and not thing.is_open():
+		# Kludge for parser calling itake
+		# TODO: return error here?
+		return ""
+
+	if not is_carrying(thing) and get_weight() + thing.weight > LOAD_ALLOWED:
+		return "Your load is too heavy%s." % ", especially in light of your condition" if LOAD_ALLOWED < LOAD_MAX else ""
+
+	thing.reparent(self)
+	thing.parser_flags |= Thing.FLAG_TOUCHED
+	thing.parser_flags &= ~Thing.FLAG_HIDE_DESCRIPTION
 	return ""
+
+func get_weight() -> int:
+	# TODO
+	return 0
 
 func is_carrying(thing: Thing) -> bool:
 	return is_ancestor_of(thing)

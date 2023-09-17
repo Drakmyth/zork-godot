@@ -36,6 +36,7 @@ var indirect_objects: Array[Thing]
 
 var and_flag := false
 var error_response := ""
+var prefix := ""
 
 static func ErrorCommand(response: String) -> Command:
 	var command = Command.new()
@@ -67,6 +68,45 @@ func populate_from(command: Command) -> Command:
 		error_response = "You can't use multiple indirect objects with \"%s\"" % verb
 
 	return self
+
+func split_object_commands() -> Array:
+	var commands = []
+	if len(direct_objects) > 1:
+		for do in direct_objects:
+			var command = Command.new().populate_from(self)
+			command.direct_objects = [do]
+			command.prefix = "%s: " % do.description
+			if len(indirect_objects) > 1:
+				command.indirect_objects = [indirect_objects[0]]
+			commands.append(command)
+		return commands
+
+	if len(indirect_objects) > 1:
+		for io in indirect_objects:
+			var command = Command.new().populate_from(self)
+			command.indirect_objects = [io]
+			command.prefix = "%s: " % io.description
+			commands.append(command)
+		return commands
+
+	return [self]
+
+func get_request_chain(player: Player) -> Array:
+	var request_chain = [
+		check_holding,
+		player.action,
+		player.get_room().on_begin_command,
+		preaction
+	]
+
+	if not indirect_objects.is_empty():
+		request_chain.append(indirect_objects[0].action)
+	if verb != Vocabulary.Verbs.WALK && not direct_objects.is_empty():
+		# container.action
+		request_chain.append(direct_objects[0].action)
+
+	request_chain.append(action)
+	return request_chain
 
 func try_take(player: Player) -> String:
 	if direct_object_execution_flags & FLAG_TAKE:

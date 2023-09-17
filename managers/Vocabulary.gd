@@ -327,6 +327,9 @@ func get_commands(verb: String) -> Array:
 func get_random_dummy_response() -> String:
 	return _dummy_responses.pick_random()
 
+func get_random_yuk_response() -> String:
+	return _yuk_responses.pick_random()
+
 func resolve(word: String) -> String:
 	return _synonym_map.get(word, word)
 
