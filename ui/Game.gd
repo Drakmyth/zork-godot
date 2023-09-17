@@ -42,11 +42,13 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 			break
 
 		var object_commands = command.split_object_commands()
+		var responses = []
 		for obj_command in object_commands:
 			var response = _execute_command(obj_command)
-			history.add_response(display_input, response)
-
+			responses.append(response)
+		history.add_response(display_input, "\n".join(responses))
 		display_input = ""
+
 
 func _execute_command(command: Command):
 	var response = []
@@ -65,7 +67,8 @@ func _execute_command(command: Command):
 
 	response.append(player.get_room().on_end_command(command, player))
 	response = response.filter(func(r): return not r.is_empty())
-	response[0] = "%s%s" % [command.prefix, response[0]]
+	if not response.is_empty():
+		response[0] = "%s%s" % [command.prefix, response[0]]
 	return "\n".join(response)
 
 func _on_Player_room_changed(room: Room):

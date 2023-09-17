@@ -73,8 +73,8 @@ func split_object_commands() -> Array:
 	var commands = []
 	if len(direct_objects) > 1:
 		for do in direct_objects:
-			var command = Command.new().populate_from(self)
-			command.direct_objects = [do]
+			var command = duplicate()
+			command.direct_objects = [do] as Array[Thing]
 			command.prefix = "%s: " % do.description
 			if len(indirect_objects) > 1:
 				command.indirect_objects = [indirect_objects[0]]
@@ -83,8 +83,8 @@ func split_object_commands() -> Array:
 
 	if len(indirect_objects) > 1:
 		for io in indirect_objects:
-			var command = Command.new().populate_from(self)
-			command.indirect_objects = [io]
+			var command = duplicate()
+			command.indirect_objects = [io] as Array[Thing]
 			command.prefix = "%s: " % io.description
 			commands.append(command)
 		return commands

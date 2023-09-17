@@ -62,6 +62,9 @@ func _floor_description_tokens() -> Array:
 	# Implemented by thing script
 	return [description] if floor_description.is_empty() else []
 
+func is_in_bag() -> bool:
+	return get_parent() is Bag
+
 func on_failed_preaction(_command: Command, _player: Player) -> String:
 	# Implemented by thing script
 	return ""
