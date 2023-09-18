@@ -16,6 +16,10 @@ func action(_command: Command, _player: Player) -> String:
 func get_things(noun: String = "", adjective: String = "") -> Array:
 	var things = get_room().get_things(noun, adjective)
 	var inventory_things = find_children("", "Thing", false)
+	if not noun.is_empty():
+		inventory_things = inventory_things.filter(func(t): return t.nouns.has(noun))
+	if not adjective.is_empty():
+		inventory_things = inventory_things.filter(func(t): return t.adjectives.has(adjective))
 	things.append_array(inventory_things)
 
 	return things

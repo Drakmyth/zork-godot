@@ -1,8 +1,20 @@
 extends Command
 
-func action(_command: Command, _player: Player) -> String:
-	return "Burning %s %s..." % [first_preposition, direct_objects[0].description]
+func action(command: Command, player: Player) -> String:
+	var obj = command.direct_objects[0]
+	if not obj.parser_flags & Thing.FLAG_KINDLING: return "You can't burn a %s." % obj.description
 
-func preaction(_command: Command, _player: Player) -> String:
-	print("Pre-Burning...")
-	return ""
+	var riding = obj.is_ancestor_of(player)
+	if riding or player.is_carrying(obj):
+		# TODO: destroy object
+		# TODO: death
+		return "The %s catches fire. Unfortunately, you were %s it at the time." % [obj.description, "in" if riding else "holding"]
+
+	return "The %s catches fire and is consumed." % obj.description
+
+func preaction(command: Command, _player: Player) -> String:
+	if command.indirect_objects.is_empty():
+		return "You didn't say with what!"
+
+	var obj = command.indirect_objects[0]
+	return "With a %s??!?" % obj.description if not obj.parser_flags & Thing.FLAG_FLAMING else ""

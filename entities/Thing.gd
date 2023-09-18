@@ -7,6 +7,8 @@ const FLAG_TOUCHED = 2
 const FLAG_HIDE_DESCRIPTION = 4
 const FLAG_LIGHT_SOURCE = 8
 const FLAG_FLAMING = 16
+const FLAG_KINDLING = 32
+const FLAG_INVISIBLE = 64
 
 const DEFAULT_FLOOR_DESC = "There is a %s here."
 const INDENT = "  "
@@ -34,8 +36,14 @@ const INDENT = "  "
 ## [br]
 ## [b]Light Source[/b]: This thing emits light.[br]
 ## [br]
-## [b]Flaming[/b]: This thing is on fire. Does not imply [code]Light Source[/code]
-@export_flags("Lightweight", "Touched", "Hide Description", "Light Source", "Flaming") var parser_flags: int
+## [b]Flaming[/b]: This thing is on fire. Does not imply [code]Light Source[/code] or
+## [code]Kindling[/code].[br]
+## [br]
+## [b]Kindling[/b]: This thing can be burned.[br]
+## [br]
+## [b]Invisible[/b]: This object, for all intents and purposes, doesn't exist. Useful for making things
+## appear "via magic" or to make things non-interactable when hidden by other things.
+@export_flags("Lightweight", "Touched", "Hide Description", "Light Source", "Flaming", "Kindling", "Invisible") var parser_flags: int
 @export_range(0, 0, 1, "or_greater") var weight: int
 @export var nouns: Array[String] = []
 @export var adjectives: Array[String] = []
