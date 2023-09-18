@@ -25,3 +25,6 @@ func get_things(noun: String = "", adjective: String = "") -> Array:
 	if not adjective.is_empty():
 		things = things.filter(func(t): return t.adjectives.has(adjective))
 	return things
+
+func contains_thing_by_name(thing_name: String) -> bool:
+	return find_child(thing_name) != null

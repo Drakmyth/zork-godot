@@ -14,25 +14,22 @@ func action(command: Command, player: Player) -> String:
 
 func _handle_bag(bag: Bag, _command: Command, _player: Player) -> String:
 	if bag.capacity <= 0: return DEFAULT_RESPONSE % bag.description
+	if bag.is_open(): return "It is already open."
 
-	if bag.is_open():
-		return "It is already open."
+	bag.open = true
+	bag.parser_flags |= Thing.FLAG_TOUCHED
+
+	var contents = bag.get_things()
+	if contents.is_empty() or bag.behavior_flags & Bag.FLAG_TRANSPARENT:
+		return "Opened."
+	elif len(contents) == 1 and not contents[0].parser_flags & Thing.FLAG_TOUCHED:
+		return "The %s opens.\n%s" % [bag.description, contents[0].first_description]
 	else:
-		bag.open = true
-		bag.parser_flags |= Thing.FLAG_TOUCHED
-
-		var contents = bag.get_things()
-		if contents.is_empty() or bag.behavior_flags & Bag.FLAG_TRANSPARENT:
-			return "Opened."
-		elif len(contents) == 1 and not contents[0].parser_flags & Thing.FLAG_TOUCHED:
-			return "The %s opens.\n%s" % [bag.description, contents[0].first_description]
-		else:
-			# TODO: List contents
-			return "Opening the %s reveals." % bag.description
+		# TODO: List contents
+		return "Opening the %s reveals." % bag.description
 
 func _handle_door(door: Door, _command: Command, _player: Player) -> String:
-	if door.is_open():
-		return "It is already open."
-	else:
-		door.open = true
-		return "The %s opens." % door.description
+	if door.is_open(): return "It is already open."
+
+	door.open = true
+	return "The %s opens." % door.description

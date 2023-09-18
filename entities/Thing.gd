@@ -74,7 +74,10 @@ static func describe_things(things: Array, indent_level: int = 1) -> String:
 		var article = Vocabulary.get_article(thing.description).capitalize()
 		responses.append("%s%s %s" % [indent, article, thing.description])
 		if thing is Bag and (thing.is_open() or thing.behavior_flags & Bag.FLAG_TRANSPARENT):
-			responses.append("%sThe %s contains:" % [indent, thing.description])
+			if thing.behavior_flags & Bag.FLAG_SURFACE:
+				responses.append("%sSitting on the %s is:" % [indent, thing.description])
+			else:
+				responses.append("%sThe %s contains:" % [indent, thing.description])
 			var contents = describe_things(thing.get_things(), indent_level + 1)
 			responses.append(contents)
 

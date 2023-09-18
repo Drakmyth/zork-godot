@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cqgple0nvjstt"]
+[gd_scene load_steps=57 format=3 uid="uid://cqgple0nvjstt"]
 
 [ext_resource type="PackedScene" uid="uid://dv4bbp626njre" path="res://ui/Header.tscn" id="1_ciir3"]
 [ext_resource type="Script" path="res://managers/CommandParser.gd" id="1_f4dba"]
@@ -17,9 +17,18 @@
 [ext_resource type="Script" path="res://resources/StandardExit.gd" id="6_yfin1"]
 [ext_resource type="Script" path="res://entities/Bag.gd" id="8_dgj43"]
 [ext_resource type="Script" path="res://resources/DoorExit.gd" id="10_n1bda"]
+[ext_resource type="Script" path="res://object_scripts/Mailbox.gd" id="10_pu3vp"]
 [ext_resource type="Script" path="res://room_scripts/kitchen.gd" id="11_ytplj"]
 [ext_resource type="Script" path="res://object_scripts/Board.gd" id="12_5du6e"]
+[ext_resource type="Script" path="res://object_scripts/FrontDoor.gd" id="14_5wcjq"]
+[ext_resource type="Script" path="res://object_scripts/BoardedWindow.gd" id="14_e4mdf"]
 [ext_resource type="Script" path="res://room_scripts/living-room.gd" id="14_ghroo"]
+[ext_resource type="Script" path="res://object_scripts/Rug.gd" id="19_44ob7"]
+[ext_resource type="Script" path="res://object_scripts/TrophyCase.gd" id="20_cps6l"]
+[ext_resource type="Script" path="res://object_scripts/Chimney.gd" id="20_ygl32"]
+[ext_resource type="Script" path="res://entities/Door.gd" id="21_hgg5y"]
+[ext_resource type="Script" path="res://entities/Stairs.gd" id="21_w3t7k"]
+[ext_resource type="Script" path="res://object_scripts/SandwichBag.gd" id="22_3ybyl"]
 
 [sub_resource type="Resource" id="Resource_nesmq"]
 script = ExtResource("6_yfin1")
@@ -152,46 +161,52 @@ script = ExtResource("1_f4dba")
 [node name="GlobalObjects" type="Node" parent="."]
 script = ExtResource("3_auqbi")
 
-[node name="LocalObjects" type="Node" parent="."]
-
-[node name="kitchen-window" type="Node" parent="LocalObjects"]
-script = ExtResource("4_bmbhw")
-description = "kitchen window"
-parser_flags = 4
-nouns = Array[String](["window"])
-adjectives = Array[String](["kitchen", "small"])
-
-[node name="white-house" type="Node" parent="LocalObjects"]
-script = ExtResource("5_u2got")
-description = "white house"
-parser_flags = 4
-nouns = Array[String](["house"])
-adjectives = Array[String](["white", "beautiful", "colonial"])
-
-[node name="forest" type="Node" parent="LocalObjects"]
-script = ExtResource("6_881nj")
-description = "forest"
-parser_flags = 4
-nouns = Array[String](["forest", "trees", "pines", "hemlocks"])
-
 [node name="Rooms" type="Node" parent="."]
 
 [node name="west-of-house" type="Node" parent="Rooms" groups=["Rooms-Around-House"]]
 script = ExtResource("3_i2kar")
 title = "West of House"
 description = "You are standing in an open field west of a white house, with a boarded front door."
-local_objects = Array[NodePath]([NodePath("../../LocalObjects/white-house"), NodePath("../../LocalObjects/forest")])
+flags = 2
+local_objects = Array[NodePath]([NodePath("forest")])
 exit_north = SubResource("Resource_nesmq")
 exit_east = SubResource("Resource_kb371")
 exit_south = SubResource("Resource_01dtq")
 exit_northeast = SubResource("Resource_f6w5n")
 exit_southeast = SubResource("Resource_s7grd")
 
+[node name="board" type="Node" parent="Rooms/west-of-house"]
+script = ExtResource("12_5du6e")
+description = "board"
+parser_flags = 5
+nouns = Array[String](["boards", "board"])
+
+[node name="forest" type="Node" parent="Rooms/west-of-house"]
+script = ExtResource("6_881nj")
+description = "forest"
+parser_flags = 4
+nouns = Array[String](["forest", "trees", "pines", "hemlocks"])
+
+[node name="front-door" type="Node" parent="Rooms/west-of-house"]
+script = ExtResource("14_5wcjq")
+description = "door"
+parser_flags = 4
+nouns = Array[String](["door"])
+adjectives = Array[String](["front", "boarded"])
+
 [node name="mailbox" type="Node" parent="Rooms/west-of-house"]
-script = ExtResource("8_dgj43")
-capacity = 10
+script = ExtResource("10_pu3vp")
 description = "small mailbox"
 nouns = Array[String](["mailbox", "box"])
+adjectives = Array[String](["small"])
+
+[node name="advertisement" type="Node" parent="Rooms/west-of-house/mailbox"]
+script = ExtResource("5_ot5vp")
+description = "leaflet"
+floor_description = "A small leaflet is on the ground."
+parser_flags = 1
+weight = 2
+nouns = Array[String](["advertisement", "leaflet", "booklet", "mail"])
 adjectives = Array[String](["small"])
 
 [node name="tree" type="Node" parent="Rooms/west-of-house"]
@@ -201,43 +216,22 @@ parser_flags = 4
 nouns = Array[String](["tree", "branch"])
 adjectives = Array[String](["large", "storm"])
 
-[node name="lamp" type="Node" parent="Rooms/west-of-house"]
-script = ExtResource("5_ot5vp")
-description = "brass lantern"
-first_description = "A battery-powered brass lantern is on the trophy case."
-floor_description = "There is a brass lantern (battery-powered) here."
-parser_flags = 1
-weight = 15
-nouns = Array[String](["lamp", "lantern", "light"])
-adjectives = Array[String](["brass"])
+[node name="white-house" type="Node" parent="Rooms/west-of-house"]
+script = ExtResource("5_u2got")
+description = "white house"
+parser_flags = 4
+nouns = Array[String](["house"])
+adjectives = Array[String](["white", "beautiful", "colonial"])
 
 [node name="Player" type="Node" parent="Rooms/west-of-house" groups=["Player"]]
 script = ExtResource("4_ewft8")
-
-[node name="board" type="Node" parent="Rooms/west-of-house"]
-script = ExtResource("12_5du6e")
-description = "board"
-parser_flags = 5
-nouns = Array[String](["boards", "board"])
-
-[node name="pump" type="Node" parent="Rooms/west-of-house"]
-script = ExtResource("5_ot5vp")
-description = "hand-held air pump"
-nouns = Array[String](["pump", "air-pump", "tool", "tools"])
-adjectives = Array[String](["small", "hand-held"])
-
-[node name="inflatable-boat" type="Node" parent="Rooms/west-of-house"]
-script = ExtResource("5_ot5vp")
-description = "pile of plastic"
-weight = 20
-nouns = Array[String](["boat", "pile", "plastic", "valve"])
-adjectives = Array[String](["plastic", "inflatable"])
 
 [node name="north-of-house" type="Node" parent="Rooms" groups=["Rooms-Around-House"]]
 script = ExtResource("3_i2kar")
 title = "North of House"
 description = "You are facing the north side of a white house. There is no door here, and all the windows are boarded up. To the north a narrow path winds through the trees."
-local_objects = Array[NodePath]([NodePath("../../LocalObjects/white-house"), NodePath("../../LocalObjects/forest")])
+flags = 2
+local_objects = Array[NodePath]([NodePath("../west-of-house/white-house"), NodePath("../west-of-house/forest")])
 exit_north = SubResource("Resource_cr07c")
 exit_east = SubResource("Resource_g6gbc")
 exit_west = SubResource("Resource_pl04h")
@@ -250,17 +244,32 @@ description = "board"
 parser_flags = 4
 nouns = Array[String](["boards", "board"])
 
+[node name="boarded-window" type="Node" parent="Rooms/north-of-house"]
+script = ExtResource("14_e4mdf")
+description = "boarded window"
+parser_flags = 4
+nouns = Array[String](["window"])
+adjectives = Array[String](["boarded"])
+
 [node name="east-of-house" type="Node" parent="Rooms" groups=["Rooms-Around-House"]]
 script = ExtResource("5_f26kq")
 title = "Behind House"
 description = "You are behind the white house. A path leads into the forest to the east. In one corner of the house there is a small window which is %s."
-local_objects = Array[NodePath]([NodePath("../../LocalObjects/kitchen-window"), NodePath("../../LocalObjects/white-house"), NodePath("../../LocalObjects/forest")])
+flags = 2
+local_objects = Array[NodePath]([NodePath("kitchen-window"), NodePath("../west-of-house/white-house"), NodePath("../west-of-house/forest")])
 exit_north = SubResource("Resource_xylte")
 exit_south = SubResource("Resource_gqx0w")
 exit_west = SubResource("Resource_va0yn")
 exit_northwest = SubResource("Resource_d5y7f")
 exit_southwest = SubResource("Resource_q1484")
 exit_in = SubResource("Resource_51q8f")
+
+[node name="kitchen-window" type="Node" parent="Rooms/east-of-house"]
+script = ExtResource("4_bmbhw")
+description = "kitchen window"
+parser_flags = 4
+nouns = Array[String](["window"])
+adjectives = Array[String](["kitchen", "small"])
 
 [node name="board" type="Node" parent="Rooms/east-of-house"]
 script = ExtResource("12_5du6e")
@@ -272,7 +281,8 @@ nouns = Array[String](["boards", "board"])
 script = ExtResource("3_i2kar")
 title = "South of House"
 description = "You are facing the south side of a white house. There is no door here, and all the windows are boarded."
-local_objects = Array[NodePath]([NodePath("../../LocalObjects/white-house"), NodePath("../../LocalObjects/forest")])
+flags = 2
+local_objects = Array[NodePath]([NodePath("../west-of-house/white-house"), NodePath("../west-of-house/forest")])
 exit_north = SubResource("Resource_yv8vk")
 exit_east = SubResource("Resource_rev8c")
 exit_west = SubResource("Resource_8jpq7")
@@ -285,27 +295,194 @@ description = "board"
 parser_flags = 4
 nouns = Array[String](["boards", "board"])
 
+[node name="boarded-window" type="Node" parent="Rooms/south-of-house"]
+script = ExtResource("14_e4mdf")
+description = "boarded window"
+parser_flags = 4
+nouns = Array[String](["window"])
+adjectives = Array[String](["boarded"])
+
 [node name="living-room" type="Node" parent="Rooms"]
 script = ExtResource("14_ghroo")
+rug = NodePath("rug")
+trap_door = NodePath("trap-door")
 title = "Living Room"
 description = "You are in the living room. There is a doorway to the east%s, a trophy case, and %s."
+flags = 2
 exit_east = SubResource("Resource_x7cgp")
+
+[node name="lamp" type="Node" parent="Rooms/living-room"]
+script = ExtResource("5_ot5vp")
+description = "brass lantern"
+first_description = "A battery-powered brass lantern is on the trophy case."
+floor_description = "There is a brass lantern (battery-powered) here."
+parser_flags = 1
+weight = 15
+nouns = Array[String](["lamp", "lantern", "light"])
+adjectives = Array[String](["brass"])
+
+[node name="rug" type="Node" parent="Rooms/living-room"]
+script = ExtResource("19_44ob7")
+trap_door = NodePath("../trap-door")
+description = "carpet"
+parser_flags = 4
+nouns = Array[String](["rug", "carpet"])
+adjectives = Array[String](["large", "oriental"])
+
+[node name="stairs" type="Node" parent="Rooms/living-room"]
+script = ExtResource("21_w3t7k")
+description = "stairs"
+parser_flags = 4
+nouns = Array[String](["stairs", "steps", "staircase", "stairway"])
+adjectives = Array[String](["stone", "dark", "marble", "forbidding", "steep"])
+
+[node name="sword" type="Node" parent="Rooms/living-room"]
+script = ExtResource("5_ot5vp")
+description = "sword"
+first_description = "Above the trophy case hangs an elvish sword of great antiquity."
+parser_flags = 1
+weight = 30
+nouns = Array[String](["sword", "orcrist", "glamdring", "blade"])
+adjectives = Array[String](["elvish", "old", "antique"])
+
+[node name="trap-door" type="Node" parent="Rooms/living-room"]
+script = ExtResource("21_hgg5y")
+description = "trap door"
+parser_flags = 4
+nouns = Array[String](["door", "trapdoor", "trap-door", "cover"])
+adjectives = Array[String](["trap", "dusty"])
+
+[node name="trophy-case" type="Node" parent="Rooms/living-room"]
+script = ExtResource("20_cps6l")
+description = "trophy case"
+parser_flags = 4
+nouns = Array[String](["case"])
+adjectives = Array[String](["trophy"])
+
+[node name="wooden-door" type="Node" parent="Rooms/living-room"]
+script = ExtResource("14_5wcjq")
+description = "wooden door"
+parser_flags = 4
+nouns = Array[String](["door", "lettering", "writing"])
+adjectives = Array[String](["wooden", "gothic", "strange", "west"])
 
 [node name="kitchen" type="Node" parent="Rooms"]
 script = ExtResource("11_ytplj")
 title = "Kitchen"
 description = "You are in the kitchen of the white house. A table seems to have been used recently for the preparation of food. A passage leads to the west and a dark staircase can be seen leading upward. A dark chimney leads down and to the east is a small window which is %s."
-local_objects = Array[NodePath]([NodePath("../../LocalObjects/kitchen-window")])
+flags = 2
+local_objects = Array[NodePath]([NodePath("../east-of-house/kitchen-window")])
 exit_east = SubResource("Resource_r0pn6")
 exit_west = SubResource("Resource_8dral")
 exit_out = SubResource("Resource_b7cpq")
 exit_up = SubResource("Resource_io8lv")
+
+[node name="chimney" type="Node" parent="Rooms/kitchen"]
+script = ExtResource("20_ygl32")
+description = "chimney"
+parser_flags = 4
+nouns = Array[String](["chimney"])
+adjectives = Array[String](["dark", "narrow"])
+
+[node name="kitchen-table" type="Node" parent="Rooms/kitchen"]
+script = ExtResource("8_dgj43")
+open = true
+behavior_flags = 1
+description = "kitchen table"
+parser_flags = 4
+nouns = Array[String](["table"])
+adjectives = Array[String](["kitchen"])
+
+[node name="bottle" type="Node" parent="Rooms/kitchen/kitchen-table"]
+script = ExtResource("8_dgj43")
+capacity = 4
+behavior_flags = 2
+description = "glass bottle"
+first_description = "A bottle is sitting on the table."
+parser_flags = 1
+nouns = Array[String](["bottle", "container"])
+adjectives = Array[String](["clear", "glass"])
+
+[node name="water" type="Node" parent="Rooms/kitchen/kitchen-table/bottle"]
+script = ExtResource("5_ot5vp")
+description = "quantity of water"
+parser_flags = 1
+weight = 4
+nouns = Array[String](["water", "quantity", "liquid", "h2o"])
+
+[node name="sandwich-bag" type="Node" parent="Rooms/kitchen/kitchen-table"]
+script = ExtResource("22_3ybyl")
+open = null
+capacity = null
+behavior_flags = null
+description = "brown sack"
+first_description = "On the table is an elongated brown sack, smelling of hot peppers."
+parser_flags = 1
+weight = 9
+nouns = Array[String](["bag", "sack"])
+adjectives = Array[String](["brown", "elongated", "smelly"])
+
+[node name="lunch" type="Node" parent="Rooms/kitchen/kitchen-table/sandwich-bag"]
+script = ExtResource("5_ot5vp")
+description = "lunch"
+floor_description = "A hot pepper sandwich is here."
+parser_flags = 1
+nouns = Array[String](["food", "sandwich", "lunch", "dinner"])
+adjectives = Array[String](["hot", "pepper"])
+
+[node name="garlic" type="Node" parent="Rooms/kitchen/kitchen-table/sandwich-bag"]
+script = ExtResource("5_ot5vp")
+description = "clove of garlic"
+parser_flags = 1
+weight = 4
+nouns = Array[String](["garlic", "clove"])
+
+[node name="stairs" type="Node" parent="Rooms/kitchen"]
+script = ExtResource("21_w3t7k")
+leads_up = true
+description = "stairs"
+parser_flags = 4
+nouns = Array[String](["stairs", "steps", "staircase", "stairway"])
+adjectives = Array[String](["stone", "dark", "marble", "forbidding", "steep"])
 
 [node name="attic" type="Node" parent="Rooms"]
 script = ExtResource("3_i2kar")
 title = "Attic"
 description = "This is the attic. The only exit is a stairway leading down."
 exit_down = SubResource("Resource_5cwd6")
+
+[node name="attic-table" type="Node" parent="Rooms/attic"]
+script = ExtResource("8_dgj43")
+open = true
+capacity = 40
+behavior_flags = 1
+description = "table"
+parser_flags = 4
+nouns = Array[String](["table"])
+
+[node name="knife" type="Node" parent="Rooms/attic/attic-table"]
+script = ExtResource("5_ot5vp")
+description = "nasty knife"
+first_description = "On a table is a nasty-looking knife."
+parser_flags = 1
+nouns = Array[String](["knives", "knife", "blade"])
+adjectives = Array[String](["nasty", "unrusty"])
+
+[node name="rope" type="Node" parent="Rooms/attic"]
+script = ExtResource("5_ot5vp")
+description = "rope"
+first_description = "A large coil of rope is lying in the corner."
+parser_flags = 1
+weight = 10
+nouns = Array[String](["rope", "hemp", "coil"])
+adjectives = Array[String](["large"])
+
+[node name="stairs" type="Node" parent="Rooms/attic"]
+script = ExtResource("21_w3t7k")
+description = "stairs"
+parser_flags = 4
+nouns = Array[String](["stairs", "steps", "staircase", "stairway"])
+adjectives = Array[String](["stone", "dark", "marble", "forbidding", "steep"])
 
 [node name="Background" type="PanelContainer" parent="."]
 layout_mode = 1

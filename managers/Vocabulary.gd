@@ -200,7 +200,7 @@ class Groups:
 	const GLOBAL_OBJECTS = "GlobalObjects"
 	const OBJECTS = "Objects"
 	const PLAYER = "Player"
-	const ROOMS_AROUND_HOUSE = "Rooms_Around_House"
+	const ROOMS_AROUND_HOUSE = "Rooms-Around-House"
 
 const _syntax_synonyms := {
 		"and": [","],
