@@ -69,7 +69,9 @@ func is_carrying(thing: Thing) -> bool:
 func move_to(room: Room) -> String:
 	reparent(room)
 	room_changed.emit(room)
-	return room.describe()
+	var room_description = room.describe()
+	room.flags |= Room.FLAG_VISITED
+	return room_description
 
 func move_to_next_room_in_group(group_name: String) -> String:
 	var rooms = get_tree().get_nodes_in_group(group_name)

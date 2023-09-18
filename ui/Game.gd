@@ -23,6 +23,7 @@ func _ready() -> void:
 
 	history.add_response(HIDE_PROMPT, BEGIN_TEXT)
 	history.add_response(HIDE_PROMPT, player.get_room().describe())
+	player.get_room().flags |= Room.FLAG_VISITED
 
 func _on_Prompt_command_submitted(new_text: String) -> void:
 	# No input, no command

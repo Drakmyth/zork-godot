@@ -1,8 +1,12 @@
 extends Node
 class_name Room
 
+const FLAG_VISITED = 1
+const FLAG_LIT = 2
+
 @export var title: String
 @export_multiline var description: String
+@export_flags("Visited", "Lit") var flags: int
 @export var local_objects: Array[NodePath]
 
 @export_group("Exits", "exit_")
@@ -21,11 +25,19 @@ class_name Room
 @export var exit_land: Exit
 
 func describe() -> String:
-	var descriptions = [title, description % describe_tokens()]
+	var descriptions = [title]
+	if not flags & FLAG_VISITED:
+		descriptions.append(describe_room())
+	descriptions.append(describe_contents())
+	return "\n".join(descriptions)
+
+func describe_room() -> String:
+	return description % describe_tokens()
+
+func describe_contents() -> String:
 	var thing_descriptions = get_things().map(func(thing): return thing.describe()).filter(func(desc): return not desc.is_empty())
 	thing_descriptions.sort()
-	descriptions.append_array(thing_descriptions)
-	return "\n".join(descriptions)
+	return "\n".join(thing_descriptions)
 
 func describe_tokens() -> Array:
 	# Implemented by room script
