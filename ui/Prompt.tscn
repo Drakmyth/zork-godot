@@ -14,10 +14,10 @@ script = ExtResource("1_1knig")
 
 [node name="Layout" type="HBoxContainer" parent="."]
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Margin" type="MarginContainer" parent="Layout"]
 layout_mode = 2
-theme_override_constants/margin_right = 4
 
 [node name="PromptLabel" type="Label" parent="Layout/Margin"]
 layout_mode = 2
