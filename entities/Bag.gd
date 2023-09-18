@@ -28,3 +28,10 @@ func get_things(noun: String = "", adjective: String = "") -> Array:
 
 func contains_thing_by_name(thing_name: String) -> bool:
 	return find_child(thing_name) != null
+
+func list_contents() -> String:
+	var contents = get_things()
+	var descriptions = contents.map(func (c): return "a %s" % c.description)
+	if len(contents) > 1:
+		descriptions[-1] = "and %s" % descriptions[-1]
+	return ", ".join(descriptions)

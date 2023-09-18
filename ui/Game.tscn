@@ -193,19 +193,19 @@ parser_flags = 4
 nouns = Array[String](["door"])
 adjectives = Array[String](["front", "boarded"])
 
-[node name="advertisement" type="Node" parent="Rooms/west-of-house"]
+[node name="mailbox" type="Node" parent="Rooms/west-of-house"]
+script = ExtResource("10_pu3vp")
+description = "small mailbox"
+nouns = Array[String](["mailbox", "box"])
+adjectives = Array[String](["small"])
+
+[node name="advertisement" type="Node" parent="Rooms/west-of-house/mailbox"]
 script = ExtResource("5_ot5vp")
 description = "leaflet"
 floor_description = "A small leaflet is on the ground."
 parser_flags = 33
 weight = 2
 nouns = Array[String](["advertisement", "leaflet", "booklet", "mail"])
-adjectives = Array[String](["small"])
-
-[node name="mailbox" type="Node" parent="Rooms/west-of-house"]
-script = ExtResource("10_pu3vp")
-description = "small mailbox"
-nouns = Array[String](["mailbox", "box"])
 adjectives = Array[String](["small"])
 
 [node name="tree" type="Node" parent="Rooms/west-of-house"]
