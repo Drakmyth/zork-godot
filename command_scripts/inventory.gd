@@ -1,4 +1,4 @@
 extends Command
 
-func action(_command: Command, _player: Player) -> String:
-	return "You are empty-handed."
+func action(_command: Command, player: Player) -> String:
+	return player.describe_inventory()

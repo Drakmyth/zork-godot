@@ -20,6 +20,18 @@ func get_things(noun: String = "", adjective: String = "") -> Array:
 
 	return things
 
+func describe_inventory() -> String:
+	var things = find_children("", "Thing", false)
+
+	if things.is_empty():
+		return "You are empty-handed."
+
+	var responses = ["You are carrying:"]
+	var things_description = Thing.describe_things(things)
+	responses.append(things_description)
+
+	return "\n".join(responses)
+
 func take(thing: Thing) -> String:
 	if not thing.parser_flags & Thing.FLAG_LIGHTWEIGHT:
 		return Vocabulary.get_random_yuk_response()

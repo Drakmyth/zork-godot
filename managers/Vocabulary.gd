@@ -286,6 +286,7 @@ const _syntax_synonyms := {
 const _dummy_responses := [ "Look around.", "Too late for that.", "Have your eyes checked." ]
 const _yuk_responses := [ "A valiant attempt.", "You can't be serious.", "An interesting idea...", "What a concept!" ]
 const _hello_responses := [ "Hello.", "Good day.", "Nice weather we've been having lately.", "Goodbye." ]
+const _vowels := [ "a", "e", "i", "o", "u" ]
 
 var _synonym_map := {}
 var _commands := {}
@@ -311,6 +312,9 @@ func _init() -> void:
 
 	for verb in _commands:
 		_commands[verb].sort_custom(sort_commands)
+
+func get_article(word: String) -> String:
+	return Buzzwords.AN if _vowels.has(word.left(1)) else Buzzwords.A
 
 func sort_commands(a: Command, b:Command) -> bool:
 	if a.verb == b.verb:

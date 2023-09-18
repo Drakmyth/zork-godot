@@ -9,6 +9,7 @@ const FLAG_LIGHT_SOURCE = 8
 const FLAG_FLAMING = 16
 
 const DEFAULT_FLOOR_DESC = "There is a %s here."
+const INDENT = "  "
 
 ## Short description of this thing. Primarily used when showing the player's inventory.
 @export var description: String
@@ -64,6 +65,20 @@ func _floor_description_tokens() -> Array:
 
 func is_in_bag() -> bool:
 	return get_parent() is Bag
+
+static func describe_things(things: Array, indent_level: int = 1) -> String:
+	var indent = INDENT.repeat(indent_level)
+
+	var responses = []
+	for thing in things:
+		var article = Vocabulary.get_article(thing.description).capitalize()
+		responses.append("%s%s %s" % [indent, article, thing.description])
+		if thing is Bag and (thing.is_open() or thing.behavior_flags & Bag.FLAG_TRANSPARENT):
+			responses.append("%sThe %s contains:" % [indent, thing.description])
+			var contents = describe_things(thing.get_things(), indent_level + 1)
+			responses.append(contents)
+
+	return "\n".join(responses)
 
 func on_failed_preaction(_command: Command, _player: Player) -> String:
 	# Implemented by thing script
