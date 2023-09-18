@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bxl6j367f8gao"]
+
+[ext_resource type="Script" path="res://command_scripts/look.gd" id="1_b0keu"]
+
+[resource]
+script = ExtResource("1_b0keu")
+verb = "look"
+first_preposition = ""
+max_direct_objects = 0
+direct_object_execution_flags = 0
+second_preposition = ""
+max_indirect_objects = 0
+indirect_object_execution_flags = 0
