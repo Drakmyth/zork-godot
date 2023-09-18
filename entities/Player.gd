@@ -15,7 +15,9 @@ func action(_command: Command, _player: Player) -> String:
 
 func get_things(noun: String = "", adjective: String = "") -> Array:
 	var things = get_room().get_things(noun, adjective)
-	# TODO: also look in inventory
+	var inventory_things = find_children("", "Thing", false)
+	things.append_array(inventory_things)
+
 	return things
 
 func take(thing: Thing) -> String:
@@ -31,8 +33,18 @@ func take(thing: Thing) -> String:
 		return "Your load is too heavy%s." % ", especially in light of your condition" if LOAD_ALLOWED < LOAD_MAX else ""
 
 	thing.reparent(self)
+	thing.owner = self
 	thing.parser_flags |= Thing.FLAG_TOUCHED
 	thing.parser_flags &= ~Thing.FLAG_HIDE_DESCRIPTION
+	return ""
+
+func drop(thing: Thing) -> String:
+	if not is_ancestor_of(thing):
+		return "You're not carrying the %s." % thing.description
+
+	var room = get_room()
+	thing.reparent(room)
+	thing.owner = room
 	return ""
 
 func get_weight() -> int:
