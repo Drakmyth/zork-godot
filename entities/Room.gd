@@ -24,13 +24,13 @@ const FLAG_LIT = 2
 @export var exit_down: Exit
 @export var exit_land: Exit
 
-func describe() -> String:
+func describe(force: bool = false) -> String:
 	var descriptions = []
 	if not is_lit():
 		return "It is pitch black. You are likely to be eaten by a grue."
 
 	descriptions.append(title)
-	if not is_visited():
+	if not is_visited() or force:
 		descriptions.append(description % _describe_tokens())
 	descriptions.append(_describe_contents())
 	return "\n".join(descriptions)
