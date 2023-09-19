@@ -51,17 +51,20 @@ const INDENT = "  "
 func _ready() -> void:
 	add_to_group(Vocabulary.Groups.OBJECTS)
 
-func describe() -> String:
-	if parser_flags & FLAG_HIDE_DESCRIPTION:
+func describe(indent_level: int = 0) -> String:
+	if is_hiding_description():
 		return ""
 
-	if parser_flags & FLAG_TOUCHED or first_description.is_empty():
-		if floor_description.is_empty():
-			return DEFAULT_FLOOR_DESC % _floor_description_tokens()
-		else:
-			return floor_description % _floor_description_tokens()
+	if not is_touched() and not first_description.is_empty():
+		return indent(indent_level, first_description % _first_description_tokens())
 
-	return first_description % _first_description_tokens()
+	if not floor_description.is_empty():
+		return indent(indent_level, floor_description % _floor_description_tokens())
+
+	return indent(indent_level, DEFAULT_FLOOR_DESC % _floor_description_tokens())
+
+func indent(indent_level: int, message: String) -> String:
+	return message.indent(INDENT.repeat(indent_level))
 
 func _first_description_tokens() -> Array:
 	# Implemented by thing script
@@ -71,25 +74,14 @@ func _floor_description_tokens() -> Array:
 	# Implemented by thing script
 	return [description] if floor_description.is_empty() else []
 
+func is_hiding_description() -> bool:
+	return parser_flags & FLAG_HIDE_DESCRIPTION
+
+func is_touched() -> bool:
+	return parser_flags & FLAG_TOUCHED
+
 func is_in_bag() -> bool:
 	return get_parent() is Bag
-
-static func describe_things(things: Array, indent_level: int = 1) -> String:
-	var indent = INDENT.repeat(indent_level)
-
-	var responses = []
-	for thing in things:
-		var article = Vocabulary.get_article(thing.description).capitalize()
-		responses.append("%s%s %s" % [indent, article, thing.description])
-		if thing is Bag and (thing.is_open() or thing.behavior_flags & Bag.FLAG_TRANSPARENT):
-			if thing.behavior_flags & Bag.FLAG_SURFACE:
-				responses.append("%sSitting on the %s is:" % [indent, thing.description])
-			else:
-				responses.append("%sThe %s contains:" % [indent, thing.description])
-			var contents = describe_things(thing.find_things("", "", false), indent_level + 1)
-			responses.append(contents)
-
-	return "\n".join(responses)
 
 func on_failed_preaction(_command: Command, _player: Player) -> String:
 	# Implemented by thing script

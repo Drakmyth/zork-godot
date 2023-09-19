@@ -25,22 +25,23 @@ const FLAG_LIT = 2
 @export var exit_land: Exit
 
 func describe() -> String:
-	var descriptions = [title]
-	if not flags & FLAG_VISITED:
-		descriptions.append(describe_room())
-	descriptions.append(describe_contents())
+	var descriptions = []
+	if not is_lit():
+		return "It is pitch black. You are likely to be eaten by a grue."
+
+	descriptions.append(title)
+	if not is_visited():
+		descriptions.append(description % _describe_tokens())
+	descriptions.append(_describe_contents())
 	return "\n".join(descriptions)
 
-func describe_room() -> String:
-	return description % describe_tokens()
-
-func describe_contents() -> String:
+func _describe_contents() -> String:
 	var things = find_things("", "", false)
 	var thing_descriptions = things.map(func(t): return t.describe()).filter(func(desc): return not desc.is_empty())
 	thing_descriptions.sort()
 	return "\n".join(thing_descriptions)
 
-func describe_tokens() -> Array:
+func _describe_tokens() -> Array:
 	# Implemented by room script
 	return []
 
@@ -55,6 +56,12 @@ func on_begin_command(_command: Command, _player: Player) -> String:
 func on_end_command(_command: Command, _player: Player) -> String:
 	# Implemented by room script
 	return ""
+
+func is_lit():
+	return flags & FLAG_LIT
+
+func is_visited():
+	return flags & FLAG_VISITED
 
 func get_local_object(object_name: String) -> Thing:
 	for object_path in local_objects:

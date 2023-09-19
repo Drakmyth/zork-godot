@@ -4,7 +4,7 @@ extends Room
 @export_node_path("Thing") var rug: NodePath
 @export_node_path("Door") var trap_door: NodePath
 
-func describe_tokens() -> Array:
+func _describe_tokens() -> Array:
 	var rug_obj = get_node(rug) as Thing
 	var td_obj = get_node(trap_door) as Door
 
