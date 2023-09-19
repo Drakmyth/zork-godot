@@ -1,6 +1,8 @@
 extends Node
 class_name GameObject
 
+const INDENT = "  "
+
 func find_things(noun: String = "", adjective: String = "", recursive: bool = true) -> Array:
 	var things = get_children().filter(func(c): return c is Thing and not c.parser_flags & Thing.FLAG_INVISIBLE)
 	
@@ -20,3 +22,6 @@ func find_things(noun: String = "", adjective: String = "", recursive: bool = tr
 
 func _sort_things(a: Thing, b:Thing) -> bool:
 	return b.description.nocasecmp_to(a.description) > -1
+
+func indent(indent_level: int, message: String) -> String:
+	return message.indent(INDENT.repeat(indent_level))

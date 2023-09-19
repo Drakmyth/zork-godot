@@ -14,25 +14,26 @@ func action(_command: Command, _player: Player) -> String:
 	return ""
 
 func describe_inventory() -> String:
-	var things = find_children("", "Thing", false)
+	var things = find_things("", "", false)
 
 	if things.is_empty():
 		return "You are empty-handed."
 
 	var responses = ["You are carrying:"]
-	var things_description = Thing.describe_things(things)
-	responses.append(things_description)
+	const indent_level = 1
+	for thing in things:
+		if thing is Bag:
+			responses.append(thing.describe(indent_level))
+			continue
+
+		var article = Vocabulary.get_article(thing.description).capitalize()
+		responses.append(indent(indent_level, "%s %s" % [article, thing.description]))
 
 	return "\n".join(responses)
 
 func take(thing: Thing) -> String:
 	if not thing.parser_flags & Thing.FLAG_LIGHTWEIGHT:
 		return Vocabulary.get_random_yuk_response()
-
-	if thing is Bag and not thing.is_open():
-		# Kludge for parser calling itake
-		# TODO: return error here?
-		return ""
 
 	if not is_carrying(thing) and get_weight() + thing.weight > LOAD_ALLOWED:
 		return "Your load is too heavy%s." % ", especially in light of your condition" if LOAD_ALLOWED < LOAD_MAX else ""

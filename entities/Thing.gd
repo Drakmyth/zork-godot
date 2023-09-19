@@ -11,7 +11,6 @@ const FLAG_KINDLING = 32
 const FLAG_INVISIBLE = 64
 
 const DEFAULT_FLOOR_DESC = "There is a %s here."
-const INDENT = "  "
 
 ## Short description of this thing. Primarily used when showing the player's inventory.
 @export var description: String
@@ -62,9 +61,6 @@ func describe(indent_level: int = 0) -> String:
 		return indent(indent_level, floor_description % _floor_description_tokens())
 
 	return indent(indent_level, DEFAULT_FLOOR_DESC % _floor_description_tokens())
-
-func indent(indent_level: int, message: String) -> String:
-	return message.indent(INDENT.repeat(indent_level))
 
 func _first_description_tokens() -> Array:
 	# Implemented by thing script
