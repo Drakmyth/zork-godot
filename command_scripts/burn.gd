@@ -5,8 +5,8 @@ func action(command: Command, player: Player) -> String:
 	if not obj.parser_flags & Thing.FLAG_KINDLING: return "You can't burn a %s." % obj.description
 
 	var riding = obj.is_ancestor_of(player)
+	obj.queue_free()
 	if riding or player.is_carrying(obj):
-		# TODO: destroy object
 		# TODO: death
 		return "The %s catches fire. Unfortunately, you were %s it at the time." % [obj.description, "in" if riding else "holding"]
 
