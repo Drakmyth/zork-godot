@@ -450,6 +450,15 @@ title = "Attic"
 description = "This is the attic. The only exit is a stairway leading down."
 exit_down = SubResource("Resource_5cwd6")
 
+[node name="rope" type="Node" parent="Rooms/attic"]
+script = ExtResource("5_ot5vp")
+description = "rope"
+first_description = "A large coil of rope is lying in the corner."
+parser_flags = 1
+weight = 10
+nouns = Array[String](["rope", "hemp", "coil"])
+adjectives = Array[String](["large"])
+
 [node name="attic-table" type="Node" parent="Rooms/attic"]
 script = ExtResource("8_dgj43")
 open = true
@@ -466,15 +475,6 @@ first_description = "On a table is a nasty-looking knife."
 parser_flags = 1
 nouns = Array[String](["knives", "knife", "blade"])
 adjectives = Array[String](["nasty", "unrusty"])
-
-[node name="rope" type="Node" parent="Rooms/attic"]
-script = ExtResource("5_ot5vp")
-description = "rope"
-first_description = "A large coil of rope is lying in the corner."
-parser_flags = 1
-weight = 10
-nouns = Array[String](["rope", "hemp", "coil"])
-adjectives = Array[String](["large"])
 
 [node name="stairs" type="Node" parent="Rooms/attic"]
 script = ExtResource("21_w3t7k")

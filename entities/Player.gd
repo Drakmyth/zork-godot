@@ -57,6 +57,9 @@ func get_weight() -> int:
 	# TODO
 	return 0
 
+func has_light() -> bool:
+	return find_things().any(func(t): return t.is_lit())
+
 func is_carrying(thing: Thing) -> bool:
 	return is_ancestor_of(thing)
 
@@ -64,7 +67,8 @@ func move_to(room: Room) -> String:
 	reparent(room)
 	room_changed.emit(room)
 	var room_description = room.describe()
-	room.flags |= Room.FLAG_VISITED
+	if room.is_lit():
+		room.flags |= Room.FLAG_VISITED
 	return room_description
 
 func move_to_next_room_in_group(group_name: String) -> String:

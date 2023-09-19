@@ -79,6 +79,9 @@ func is_touched() -> bool:
 func is_in_bag() -> bool:
 	return get_parent() is Bag
 
+func is_lit() -> bool:
+	return parser_flags & FLAG_LIGHT_SOURCE
+
 func on_failed_preaction(_command: Command, _player: Player) -> String:
 	# Implemented by thing script
 	return ""

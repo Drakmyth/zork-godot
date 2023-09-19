@@ -57,7 +57,8 @@ func on_end_command(_command: Command, _player: Player) -> String:
 	return ""
 
 func is_lit():
-	return flags & FLAG_LIT
+	var player = get_tree().get_first_node_in_group(Vocabulary.Groups.PLAYER)
+	return flags & FLAG_LIT or player.has_light()
 
 func is_visited():
 	return flags & FLAG_VISITED
