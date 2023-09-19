@@ -68,7 +68,8 @@ func parse_input(input: String, player: Player) -> Array:
 					break
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.OBJECT):
 				if not adj_flag:
-					var objects = player.get_things(word)
+					var objects = player.get_room().find_things(word)
+					objects.append_array(player.find_things(word))
 					if len(objects) == 0:
 						command.error_response = "You can't see any %s here." % word
 						break
@@ -82,7 +83,8 @@ func parse_input(input: String, player: Player) -> Array:
 					command.set_and_flag()
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.ADJECTIVE):
 				var noun = next_word if Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.OBJECT) else ""
-				var objects = player.get_things(noun, word)
+				var objects = player.get_room().find_things(word)
+				objects.append_array(player.find_things(word))
 				if len(objects) == 0:
 					command.error_response = "You can't see any %s here" % " ".join([word, noun])
 					break

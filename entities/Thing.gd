@@ -1,4 +1,4 @@
-extends Node
+extends GameObject
 class_name Thing
 
 # parser_flags
@@ -86,7 +86,7 @@ static func describe_things(things: Array, indent_level: int = 1) -> String:
 				responses.append("%sSitting on the %s is:" % [indent, thing.description])
 			else:
 				responses.append("%sThe %s contains:" % [indent, thing.description])
-			var contents = describe_things(thing.get_things(), indent_level + 1)
+			var contents = describe_things(thing.find_things("", "", false), indent_level + 1)
 			responses.append(contents)
 
 	return "\n".join(responses)

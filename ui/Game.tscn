@@ -195,6 +195,7 @@ adjectives = Array[String](["front", "boarded"])
 
 [node name="mailbox" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("10_pu3vp")
+capacity = 10
 description = "small mailbox"
 nouns = Array[String](["mailbox", "box"])
 adjectives = Array[String](["small"])
@@ -353,6 +354,7 @@ adjectives = Array[String](["trap", "dusty"])
 
 [node name="trophy-case" type="Node" parent="Rooms/living-room"]
 script = ExtResource("20_cps6l")
+capacity = 10000
 description = "trophy case"
 parser_flags = 4
 nouns = Array[String](["case"])
@@ -411,9 +413,7 @@ nouns = Array[String](["water", "quantity", "liquid", "h2o"])
 
 [node name="sandwich-bag" type="Node" parent="Rooms/kitchen/kitchen-table"]
 script = ExtResource("22_3ybyl")
-open = null
-capacity = null
-behavior_flags = null
+capacity = 9
 description = "brown sack"
 first_description = "On the table is an elongated brown sack, smelling of hot peppers."
 parser_flags = 33

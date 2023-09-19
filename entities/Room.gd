@@ -1,4 +1,4 @@
-extends Node
+extends GameObject
 class_name Room
 
 const FLAG_VISITED = 1
@@ -35,7 +35,8 @@ func describe_room() -> String:
 	return description % describe_tokens()
 
 func describe_contents() -> String:
-	var thing_descriptions = get_things().map(func(thing): return thing.describe()).filter(func(desc): return not desc.is_empty())
+	var things = find_things("", "", false)
+	var thing_descriptions = things.map(func(t): return t.describe()).filter(func(desc): return not desc.is_empty())
 	thing_descriptions.sort()
 	return "\n".join(thing_descriptions)
 
@@ -61,15 +62,17 @@ func get_local_object(object_name: String) -> Thing:
 		if object.name == object_name: return object
 	return null
 
-func get_things(noun: String = "", adjective: String = "") -> Array:
-	var things = find_children("", "Thing", false)
-	things.append_array(get_tree().get_nodes_in_group("GlobalObjects"))
-	things.append_array(local_objects.map(func(o): return get_node(o)))
+func find_things(noun: String = "", adjective: String = "", recursive: bool = true) -> Array:
+	var things = super(noun, adjective, recursive)
+	var other_things = get_tree().get_nodes_in_group("GlobalObjects")
+	other_things.append_array(local_objects.map(func(o): return get_node(o)))
 
 	if not noun.is_empty():
-		things = things.filter(func(t): return t.nouns.has(noun))
+		other_things = other_things.filter(func(t): return t.nouns.has(noun))
 	if not adjective.is_empty():
-		things = things.filter(func(t): return t.adjectives.has(adjective))
+		other_things = other_things.filter(func(t): return t.adjectives.has(adjective))
+
+	things.append_array(other_things)
 	return things
 
 func get_exit(direction: String) -> Exit:

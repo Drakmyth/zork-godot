@@ -18,19 +18,14 @@ const FLAG_TRANSPARENT = 2
 func is_open() -> bool:
 	return open
 
-func get_things(noun: String = "", adjective: String = "") -> Array:
-	var things = find_children("", "Thing", false)
-	if not noun.is_empty():
-		things = things.filter(func(t): return t.nouns.has(noun))
-	if not adjective.is_empty():
-		things = things.filter(func(t): return t.adjectives.has(adjective))
-	return things
+func find_things(noun: String = "", adjective: String = "", recursive: bool = true) -> Array:
+	return super(noun, adjective, recursive) if open or behavior_flags & FLAG_TRANSPARENT else []
 
 func contains_thing_by_name(thing_name: String) -> bool:
 	return find_child(thing_name) != null
 
 func list_contents() -> String:
-	var contents = get_things()
+	var contents = find_things()
 	var descriptions = contents.map(func (c): return "a %s" % c.description)
 	if len(contents) > 1:
 		descriptions[-1] = "and %s" % descriptions[-1]

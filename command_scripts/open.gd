@@ -19,7 +19,7 @@ func _handle_bag(bag: Bag, _command: Command, _player: Player) -> String:
 	bag.open = true
 	bag.parser_flags |= Thing.FLAG_TOUCHED
 
-	var contents = bag.get_things()
+	var contents = bag.find_things()
 
 	if contents.is_empty() or bag.behavior_flags & Bag.FLAG_TRANSPARENT:
 		return "Opened."
