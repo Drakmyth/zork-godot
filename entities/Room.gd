@@ -38,7 +38,6 @@ func describe(force: bool = false) -> String:
 func _describe_contents() -> String:
 	var things = find_things("", "", false)
 	var thing_descriptions = things.map(func(t): return t.describe()).filter(func(desc): return not desc.is_empty())
-	thing_descriptions.sort()
 	return "\n".join(thing_descriptions)
 
 func _describe_tokens() -> Array:

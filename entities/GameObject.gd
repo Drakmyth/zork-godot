@@ -17,11 +17,7 @@ func find_things(noun: String = "", adjective: String = "", recursive: bool = tr
 	if not adjective.is_empty():
 		things = things.filter(func(t): return t.adjectives.has(adjective))
 
-	things.sort_custom(_sort_things)
 	return things
-
-func _sort_things(a: Thing, b:Thing) -> bool:
-	return b.description.nocasecmp_to(a.description) > -1
 
 func indent(indent_level: int, message: String) -> String:
 	return message.indent(INDENT.repeat(indent_level))

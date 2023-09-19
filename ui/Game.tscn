@@ -174,6 +174,22 @@ exit_south = SubResource("Resource_01dtq")
 exit_northeast = SubResource("Resource_f6w5n")
 exit_southeast = SubResource("Resource_s7grd")
 
+[node name="mailbox" type="Node" parent="Rooms/west-of-house"]
+script = ExtResource("10_pu3vp")
+capacity = 10
+description = "small mailbox"
+nouns = Array[String](["mailbox", "box"])
+adjectives = Array[String](["small"])
+
+[node name="advertisement" type="Node" parent="Rooms/west-of-house/mailbox"]
+script = ExtResource("5_ot5vp")
+description = "leaflet"
+floor_description = "A small leaflet is on the ground."
+parser_flags = 33
+weight = 2
+nouns = Array[String](["advertisement", "leaflet", "booklet", "mail"])
+adjectives = Array[String](["small"])
+
 [node name="board" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("12_5du6e")
 description = "board"
@@ -192,22 +208,6 @@ description = "door"
 parser_flags = 4
 nouns = Array[String](["door"])
 adjectives = Array[String](["front", "boarded"])
-
-[node name="mailbox" type="Node" parent="Rooms/west-of-house"]
-script = ExtResource("10_pu3vp")
-capacity = 10
-description = "small mailbox"
-nouns = Array[String](["mailbox", "box"])
-adjectives = Array[String](["small"])
-
-[node name="advertisement" type="Node" parent="Rooms/west-of-house/mailbox"]
-script = ExtResource("5_ot5vp")
-description = "leaflet"
-floor_description = "A small leaflet is on the ground."
-parser_flags = 33
-weight = 2
-nouns = Array[String](["advertisement", "leaflet", "booklet", "mail"])
-adjectives = Array[String](["small"])
 
 [node name="tree" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("5_ot5vp")
@@ -264,18 +264,18 @@ exit_northwest = SubResource("Resource_d5y7f")
 exit_southwest = SubResource("Resource_q1484")
 exit_in = SubResource("Resource_51q8f")
 
+[node name="board" type="Node" parent="Rooms/east-of-house"]
+script = ExtResource("12_5du6e")
+description = "board"
+parser_flags = 4
+nouns = Array[String](["boards", "board"])
+
 [node name="kitchen-window" type="Node" parent="Rooms/east-of-house"]
 script = ExtResource("4_bmbhw")
 description = "kitchen window"
 parser_flags = 4
 nouns = Array[String](["window"])
 adjectives = Array[String](["kitchen", "small"])
-
-[node name="board" type="Node" parent="Rooms/east-of-house"]
-script = ExtResource("12_5du6e")
-description = "board"
-parser_flags = 4
-nouns = Array[String](["boards", "board"])
 
 [node name="south-of-house" type="Node" parent="Rooms" groups=["Rooms-Around-House"]]
 script = ExtResource("3_i2kar")
@@ -311,6 +311,15 @@ description = "You are in the living room. There is a doorway to the east%s, a t
 flags = 2
 exit_east = SubResource("Resource_x7cgp")
 
+[node name="sword" type="Node" parent="Rooms/living-room"]
+script = ExtResource("5_ot5vp")
+description = "sword"
+first_description = "Above the trophy case hangs an elvish sword of great antiquity."
+parser_flags = 1
+weight = 30
+nouns = Array[String](["sword", "orcrist", "glamdring", "blade"])
+adjectives = Array[String](["elvish", "old", "antique"])
+
 [node name="lamp" type="Node" parent="Rooms/living-room"]
 script = ExtResource("5_ot5vp")
 description = "brass lantern"
@@ -329,22 +338,6 @@ parser_flags = 4
 nouns = Array[String](["rug", "carpet"])
 adjectives = Array[String](["large", "oriental"])
 
-[node name="stairs" type="Node" parent="Rooms/living-room"]
-script = ExtResource("21_w3t7k")
-description = "stairs"
-parser_flags = 4
-nouns = Array[String](["stairs", "steps", "staircase", "stairway"])
-adjectives = Array[String](["stone", "dark", "marble", "forbidding", "steep"])
-
-[node name="sword" type="Node" parent="Rooms/living-room"]
-script = ExtResource("5_ot5vp")
-description = "sword"
-first_description = "Above the trophy case hangs an elvish sword of great antiquity."
-parser_flags = 1
-weight = 30
-nouns = Array[String](["sword", "orcrist", "glamdring", "blade"])
-adjectives = Array[String](["elvish", "old", "antique"])
-
 [node name="trap-door" type="Node" parent="Rooms/living-room"]
 script = ExtResource("21_hgg5y")
 description = "trap door"
@@ -359,6 +352,13 @@ description = "trophy case"
 parser_flags = 4
 nouns = Array[String](["case"])
 adjectives = Array[String](["trophy"])
+
+[node name="stairs" type="Node" parent="Rooms/living-room"]
+script = ExtResource("21_w3t7k")
+description = "stairs"
+parser_flags = 4
+nouns = Array[String](["stairs", "steps", "staircase", "stairway"])
+adjectives = Array[String](["stone", "dark", "marble", "forbidding", "steep"])
 
 [node name="wooden-door" type="Node" parent="Rooms/living-room"]
 script = ExtResource("14_5wcjq")
@@ -378,13 +378,6 @@ exit_west = SubResource("Resource_8dral")
 exit_out = SubResource("Resource_b7cpq")
 exit_up = SubResource("Resource_io8lv")
 
-[node name="chimney" type="Node" parent="Rooms/kitchen"]
-script = ExtResource("20_ygl32")
-description = "chimney"
-parser_flags = 4
-nouns = Array[String](["chimney"])
-adjectives = Array[String](["dark", "narrow"])
-
 [node name="kitchen-table" type="Node" parent="Rooms/kitchen"]
 script = ExtResource("8_dgj43")
 open = true
@@ -393,23 +386,6 @@ description = "kitchen table"
 parser_flags = 4
 nouns = Array[String](["table"])
 adjectives = Array[String](["kitchen"])
-
-[node name="bottle" type="Node" parent="Rooms/kitchen/kitchen-table"]
-script = ExtResource("8_dgj43")
-capacity = 4
-behavior_flags = 2
-description = "glass bottle"
-first_description = "A bottle is sitting on the table."
-parser_flags = 1
-nouns = Array[String](["bottle", "container"])
-adjectives = Array[String](["clear", "glass"])
-
-[node name="water" type="Node" parent="Rooms/kitchen/kitchen-table/bottle"]
-script = ExtResource("5_ot5vp")
-description = "quantity of water"
-parser_flags = 1
-weight = 4
-nouns = Array[String](["water", "quantity", "liquid", "h2o"])
 
 [node name="sandwich-bag" type="Node" parent="Rooms/kitchen/kitchen-table"]
 script = ExtResource("22_3ybyl")
@@ -435,6 +411,30 @@ description = "clove of garlic"
 parser_flags = 1
 weight = 4
 nouns = Array[String](["garlic", "clove"])
+
+[node name="bottle" type="Node" parent="Rooms/kitchen/kitchen-table"]
+script = ExtResource("8_dgj43")
+capacity = 4
+behavior_flags = 2
+description = "glass bottle"
+first_description = "A bottle is sitting on the table."
+parser_flags = 1
+nouns = Array[String](["bottle", "container"])
+adjectives = Array[String](["clear", "glass"])
+
+[node name="water" type="Node" parent="Rooms/kitchen/kitchen-table/bottle"]
+script = ExtResource("5_ot5vp")
+description = "quantity of water"
+parser_flags = 1
+weight = 4
+nouns = Array[String](["water", "quantity", "liquid", "h2o"])
+
+[node name="chimney" type="Node" parent="Rooms/kitchen"]
+script = ExtResource("20_ygl32")
+description = "chimney"
+parser_flags = 4
+nouns = Array[String](["chimney"])
+adjectives = Array[String](["dark", "narrow"])
 
 [node name="stairs" type="Node" parent="Rooms/kitchen"]
 script = ExtResource("21_w3t7k")
