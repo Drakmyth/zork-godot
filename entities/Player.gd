@@ -13,12 +13,24 @@ enum DescriptionMode {
 
 var description_mode: DescriptionMode = DescriptionMode.Brief
 var score = 0
+var moves = 0
 
 signal room_changed
 
 func get_room() -> Room:
 	# TODO: Walk up tree in case Player is "inside" something
 	return get_parent() as Room
+
+func get_rank() -> String:
+	if score >= SCORE_MAX: return "Master Adventurer"
+	elif score > 330: return "Wizard"
+	elif score > 300: return "Master"
+	elif score > 200: return "Adventurer"
+	elif score > 100: return "Junior Adventurer"
+	elif score > 50: return "Novice Adventurer"
+	elif score > 25: return "Amateur Adventurer"
+
+	return "Beginner"
 
 func action(_command: Command, _player: Player) -> String:
 	return ""
