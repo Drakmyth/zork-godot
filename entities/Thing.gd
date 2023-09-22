@@ -48,7 +48,7 @@ const DEFAULT_FLOOR_DESC = "There is a %s here."
 @export var adjectives: Array[String] = []
 
 func _ready() -> void:
-	add_to_group(Vocabulary.Groups.OBJECTS)
+	add_to_group(Vocabulary.Groups.OBJECTS, true)
 
 func describe(indent_level: int = 0) -> String:
 	if is_hiding_description():
