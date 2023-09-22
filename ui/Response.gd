@@ -4,12 +4,13 @@ extends VBoxContainer
 @export var input: String : set = _set_input
 @export_multiline var response: String : set = _set_response
 
+func _ready() -> void:
+	$Layout.visible = not $Layout/Prompt.text.is_empty()
+
 func _set_input(input_text: String):
 	input = input_text
 	$Layout/Prompt.text = input_text
-
-	if input_text.is_empty():
-		$Layout.visible = false
+	$Layout.visible = not input_text.is_empty()
 
 func _set_response(response_text: String):
 	response = response_text

@@ -1,6 +1,7 @@
 extends GameObject
 class_name Player
 
+const ROOMS_PATH = "/root/Game/Rooms"
 const LOAD_ALLOWED = 100
 const LOAD_MAX = 100
 const SCORE_MAX = 350
@@ -61,7 +62,7 @@ func take(thing: Thing) -> String:
 		return "Your load is too heavy%s." % ", especially in light of your condition" if LOAD_ALLOWED < LOAD_MAX else ""
 
 	thing.reparent(self)
-	thing.owner = self
+	thing.owner = get_node(ROOMS_PATH)
 	thing.parser_flags |= Thing.FLAG_TOUCHED
 	thing.parser_flags &= ~Thing.FLAG_HIDE_DESCRIPTION
 	return ""
@@ -72,7 +73,7 @@ func drop(thing: Thing) -> String:
 
 	var room = get_room()
 	thing.reparent(room)
-	thing.owner = room
+	thing.owner = get_node(ROOMS_PATH)
 	return ""
 
 func get_weight() -> int:
@@ -87,6 +88,7 @@ func is_carrying(thing: Thing) -> bool:
 
 func move_to(room: Room) -> String:
 	reparent(room)
+	owner = get_node(ROOMS_PATH)
 	room_changed.emit(room)
 	var room_description = room.describe()
 	if room.is_lit():

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Vocabulary="*res://managers/Vocabulary.gd"
 DialogManager="*res://managers/DialogManager.gd"
+SaveManager="*res://managers/SaveManager.gd"
 
 [display]
 

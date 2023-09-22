@@ -18,13 +18,18 @@ func _ready() -> void:
 	Vocabulary.cache_object_words()
 	$Interface/Margin/Layout/Prompt.connect("command_submitted", _on_Prompt_command_submitted)
 
-	player = get_tree().get_first_node_in_group(Vocabulary.Groups.PLAYER) as Player
-	header.set_room_name(player.get_room().title)
-	player.connect("room_changed", _on_Player_room_changed)
+	initialize()
 
 	history.add_response(HIDE_PROMPT, BEGIN_TEXT)
 	history.add_response(HIDE_PROMPT, player.get_room().describe())
 	player.get_room().flags |= Room.FLAG_VISITED
+
+func initialize():
+	player = get_tree().get_first_node_in_group(Vocabulary.Groups.PLAYER) as Player
+	header.set_room_name(player.get_room().title)
+	header.set_score(player.score)
+	header.set_moves(player.moves)
+	player.connect("room_changed", _on_Player_room_changed)
 
 func _on_Prompt_command_submitted(new_text: String) -> void:
 	# No input, no command
@@ -52,7 +57,6 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 		display_input = ""
 
 	$Interface/Margin/Layout/Prompt.clear()
-
 
 func _execute_command(command: Command):
 	var response = []
