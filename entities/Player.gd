@@ -73,6 +73,8 @@ func take(thing: Thing) -> String:
 
 	thing.reparent(self)
 	thing.owner = get_node(ROOMS_PATH)
+	score += thing.score
+	thing.score = 0
 	thing.parser_flags |= Thing.FLAG_TOUCHED
 	thing.parser_flags &= ~Thing.FLAG_HIDE_DESCRIPTION
 	return ""
@@ -100,6 +102,8 @@ func move_to(room: Room) -> String:
 	reparent(room)
 	owner = get_node(ROOMS_PATH)
 	room_changed.emit(room)
+	score += room.score
+	room.score = 0
 	var room_description = room.describe()
 	if room.is_lit():
 		room.flags |= Room.FLAG_VISITED

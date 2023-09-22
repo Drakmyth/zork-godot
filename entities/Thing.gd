@@ -44,6 +44,7 @@ const DEFAULT_FLOOR_DESC = "There is a %s here."
 ## appear "via magic" or to make things non-interactable when hidden by other things.
 @export_flags("Lightweight", "Touched", "Hide Description", "Light Source", "Flaming", "Kindling", "Invisible") var parser_flags: int
 @export_range(0, 0, 1, "or_greater") var weight: int
+@export var score : int = 0
 @export var nouns: Array[String] = []
 @export var adjectives: Array[String] = []
 

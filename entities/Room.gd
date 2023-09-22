@@ -7,6 +7,7 @@ const FLAG_LIT = 2
 @export var title: String
 @export_multiline var description: String
 @export_flags("Visited", "Lit") var flags: int
+@export var score: int
 @export var local_objects: Array[NodePath]
 
 @export_group("Exits", "exit_")
