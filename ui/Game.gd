@@ -50,6 +50,8 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 		history.add_response(display_input, "\n".join(responses))
 		display_input = ""
 
+	$Interface/Margin/Layout/Prompt.clear()
+
 
 func _execute_command(command: Command):
 	var response = []
