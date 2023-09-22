@@ -65,7 +65,7 @@ func parse_input(input: String, player: Player) -> Array:
 				if not preposition_was_set:
 					command.error_response = "That sentence isn't one I recognize."
 					break
-			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.OBJECT):
+			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.NOUN):
 				if not adj_flag:
 					var objects = player.get_room().find_things(word)
 					objects.append_array(player.find_things(word))
@@ -81,7 +81,7 @@ func parse_input(input: String, player: Player) -> Array:
 				if next_word == "and":
 					command.set_and_flag()
 			elif Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.ADJECTIVE):
-				var noun = next_word if Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.OBJECT) else ""
+				var noun = next_word if Vocabulary.is_part_of_speech(next_word, Vocabulary.PartOfSpeech.NOUN) else ""
 				var objects = player.get_room().find_things(word)
 				objects.append_array(player.find_things(word))
 				if len(objects) == 0:
@@ -118,7 +118,7 @@ func parse_input(input: String, player: Player) -> Array:
 
 func _in_noun_phrase(word: String) -> bool:
 	return Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.ADJECTIVE) \
-		or Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.OBJECT)
+		or Vocabulary.is_part_of_speech(word, Vocabulary.PartOfSpeech.NOUN)
 
 func _get_end_of_clause(tokens: Array, start: int) -> int:
 	if start >= len(tokens): return len(tokens) + 1

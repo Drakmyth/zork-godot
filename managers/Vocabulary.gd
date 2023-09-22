@@ -6,7 +6,7 @@ enum PartOfSpeech {
 	VERB,
 	PREPOSITION,
 	ADJECTIVE,
-	OBJECT,
+	NOUN,
 	BUZZWORD
 }
 
@@ -292,7 +292,7 @@ var _synonym_map := {}
 var _commands := {}
 var _prepositions := {}
 var _adjectives := {}
-var _objects := {}
+var _nouns := {}
 
 func _init() -> void:
 	for word in _syntax_synonyms:
@@ -321,7 +321,7 @@ func cache_object_words() -> void:
 		for adjective in thing.adjectives:
 			_adjectives[adjective] = false
 		for noun in thing.nouns:
-			_objects[noun] = false
+			_nouns[noun] = false
 
 func get_article(word: String) -> String:
 	return Buzzwords.AN if _vowels.has(word.left(1)) else Buzzwords.A
@@ -366,8 +366,8 @@ func is_part_of_speech(word: String, pos: PartOfSpeech) -> bool:
 			return _prepositions.has(word)
 		PartOfSpeech.ADJECTIVE:
 			return _adjectives.has(word)
-		PartOfSpeech.OBJECT:
-			return _objects.has(word)
+		PartOfSpeech.NOUN:
+			return _nouns.has(word)
 		PartOfSpeech.BUZZWORD:
 			return Buzzwords.ALL_WORDS.has(word)
 
