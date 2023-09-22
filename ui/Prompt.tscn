@@ -26,11 +26,11 @@ vertical_alignment = 1
 
 [node name="InputMargin" type="MarginContainer" parent="Layout"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/margin_bottom = 2
 
 [node name="PromptInput" type="LineEdit" parent="Layout/InputMargin"]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 8
 caret_blink = true
 caret_blink_interval = 0.1
