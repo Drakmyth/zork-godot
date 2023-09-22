@@ -1,4 +1,9 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cunyh4pgg5h64"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://cunyh4pgg5h64"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4tujp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3j3pi"]
+bg_color = Color(0.871094, 0.871094, 0.871094, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7ndf"]
 bg_color = Color(0.666667, 0.666667, 0.666667, 1)
@@ -11,6 +16,9 @@ bg_color = Color(0.666667, 0.666667, 0.666667, 1)
 bg_color = Color(0, 0, 0, 1)
 
 [resource]
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/styles/normal = SubResource("StyleBoxEmpty_4tujp")
+Button/styles/pressed = SubResource("StyleBoxFlat_3j3pi")
 HeaderLabel/base_type = &"Label"
 HeaderLabel/colors/font_color = Color(0, 0, 0, 1)
 HeaderPanelContainer/base_type = &"PanelContainer"
