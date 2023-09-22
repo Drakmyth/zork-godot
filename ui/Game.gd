@@ -1,8 +1,8 @@
 extends Control
 
 var player: Player
-@onready var history = $Margin/Layout/ResponseHistory
-@onready var header = $Margin/Layout/Header
+@onready var history = $Interface/Margin/Layout/ResponseHistory
+@onready var header = $Interface/Margin/Layout/Header
 
 const EMPTY_PROMPT = " "
 const HIDE_PROMPT = ""
@@ -15,20 +15,17 @@ Revision 88 / Serial number 840726
 "
 
 func _ready() -> void:
-	$Margin/Layout/Prompt.connect("command_submitted", _on_Prompt_command_submitted)
+	$Interface/Margin/Layout/Prompt.connect("command_submitted", _on_Prompt_command_submitted)
 
 	player = get_tree().get_first_node_in_group(Vocabulary.Groups.PLAYER) as Player
 	header.set_room_name(player.get_room().title)
 	player.connect("room_changed", _on_Player_room_changed)
-	player.set_prompt_reference($Margin/Layout/Prompt)
 
 	history.add_response(HIDE_PROMPT, BEGIN_TEXT)
 	history.add_response(HIDE_PROMPT, player.get_room().describe())
 	player.get_room().flags |= Room.FLAG_VISITED
 
 func _on_Prompt_command_submitted(new_text: String) -> void:
-	player.raw_text = new_text
-
 	# No input, no command
 	if new_text.is_empty():
 		history.add_response(EMPTY_PROMPT, "I beg your pardon?")
@@ -56,15 +53,12 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 
 func _execute_command(command: Command):
 	var response = []
-	$Margin/Layout/Prompt.disconnect("command_submitted", _on_Prompt_command_submitted)
 
 	var taken_response = command.try_take(player)
 	if taken_response == "(Taken)":
 		response.append(taken_response)
 
 	var request_chain = command.get_request_chain(player)
-
-	command.prompt_signal = $Margin/Layout/Prompt.command_submitted
 
 	var action_response := ""
 	for action in request_chain:
@@ -78,7 +72,6 @@ func _execute_command(command: Command):
 	if not response.is_empty():
 		response[0] = "%s%s" % [command.prefix, response[0]]
 
-	$Margin/Layout/Prompt.connect("command_submitted", _on_Prompt_command_submitted)
 	return "\n".join(response)
 
 func _on_Player_room_changed(room: Room):

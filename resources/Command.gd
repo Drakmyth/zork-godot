@@ -37,7 +37,6 @@ var indirect_objects: Array[Thing]
 var and_flag := false
 var error_response := ""
 var prefix := ""
-var prompt_signal
 
 static func ErrorCommand(response: String) -> Command:
 	var command = Command.new()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://cqgple0nvjstt"]
+[gd_scene load_steps=58 format=3 uid="uid://cqgple0nvjstt"]
 
 [ext_resource type="PackedScene" uid="uid://dv4bbp626njre" path="res://ui/Header.tscn" id="1_ciir3"]
 [ext_resource type="Script" path="res://managers/CommandParser.gd" id="1_f4dba"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" path="res://entities/Door.gd" id="21_hgg5y"]
 [ext_resource type="Script" path="res://entities/Stairs.gd" id="21_w3t7k"]
 [ext_resource type="Script" path="res://object_scripts/SandwichBag.gd" id="22_3ybyl"]
+[ext_resource type="PackedScene" uid="uid://kiwbfokkotba" path="res://ui/ConfirmDialog.tscn" id="30_tcp77"]
 
 [sub_resource type="Resource" id="Resource_nesmq"]
 script = ExtResource("6_yfin1")
@@ -483,16 +484,16 @@ parser_flags = 4
 nouns = Array[String](["stairs", "steps", "staircase", "stairway"])
 adjectives = Array[String](["stone", "dark", "marble", "forbidding", "steep"])
 
-[node name="Background" type="PanelContainer" parent="."]
-layout_mode = 1
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="Background" type="PanelContainer" parent="Interface"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Margin" type="MarginContainer" parent="."]
-layout_mode = 1
+[node name="Margin" type="MarginContainer" parent="Interface"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -503,14 +504,20 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 3
 
-[node name="Layout" type="VBoxContainer" parent="Margin"]
+[node name="Layout" type="VBoxContainer" parent="Interface/Margin"]
 layout_mode = 2
 
-[node name="Header" parent="Margin/Layout" instance=ExtResource("1_ciir3")]
+[node name="Header" parent="Interface/Margin/Layout" instance=ExtResource("1_ciir3")]
 layout_mode = 2
 
-[node name="ResponseHistory" parent="Margin/Layout" instance=ExtResource("2_pjk61")]
+[node name="ResponseHistory" parent="Interface/Margin/Layout" instance=ExtResource("2_pjk61")]
 layout_mode = 2
 
-[node name="Prompt" parent="Margin/Layout" instance=ExtResource("3_hb5rq")]
+[node name="Prompt" parent="Interface/Margin/Layout" instance=ExtResource("3_hb5rq")]
 layout_mode = 2
+
+[node name="Dialog" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="ConfirmDialog" parent="Dialog" instance=ExtResource("30_tcp77")]
+visible = false
