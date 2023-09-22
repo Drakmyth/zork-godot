@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 Vocabulary="*res://managers/Vocabulary.gd"
-System="*res://managers/System.gd"
 
 [display]
 

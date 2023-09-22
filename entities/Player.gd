@@ -4,8 +4,15 @@ class_name Player
 const LOAD_ALLOWED = 100
 const LOAD_MAX = 100
 
+enum DescriptionMode {
+	Verbose,
+	Brief,
+	Superbrief
+}
+
 var raw_text: String
 var _prompt: Node
+var description_mode: DescriptionMode = DescriptionMode.Brief
 
 signal room_changed
 
@@ -17,6 +24,8 @@ func set_prompt(prompt: String) -> void:
 
 func reset_prompt() -> void:
 	_prompt.reset_prompt()
+
+
 
 func get_room() -> Room:
 	# TODO: Walk up tree in case Player is "inside" something
