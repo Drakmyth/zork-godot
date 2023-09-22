@@ -63,10 +63,13 @@ func populate_from(command: Command) -> Command:
 
 	if (max_direct_objects == 0 and len(direct_objects) > 0) \
 		or (max_indirect_objects == 0 and len(indirect_objects) > 0):
+		instantaneous = true
 		error_response = "There were too many nouns in that sentence."
 	elif max_direct_objects == 1 and len(direct_objects) > 1:
+		instantaneous = true
 		error_response = "You can't use multiple direct objects with \"%s\"" % verb
 	elif max_indirect_objects == 1 and len(indirect_objects) > 1:
+		instantaneous = true
 		error_response = "You can't use multiple indirect objects with \"%s\"" % verb
 
 	return self
@@ -137,11 +140,13 @@ static func check_holding(command:Command, player: Player) -> String:
 	if command.direct_object_execution_flags & FLAG_HOLDING:
 		for do in command.direct_objects:
 			if not player.is_carrying(do):
+				command.instantaneous = true
 				return "You don't have the %s" % do.description
 
 	if command.indirect_object_execution_flags & FLAG_HOLDING:
 		for io in command.indirect_objects:
 			if not player.is_carrying(io):
+				command.instantaneous = true
 				return "You don't have the %s" % io.description
 
 	return ""

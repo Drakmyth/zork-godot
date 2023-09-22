@@ -14,6 +14,7 @@ func action(command: Command, player: Player) -> String:
 
 func preaction(command: Command, _player: Player) -> String:
 	if command.indirect_objects.is_empty():
+		command.instantaneous = true
 		return "You didn't say with what!"
 
 	var obj = command.indirect_objects[0]
