@@ -2,14 +2,13 @@ extends Node
 
 const KEEP_EMPTY_TOKENS = false
 
-
 func parse_input(input: String, player: Player) -> Array:
 	if input.is_empty(): return []
 
 	print("Raw input: %s" % input)
 
 	# Wrap spaces around punctuation that should be treated as separate tokens
-	var punctuation_tokens = [".", ",", "\""]
+	const punctuation_tokens = [".", ",", "\""]
 	for token in punctuation_tokens:
 		input = input.replace(token, " %s " % token)
 

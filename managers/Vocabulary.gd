@@ -291,6 +291,8 @@ const _vowels := [ "a", "e", "i", "o", "u" ]
 var _synonym_map := {}
 var _commands := {}
 var _prepositions := {}
+var _adjectives := {}
+var _objects := {}
 
 func _init() -> void:
 	for word in _syntax_synonyms:
@@ -312,6 +314,14 @@ func _init() -> void:
 
 	for verb in _commands:
 		_commands[verb].sort_custom(_sort_commands)
+
+func cache_object_words() -> void:
+	var things = get_tree().get_nodes_in_group(Groups.OBJECTS)
+	for thing in things:
+		for adjective in thing.adjectives:
+			_adjectives[adjective] = false
+		for noun in thing.nouns:
+			_objects[noun] = false
 
 func get_article(word: String) -> String:
 	return Buzzwords.AN if _vowels.has(word.left(1)) else Buzzwords.A
@@ -355,9 +365,9 @@ func is_part_of_speech(word: String, pos: PartOfSpeech) -> bool:
 			# Commands should not be dependent on it.
 			return _prepositions.has(word)
 		PartOfSpeech.ADJECTIVE:
-			return get_tree().get_nodes_in_group(Groups.OBJECTS).any(func(o: Thing): return o.adjectives.has(word))
+			return _adjectives.has(word)
 		PartOfSpeech.OBJECT:
-			return get_tree().get_nodes_in_group(Groups.OBJECTS).any(func(o: Thing): return o.nouns.has(word))
+			return _objects.has(word)
 		PartOfSpeech.BUZZWORD:
 			return Buzzwords.ALL_WORDS.has(word)
 

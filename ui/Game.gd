@@ -15,6 +15,7 @@ Revision 88 / Serial number 840726
 "
 
 func _ready() -> void:
+	Vocabulary.cache_object_words()
 	$Interface/Margin/Layout/Prompt.connect("command_submitted", _on_Prompt_command_submitted)
 
 	player = get_tree().get_first_node_in_group(Vocabulary.Groups.PLAYER) as Player
