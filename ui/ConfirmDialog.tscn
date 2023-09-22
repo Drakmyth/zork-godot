@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3 uid="uid://kiwbfokkotba"]
+
+[ext_resource type="Script" path="res://ui/ConfirmDialog.gd" id="1_xvlb4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_smp68"]
+bg_color = Color(0.6, 0.6, 0.6, 0.25098)
+
+[node name="ConfirmDialog" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xvlb4")
+
+[node name="Cover" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_smp68")
+
+[node name="DialogAlignment" type="CenterContainer" parent="Cover"]
+layout_mode = 2
+
+[node name="Background" type="PanelContainer" parent="Cover/DialogAlignment"]
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="Cover/DialogAlignment/Background"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="DialogLayout" type="VBoxContainer" parent="Cover/DialogAlignment/Background/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="DialogMessage" type="Label" parent="Cover/DialogAlignment/Background/Margin/DialogLayout"]
+layout_mode = 2
+text = "Your score is 0 (total of 350 points), in 0 moves.
+This gives you the rank of Beginner.
+Do you wish to leave the game?
+"
+
+[node name="ButtonLayout" type="HBoxContainer" parent="Cover/DialogAlignment/Background/Margin/DialogLayout"]
+layout_mode = 2
+
+[node name="YesButton" type="Button" parent="Cover/DialogAlignment/Background/Margin/DialogLayout/ButtonLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../NoButton")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../NoButton")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath("../NoButton")
+focus_previous = NodePath("../NoButton")
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="Cover/DialogAlignment/Background/Margin/DialogLayout/ButtonLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath("../YesButton")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../YesButton")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath("../YesButton")
+focus_previous = NodePath("../YesButton")
+text = "No"
