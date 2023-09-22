@@ -294,7 +294,7 @@ var _prepositions := {}
 
 func _init() -> void:
 	for word in _syntax_synonyms:
-		register_synonyms(word, _syntax_synonyms[word])
+		_register_synonyms(word, _syntax_synonyms[word])
 
 	const commands_dir := "res://commands"
 	var files := DirAccess.get_files_at(commands_dir)
@@ -306,17 +306,17 @@ func _init() -> void:
 		else:
 			_commands[command.verb] = [command]
 		if not command.first_preposition.is_empty():
-			register_preposition(command.first_preposition)
+			_register_preposition(command.first_preposition)
 		if not command.second_preposition.is_empty():
-			register_preposition(command.second_preposition)
+			_register_preposition(command.second_preposition)
 
 	for verb in _commands:
-		_commands[verb].sort_custom(sort_commands)
+		_commands[verb].sort_custom(_sort_commands)
 
 func get_article(word: String) -> String:
 	return Buzzwords.AN if _vowels.has(word.left(1)) else Buzzwords.A
 
-func sort_commands(a: Command, b:Command) -> bool:
+func _sort_commands(a: Command, b:Command) -> bool:
 	if a.verb == b.verb:
 		if a.first_preposition == b.first_preposition:
 			return a.second_preposition.nocasecmp_to(b.second_preposition) > -1
@@ -337,7 +337,7 @@ func get_random_yuk_response() -> String:
 func resolve(word: String) -> String:
 	return _synonym_map.get(word, word)
 
-func register_preposition(prep: String) -> void:
+func _register_preposition(prep: String) -> void:
 	_prepositions[prep] = false
 
 func is_part_of_speech(word: String, pos: PartOfSpeech) -> bool:
@@ -363,7 +363,7 @@ func is_part_of_speech(word: String, pos: PartOfSpeech) -> bool:
 
 	return false
 
-func register_synonyms(word: String, synonyms: Array) -> void:
+func _register_synonyms(word: String, synonyms: Array) -> void:
 	for synonym in synonyms:
 		if _synonym_map.has(synonym):
 			push_warning("Warning: duplicate synonym '%s' registered to '%s' and '%s'." % [synonym, _synonym_map[synonym], word])
