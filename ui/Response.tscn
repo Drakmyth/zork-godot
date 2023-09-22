@@ -12,6 +12,7 @@ theme_override_constants/separation = -2
 script = ExtResource("1_7sn5r")
 
 [node name="Layout" type="HBoxContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 0
 

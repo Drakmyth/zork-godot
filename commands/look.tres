@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_b0keu")
+instantaneous = false
 verb = "look"
 first_preposition = ""
 max_direct_objects = 0

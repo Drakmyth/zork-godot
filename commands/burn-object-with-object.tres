@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_ojpsd")
+instantaneous = false
 verb = "burn"
 first_preposition = ""
 max_direct_objects = 1

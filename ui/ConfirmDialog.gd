@@ -11,8 +11,8 @@ func _ready() -> void:
 func _get_message() -> String:
 	return $Cover/DialogAlignment/Background/Margin/DialogLayout/DialogMessage.text
 
-func _set_message(dialog_message: String) -> void:
-	$Cover/DialogAlignment/Background/Margin/DialogLayout/DialogMessage.text = dialog_message
+func _set_message(_message: String) -> void:
+	$Cover/DialogAlignment/Background/Margin/DialogLayout/DialogMessage.text = _message
 
 func focus() -> void:
 	$Cover/DialogAlignment/Background/Margin/DialogLayout/ButtonLayout/NoButton.grab_focus()

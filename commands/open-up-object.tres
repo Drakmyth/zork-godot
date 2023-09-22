@@ -4,10 +4,11 @@
 
 [resource]
 script = ExtResource("1_rj1e6")
+instantaneous = false
 verb = "open"
 first_preposition = "up"
 max_direct_objects = 1
-direct_object_flags = 0
+direct_object_execution_flags = 0
 second_preposition = ""
 max_indirect_objects = 0
-indirect_object_flags = 0
+indirect_object_execution_flags = 0

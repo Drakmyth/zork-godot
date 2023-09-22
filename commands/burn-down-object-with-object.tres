@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_hw7g7")
+instantaneous = false
 verb = "burn"
 first_preposition = "down"
 max_direct_objects = 1

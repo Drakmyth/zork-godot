@@ -13,10 +13,20 @@ enum DescriptionMode {
 }
 
 @export var description_mode: DescriptionMode = DescriptionMode.Brief
-@export_range(0, SCORE_MAX, 1) var score = 0
-@export_range(0, 0, 1, "or_greater") var moves = 0
+@export_range(0, SCORE_MAX, 1) var score = 0 : set = _set_score
+@export_range(0, 0, 1, "or_greater") var moves = 0 : set = _set_moves
 
 signal room_changed
+signal score_changed
+signal moves_changed
+
+func _set_score(_score: int) -> void:
+	score = _score
+	score_changed.emit(score)
+
+func _set_moves(_moves: int) -> void:
+	moves = _moves
+	moves_changed.emit(moves)
 
 func get_room() -> Room:
 	# TODO: Walk up tree in case Player is "inside" something

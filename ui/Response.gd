@@ -7,11 +7,11 @@ extends VBoxContainer
 func _ready() -> void:
 	$Layout.visible = not $Layout/Prompt.text.is_empty()
 
-func _set_input(input_text: String):
-	input = input_text
-	$Layout/Prompt.text = input_text
-	$Layout.visible = not input_text.is_empty()
+func _set_input(_input: String):
+	input = _input
+	$Layout/Prompt.text = input
+	$Layout.visible = not input.is_empty()
 
-func _set_response(response_text: String):
-	response = response_text
-	$ResponseText.text = response_text
+func _set_response(_response: String):
+	response = _response
+	$ResponseText.text = response

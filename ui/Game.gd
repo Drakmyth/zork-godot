@@ -30,6 +30,8 @@ func initialize():
 	header.set_score(player.score)
 	header.set_moves(player.moves)
 	player.connect("room_changed", _on_Player_room_changed)
+	player.connect("score_changed", _on_Player_score_changed)
+	player.connect("moves_changed", _on_Player_moves_changed)
 
 func _on_Prompt_command_submitted(new_text: String) -> void:
 	# No input, no command
@@ -71,6 +73,8 @@ func _execute_command(command: Command):
 	for action in request_chain:
 		action_response = await action.call(command, player)
 		if not action_response.is_empty():
+			if not command.instantaneous:
+				player.moves += 1
 			response.append(action_response)
 			break
 
@@ -81,5 +85,11 @@ func _execute_command(command: Command):
 
 	return "\n".join(response)
 
-func _on_Player_room_changed(room: Room):
+func _on_Player_room_changed(room: Room) -> void:
 	header.set_room_name(room.title)
+
+func _on_Player_score_changed(score: int) -> void:
+	header.set_score(score)
+
+func _on_Player_moves_changed(moves: int) -> void:
+	header.set_moves(moves)

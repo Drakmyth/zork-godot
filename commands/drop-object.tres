@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_tsva3")
+instantaneous = false
 verb = "drop"
 first_preposition = ""
 max_direct_objects = -1

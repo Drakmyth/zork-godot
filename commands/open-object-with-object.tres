@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_yogox")
+instantaneous = false
 verb = "open"
 first_preposition = ""
 max_direct_objects = 1

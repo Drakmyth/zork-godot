@@ -4,10 +4,11 @@
 
 [resource]
 script = ExtResource("1_r36um")
+instantaneous = true
 verb = "brief"
 first_preposition = ""
 max_direct_objects = 0
-direct_object_flags = 0
+direct_object_execution_flags = 0
 second_preposition = ""
 max_indirect_objects = 0
-indirect_object_flags = 0
+indirect_object_execution_flags = 0

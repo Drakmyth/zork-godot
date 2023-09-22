@@ -5,6 +5,8 @@ class_name Command
 const FLAG_TAKE = 1
 const FLAG_HOLDING = 2
 
+## Successfully executing this command will not increase the player's [code]moves[/code] counter.
+@export var instantaneous: bool
 ## The action to be taken. This is the keyword the player must enter to execute this command.
 @export var verb: String
 ## Optional preposition for the direct object.
