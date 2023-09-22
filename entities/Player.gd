@@ -4,7 +4,19 @@ class_name Player
 const LOAD_ALLOWED = 100
 const LOAD_MAX = 100
 
+var raw_text: String
+var _prompt: Node
+
 signal room_changed
+
+func set_prompt_reference(ref: Node) -> void:
+	_prompt = ref
+
+func set_prompt(prompt: String) -> void:
+	_prompt.set_prompt(prompt)
+
+func reset_prompt() -> void:
+	_prompt.reset_prompt()
 
 func get_room() -> Room:
 	# TODO: Walk up tree in case Player is "inside" something

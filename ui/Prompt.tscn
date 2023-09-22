@@ -16,16 +16,21 @@ script = ExtResource("1_1knig")
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Margin" type="MarginContainer" parent="Layout"]
+[node name="LabelMargin" type="MarginContainer" parent="Layout"]
 layout_mode = 2
 
-[node name="PromptLabel" type="Label" parent="Layout/Margin"]
+[node name="PromptLabel" type="Label" parent="Layout/LabelMargin"]
 layout_mode = 2
 text = ">"
 vertical_alignment = 1
 
-[node name="PromptInput" type="LineEdit" parent="Layout"]
+[node name="InputMargin" type="MarginContainer" parent="Layout"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="PromptInput" type="LineEdit" parent="Layout/InputMargin"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 8
 caret_blink = true
 caret_blink_interval = 0.1

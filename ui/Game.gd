@@ -20,12 +20,15 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group(Vocabulary.Groups.PLAYER) as Player
 	header.set_room_name(player.get_room().title)
 	player.connect("room_changed", _on_Player_room_changed)
+	player.set_prompt_reference($Margin/Layout/Prompt)
 
 	history.add_response(HIDE_PROMPT, BEGIN_TEXT)
 	history.add_response(HIDE_PROMPT, player.get_room().describe())
 	player.get_room().flags |= Room.FLAG_VISITED
 
 func _on_Prompt_command_submitted(new_text: String) -> void:
+	player.raw_text = new_text
+
 	# No input, no command
 	if new_text.is_empty():
 		history.add_response(EMPTY_PROMPT, "I beg your pardon?")
@@ -45,7 +48,7 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 		var object_commands = command.split_object_commands()
 		var responses = []
 		for obj_command in object_commands:
-			var response = _execute_command(obj_command)
+			var response = await _execute_command(obj_command)
 			responses.append(response)
 		history.add_response(display_input, "\n".join(responses))
 		display_input = ""
@@ -53,15 +56,19 @@ func _on_Prompt_command_submitted(new_text: String) -> void:
 
 func _execute_command(command: Command):
 	var response = []
+	$Margin/Layout/Prompt.disconnect("command_submitted", _on_Prompt_command_submitted)
+
 	var taken_response = command.try_take(player)
 	if taken_response == "(Taken)":
 		response.append(taken_response)
 
 	var request_chain = command.get_request_chain(player)
 
+	command.prompt_signal = $Margin/Layout/Prompt.command_submitted
+
 	var action_response := ""
 	for action in request_chain:
-		action_response = action.call(command, player)
+		action_response = await action.call(command, player)
 		if not action_response.is_empty():
 			response.append(action_response)
 			break
@@ -70,6 +77,8 @@ func _execute_command(command: Command):
 	response = response.filter(func(r): return not r.is_empty())
 	if not response.is_empty():
 		response[0] = "%s%s" % [command.prefix, response[0]]
+
+	$Margin/Layout/Prompt.connect("command_submitted", _on_Prompt_command_submitted)
 	return "\n".join(response)
 
 func _on_Player_room_changed(room: Room):
