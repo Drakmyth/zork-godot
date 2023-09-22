@@ -12,9 +12,9 @@ enum DescriptionMode {
 	Superbrief
 }
 
-var description_mode: DescriptionMode = DescriptionMode.Brief
-var score = 0
-var moves = 0
+@export var description_mode: DescriptionMode = DescriptionMode.Brief
+@export_range(0, SCORE_MAX, 1) var score = 0
+@export_range(0, 0, 1, "or_greater") var moves = 0
 
 signal room_changed
 
