@@ -6,8 +6,8 @@ func action(_command: Command, player: Player) -> String:
 This gives you the rank of %s.
 Do you wish to leave the game?" % [player.score, Player.SCORE_MAX, 0, "Beginner"]
 
-# var confirm = show_dialog(message)
-# if confirm:
-# 	player.get_tree().quit()
+	var confirmed = await DialogManager.confirm(message)
+	if confirmed:
+		player.get_tree().quit()
 
 	return "Ok."
