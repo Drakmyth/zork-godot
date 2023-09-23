@@ -65,7 +65,7 @@ func describe_inventory() -> String:
 	return "\n".join(responses)
 
 func take(thing: Thing) -> String:
-	if not thing.parser_flags & Thing.FLAG_LIGHTWEIGHT:
+	if not thing.can_be_taken():
 		return Vocabulary.get_random_yuk_response()
 
 	if not is_carrying(thing) and get_weight() + thing.weight > LOAD_ALLOWED:
@@ -75,8 +75,8 @@ func take(thing: Thing) -> String:
 	thing.owner = get_node(ROOMS_PATH)
 	score += thing.score
 	thing.score = 0
-	thing.parser_flags |= Thing.FLAG_TOUCHED
-	thing.parser_flags &= ~Thing.FLAG_HIDE_DESCRIPTION
+	thing.state_flags |= Thing.StateFlags.TOUCHED
+	thing.state_flags &= ~Thing.StateFlags.HIDDEN
 	return ""
 
 func drop(thing: Thing) -> String:
