@@ -17,7 +17,7 @@ const DEFAULT_FLOOR_DESC = "There is a %s here."
 ## Description text shown in room descriptions prior to player having picked this thing up (if able to
 ## do so). Defaults to [member floor_description] if not provided. Override [member _first_description_tokens]
 ## to provide values for placeholder symbols.
-@export var first_description: String
+@export_multiline var first_description: String
 ## Default description text shown in room descriptions. If [member first_description] is provided, this
 ## will override it when [member FLAG_TOUCHED] is set. Override [member _floor_description_tokens]
 ## to provide values for placeholder symbols.

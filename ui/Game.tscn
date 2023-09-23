@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://cqgple0nvjstt"]
+[gd_scene load_steps=100 format=3 uid="uid://cqgple0nvjstt"]
 
 [ext_resource type="PackedScene" uid="uid://dv4bbp626njre" path="res://ui/Header.tscn" id="1_ciir3"]
 [ext_resource type="Script" path="res://managers/CommandParser.gd" id="1_f4dba"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" path="res://entities/Door.gd" id="21_hgg5y"]
 [ext_resource type="Script" path="res://entities/Stairs.gd" id="21_w3t7k"]
 [ext_resource type="Script" path="res://object_scripts/SandwichBag.gd" id="22_3ybyl"]
+[ext_resource type="Script" path="res://object_scripts/Songbird.gd" id="28_jcppv"]
 [ext_resource type="PackedScene" uid="uid://kiwbfokkotba" path="res://ui/ConfirmDialog.tscn" id="30_tcp77"]
 
 [sub_resource type="Resource" id="Resource_nesmq"]
@@ -44,6 +45,10 @@ response = "The door is boarded and you can't remove the boards."
 script = ExtResource("6_yfin1")
 destination = NodePath("../south-of-house")
 
+[sub_resource type="Resource" id="Resource_p4yte"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../west-forest")
+
 [sub_resource type="Resource" id="Resource_f6w5n"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../north-of-house")
@@ -52,13 +57,17 @@ destination = NodePath("../north-of-house")
 script = ExtResource("6_yfin1")
 destination = NodePath("../south-of-house")
 
-[sub_resource type="Resource" id="Resource_cr07c"]
-script = ExtResource("5_krq4v")
-response = "The windows are all boarded."
+[sub_resource type="Resource" id="Resource_l0lcq"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../forest-path")
 
 [sub_resource type="Resource" id="Resource_g6gbc"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../east-of-house")
+
+[sub_resource type="Resource" id="Resource_tbal4"]
+script = ExtResource("5_krq4v")
+response = "The windows are all boarded."
 
 [sub_resource type="Resource" id="Resource_pl04h"]
 script = ExtResource("6_yfin1")
@@ -75,6 +84,10 @@ destination = NodePath("../west-of-house")
 [sub_resource type="Resource" id="Resource_xylte"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../north-of-house")
+
+[sub_resource type="Resource" id="Resource_lhv2e"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../clearing")
 
 [sub_resource type="Resource" id="Resource_gqx0w"]
 script = ExtResource("6_yfin1")
@@ -107,6 +120,10 @@ response = "The windows are all boarded."
 [sub_resource type="Resource" id="Resource_rev8c"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../east-of-house")
+
+[sub_resource type="Resource" id="Resource_vey03"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../south-forest")
 
 [sub_resource type="Resource" id="Resource_8jpq7"]
 script = ExtResource("6_yfin1")
@@ -148,6 +165,150 @@ destination = NodePath("../attic")
 script = ExtResource("6_yfin1")
 destination = NodePath("../kitchen")
 
+[sub_resource type="Resource" id="Resource_lbc3f"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../grating-clearing")
+
+[sub_resource type="Resource" id="Resource_m57f3"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../forest-path")
+
+[sub_resource type="Resource" id="Resource_4sdjx"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../south-forest")
+
+[sub_resource type="Resource" id="Resource_lvpbc"]
+script = ExtResource("5_krq4v")
+response = "You would need a machete to go further west."
+
+[sub_resource type="Resource" id="Resource_cp7im"]
+script = ExtResource("5_krq4v")
+response = "There is no tree here suitable for climbing."
+
+[sub_resource type="Resource" id="Resource_y4nav"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../clearing")
+
+[sub_resource type="Resource" id="Resource_u65go"]
+script = ExtResource("5_krq4v")
+response = "The rank undergrowth prevents eastward movement."
+
+[sub_resource type="Resource" id="Resource_73w31"]
+script = ExtResource("5_krq4v")
+response = "Storm-tossed trees block your way."
+
+[sub_resource type="Resource" id="Resource_ilkr6"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../west-forest")
+
+[sub_resource type="Resource" id="Resource_bhj4h"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../south-of-house")
+
+[sub_resource type="Resource" id="Resource_eb5rf"]
+script = ExtResource("5_krq4v")
+response = "There is no tree here suitable for climbing."
+
+[sub_resource type="Resource" id="Resource_uvldf"]
+script = ExtResource("5_krq4v")
+response = "The forest becomes impenetrable to the north."
+
+[sub_resource type="Resource" id="Resource_gr0eq"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../forest-mountains")
+
+[sub_resource type="Resource" id="Resource_ix7wm"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../clearing")
+
+[sub_resource type="Resource" id="Resource_l17f3"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../forest-path")
+
+[sub_resource type="Resource" id="Resource_p1i0x"]
+script = ExtResource("5_krq4v")
+response = "There is no tree here suitable for climbing."
+
+[sub_resource type="Resource" id="Resource_lepil"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../grating-clearing")
+
+[sub_resource type="Resource" id="Resource_sg8m2"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../northeast-forest")
+
+[sub_resource type="Resource" id="Resource_13iru"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../north-of-house")
+
+[sub_resource type="Resource" id="Resource_syfmf"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../west-forest")
+
+[sub_resource type="Resource" id="Resource_rrum8"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../up-a-tree")
+
+[sub_resource type="Resource" id="Resource_8hx7o"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../northeast-forest")
+
+[sub_resource type="Resource" id="Resource_nxkwg"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../south-forest")
+
+[sub_resource type="Resource" id="Resource_oo7gd"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../east-of-house")
+
+[sub_resource type="Resource" id="Resource_2nhd6"]
+script = ExtResource("5_krq4v")
+response = "There is no tree here suitable for climbing."
+
+[sub_resource type="Resource" id="Resource_irm5d"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../northeast-forest")
+
+[sub_resource type="Resource" id="Resource_qhaxm"]
+script = ExtResource("5_krq4v")
+response = "The mountains are impassable."
+
+[sub_resource type="Resource" id="Resource_a2gb2"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../northeast-forest")
+
+[sub_resource type="Resource" id="Resource_dnypq"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../northeast-forest")
+
+[sub_resource type="Resource" id="Resource_6n7gd"]
+script = ExtResource("5_krq4v")
+response = "The mountains are impassable."
+
+[sub_resource type="Resource" id="Resource_5736u"]
+script = ExtResource("5_krq4v")
+response = "You cannot climb any higher."
+
+[sub_resource type="Resource" id="Resource_1ar2a"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../forest-path")
+
+[sub_resource type="Resource" id="Resource_yxnk1"]
+script = ExtResource("5_krq4v")
+response = "The forest becomes impenetrable to the north."
+
+[sub_resource type="Resource" id="Resource_dnhta"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../northeast-forest")
+
+[sub_resource type="Resource" id="Resource_hewb2"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../forest-path")
+
+[sub_resource type="Resource" id="Resource_rfqtx"]
+script = ExtResource("6_yfin1")
+destination = NodePath("../west-forest")
+
 [node name="Game" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -171,9 +332,11 @@ script = ExtResource("3_i2kar")
 title = "West of House"
 description = "You are standing in an open field west of a white house, with a boarded front door."
 flags = 2
+local_objects = Array[NodePath]([NodePath("../west-forest/forest")])
 exit_north = SubResource("Resource_nesmq")
 exit_east = SubResource("Resource_kb371")
 exit_south = SubResource("Resource_01dtq")
+exit_west = SubResource("Resource_p4yte")
 exit_northeast = SubResource("Resource_f6w5n")
 exit_southeast = SubResource("Resource_s7grd")
 
@@ -199,25 +362,12 @@ description = "board"
 parser_flags = 5
 nouns = Array[String](["boards", "board"])
 
-[node name="forest" type="Node" parent="Rooms/west-of-house"]
-script = ExtResource("6_881nj")
-description = "forest"
-parser_flags = 4
-nouns = Array[String](["forest", "trees", "pines", "hemlocks"])
-
 [node name="front-door" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("14_5wcjq")
 description = "door"
 parser_flags = 4
 nouns = Array[String](["door"])
 adjectives = Array[String](["front", "boarded"])
-
-[node name="tree" type="Node" parent="Rooms/west-of-house"]
-script = ExtResource("5_ot5vp")
-description = "tree"
-parser_flags = 4
-nouns = Array[String](["tree", "branch"])
-adjectives = Array[String](["large", "storm"])
 
 [node name="white-house" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("5_u2got")
@@ -234,9 +384,10 @@ script = ExtResource("3_i2kar")
 title = "North of House"
 description = "You are facing the north side of a white house. There is no door here, and all the windows are boarded up. To the north a narrow path winds through the trees."
 flags = 2
-local_objects = Array[NodePath]([NodePath("../west-of-house/white-house"), NodePath("../west-of-house/forest")])
-exit_north = SubResource("Resource_cr07c")
+local_objects = Array[NodePath]([NodePath("../west-of-house/white-house"), NodePath("../west-forest/forest")])
+exit_north = SubResource("Resource_l0lcq")
 exit_east = SubResource("Resource_g6gbc")
+exit_south = SubResource("Resource_tbal4")
 exit_west = SubResource("Resource_pl04h")
 exit_southeast = SubResource("Resource_xbjk2")
 exit_southwest = SubResource("Resource_5oyug")
@@ -259,8 +410,9 @@ script = ExtResource("5_f26kq")
 title = "Behind House"
 description = "You are behind the white house. A path leads into the forest to the east. In one corner of the house there is a small window which is %s."
 flags = 2
-local_objects = Array[NodePath]([NodePath("../west-of-house/white-house"), NodePath("../west-of-house/forest")])
+local_objects = Array[NodePath]([NodePath("../west-of-house/white-house"), NodePath("../west-forest/forest")])
 exit_north = SubResource("Resource_xylte")
+exit_east = SubResource("Resource_lhv2e")
 exit_south = SubResource("Resource_gqx0w")
 exit_west = SubResource("Resource_va0yn")
 exit_northwest = SubResource("Resource_d5y7f")
@@ -285,9 +437,10 @@ script = ExtResource("3_i2kar")
 title = "South of House"
 description = "You are facing the south side of a white house. There is no door here, and all the windows are boarded."
 flags = 2
-local_objects = Array[NodePath]([NodePath("../west-of-house/white-house"), NodePath("../west-of-house/forest")])
+local_objects = Array[NodePath]([NodePath("../west-of-house/white-house"), NodePath("../west-forest/forest")])
 exit_north = SubResource("Resource_yv8vk")
 exit_east = SubResource("Resource_rev8c")
+exit_south = SubResource("Resource_vey03")
 exit_west = SubResource("Resource_8jpq7")
 exit_northeast = SubResource("Resource_m2c2a")
 exit_northwest = SubResource("Resource_fykv2")
@@ -486,6 +639,161 @@ description = "stairs"
 parser_flags = 4
 nouns = Array[String](["stairs", "steps", "staircase", "stairway"])
 adjectives = Array[String](["stone", "dark", "marble", "forbidding", "steep"])
+
+[node name="west-forest" type="Node" parent="Rooms" groups=["Rooms-Around-Forest"]]
+script = ExtResource("3_i2kar")
+title = "Forest"
+description = "This is a forest, with trees in all directions. To the east, there appears to be sunlight."
+flags = 2
+local_objects = Array[NodePath]([NodePath("../west-of-house/white-house"), NodePath("../clearing/tree")])
+exit_north = SubResource("Resource_lbc3f")
+exit_east = SubResource("Resource_m57f3")
+exit_south = SubResource("Resource_4sdjx")
+exit_west = SubResource("Resource_lvpbc")
+exit_up = SubResource("Resource_cp7im")
+
+[node name="songbird" type="Node" parent="Rooms/west-forest"]
+script = ExtResource("28_jcppv")
+description = "songbird"
+parser_flags = 4
+nouns = Array[String](["bird", "songbird"])
+adjectives = Array[String](["song"])
+
+[node name="forest" type="Node" parent="Rooms/west-forest"]
+script = ExtResource("6_881nj")
+description = "forest"
+parser_flags = 4
+nouns = Array[String](["forest", "trees", "pines", "hemlocks"])
+
+[node name="south-forest" type="Node" parent="Rooms" groups=["Rooms-Around-Forest"]]
+script = ExtResource("3_i2kar")
+title = "Forest"
+description = "This is a dimly lit forest, with large trees all around."
+flags = 2
+local_objects = Array[NodePath]([NodePath("../west-forest/forest"), NodePath("../clearing/tree"), NodePath("../west-of-house/white-house"), NodePath("../west-forest/songbird")])
+exit_north = SubResource("Resource_y4nav")
+exit_east = SubResource("Resource_u65go")
+exit_south = SubResource("Resource_73w31")
+exit_west = SubResource("Resource_ilkr6")
+exit_northwest = SubResource("Resource_bhj4h")
+exit_up = SubResource("Resource_eb5rf")
+
+[node name="northeast-forest" type="Node" parent="Rooms" groups=["Rooms-Around-Forest"]]
+script = ExtResource("3_i2kar")
+title = "Forest"
+description = "This is a dimly lit forest, with large trees all around."
+flags = 2
+local_objects = Array[NodePath]([NodePath("../west-of-house/white-house"), NodePath("../clearing/tree"), NodePath("../west-forest/forest"), NodePath("../west-forest/songbird")])
+exit_north = SubResource("Resource_uvldf")
+exit_east = SubResource("Resource_gr0eq")
+exit_south = SubResource("Resource_ix7wm")
+exit_west = SubResource("Resource_l17f3")
+exit_up = SubResource("Resource_p1i0x")
+
+[node name="forest-path" type="Node" parent="Rooms" groups=["Rooms-Around-Forest"]]
+script = ExtResource("3_i2kar")
+title = "Forest Path"
+description = "This is a path winding through a dimly lit forest. The path heads north-south here. One particularly large tree with some low branches stands at the edge of the path."
+flags = 2
+local_objects = Array[NodePath]([NodePath("../west-forest/forest"), NodePath("../clearing/tree"), NodePath("../west-of-house/white-house"), NodePath("../west-forest/songbird")])
+exit_north = SubResource("Resource_lepil")
+exit_east = SubResource("Resource_sg8m2")
+exit_south = SubResource("Resource_13iru")
+exit_west = SubResource("Resource_syfmf")
+exit_up = SubResource("Resource_rrum8")
+
+[node name="clearing" type="Node" parent="Rooms" groups=["Rooms-Around-Forest"]]
+script = ExtResource("3_i2kar")
+title = "Clearing"
+description = "You are in a small clearing in a well marked forest path that extends to the east and west."
+flags = 2
+local_objects = Array[NodePath]([NodePath("../west-forest/forest"), NodePath("tree"), NodePath("../west-of-house/white-house"), NodePath("../west-forest/songbird")])
+exit_north = SubResource("Resource_8hx7o")
+exit_south = SubResource("Resource_nxkwg")
+exit_west = SubResource("Resource_oo7gd")
+exit_up = SubResource("Resource_2nhd6")
+
+[node name="tree" type="Node" parent="Rooms/clearing"]
+script = ExtResource("5_ot5vp")
+description = "tree"
+parser_flags = 4
+nouns = Array[String](["tree", "branch"])
+adjectives = Array[String](["large", "storm"])
+
+[node name="forest-mountains" type="Node" parent="Rooms"]
+script = ExtResource("3_i2kar")
+title = "Forest"
+description = "The forest thins out, revealing impassable mountains."
+flags = 2
+local_objects = Array[NodePath]([NodePath("../clearing/tree"), NodePath("../west-of-house/white-house")])
+exit_north = SubResource("Resource_irm5d")
+exit_east = SubResource("Resource_qhaxm")
+exit_south = SubResource("Resource_a2gb2")
+exit_west = SubResource("Resource_dnypq")
+exit_up = SubResource("Resource_6n7gd")
+
+[node name="up-a-tree" type="Node" parent="Rooms"]
+script = ExtResource("3_i2kar")
+title = "Up a Tree"
+description = "You are about 10 feet above the ground nested among some large branches. The nearest branch above you is above your reach."
+flags = 2
+local_objects = Array[NodePath]([NodePath("../west-forest/forest"), NodePath("../clearing/tree"), NodePath("../west-of-house/white-house"), NodePath("../west-forest/songbird")])
+exit_up = SubResource("Resource_5736u")
+exit_down = SubResource("Resource_1ar2a")
+
+[node name="nest" type="Node" parent="Rooms/up-a-tree"]
+script = ExtResource("8_dgj43")
+open = true
+capacity = 20
+description = "bird's nest"
+first_description = "Beside you on the branch is a small bird's nest."
+parser_flags = 33
+nouns = Array[String](["nest"])
+adjectives = Array[String](["birds"])
+
+[node name="egg" type="Node" parent="Rooms/up-a-tree/nest"]
+script = ExtResource("8_dgj43")
+capacity = 6
+description = "jewel-encrusted egg"
+first_description = "In the bird's nest is a large egg encrusted with precious jewels, apparently scavenged by a childless songbird. The egg is covered with find gold inlay, and ornamented in lapis lazuli and mother-of-pearl. Unlike most eggs, this one is hinged and closed with a delicate looking clasp. The egg appears extremely fragile."
+parser_flags = 1
+score = 5
+nouns = Array[String](["egg", "treasure"])
+adjectives = Array[String](["birds", "encrusted", "jeweled"])
+
+[node name="canary" type="Node" parent="Rooms/up-a-tree/nest/egg"]
+script = ExtResource("5_ot5vp")
+description = "golden clockwork canary"
+first_description = "There is a golden clockwork canary nestled in the egg. It has ruby eyes and a silver beak. Through a crystal window below its left wing you can see intricate machinery inside. It appears to have wound down."
+parser_flags = 1
+score = 6
+nouns = Array[String](["canary", "treasure"])
+adjectives = Array[String](["clockwork", "gold", "golden"])
+
+[node name="grating-clearing" type="Node" parent="Rooms"]
+script = ExtResource("3_i2kar")
+title = "Clearing"
+description = "You are in a clearing, with a forest surrounding you on all sides. A path leads south."
+flags = 2
+local_objects = Array[NodePath]([NodePath("../west-of-house/white-house")])
+exit_north = SubResource("Resource_yxnk1")
+exit_east = SubResource("Resource_dnhta")
+exit_south = SubResource("Resource_hewb2")
+exit_west = SubResource("Resource_rfqtx")
+
+[node name="leaves" type="Node" parent="Rooms/grating-clearing"]
+script = ExtResource("5_ot5vp")
+description = "pile of leaves"
+floor_description = "On the ground is a pile of leaves."
+parser_flags = 33
+weight = 25
+nouns = Array[String](["leaves", "leaf", "pile"])
+
+[node name="grate" type="Node" parent="Rooms/grating-clearing"]
+script = ExtResource("21_hgg5y")
+description = "grating"
+parser_flags = 68
+nouns = Array[String](["grate", "grating"])
 
 [node name="Interface" type="CanvasLayer" parent="."]
 

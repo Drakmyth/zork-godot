@@ -201,6 +201,7 @@ class Groups:
 	const OBJECTS = "Objects"
 	const PLAYER = "Player"
 	const ROOMS_AROUND_HOUSE = "Rooms-Around-House"
+	const ROOMS_AROUND_FOREST = "Rooms-Around-Forest"
 
 const _syntax_synonyms := {
 		"and": [","],
