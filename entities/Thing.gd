@@ -13,8 +13,9 @@ enum StateFlags {
 	TOUCHED = 1,
 	HIDDEN = 2,
 	INVISIBLE = 4,
-	LIT = 8,
-	FLAMING = 16
+	ACTIVATED = 8,
+	LIT = 16,
+	FLAMING = 32
 }
 
 const DEFAULT_FLOOR_DESC = "There is a %s here."
@@ -50,11 +51,13 @@ const DEFAULT_FLOOR_DESC = "There is a %s here."
 ## [b]Invisible[/b]: This thing, for all intents and purposes, doesn't exist. Useful for making things
 ## appear "via magic" or to make things non-interactable when obscured by other things.[br]
 ## [br]
-## [b]Lit[/b]: This thing is emitting light.[br]
+## [b]Activated[/b]: This thing is turned on. Does not imply [code]Lit[/code].[br]
+## [br]
+## [b]Lit[/b]: This thing is emitting light. Does not imply [code]Activated[/code].[br]
 ## [br]
 ## [b]Flaming[/b]: This thing is on fire or is otherwise capable of burning other objects. Does not
 ## imply [code]Lit[/code] or the [code]Kindling[/code] capability.[br]
-@export_flags("Touched", "Hidden", "Invisible", "Lit", "Flaming") var state_flags: int
+@export_flags("Touched", "Hidden", "Invisible", "Activated", "Lit", "Flaming") var state_flags: int
 @export_range(0, 0, 1, "or_greater") var weight: int
 @export var score : int = 0
 @export var nouns: Array[String] = []
@@ -100,6 +103,9 @@ func is_hidden() -> bool:
 
 func is_invisible() -> bool:
 	return state_flags & StateFlags.INVISIBLE
+
+func is_activated() -> bool:
+	return state_flags & StateFlags.ACTIVATED
 
 func is_lit() -> bool:
 	return state_flags & StateFlags.LIT
