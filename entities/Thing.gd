@@ -30,26 +30,30 @@ const DEFAULT_FLOOR_DESC = "There is a %s here."
 ## to provide values for placeholder symbols.
 @export_placeholder(DEFAULT_FLOOR_DESC) var floor_description: String
 
-## Parser rules. Impacts how this thing is detected and interacted with by the CommandParser.[br]
+## Capabilities define what this thing "can do" or "can be". Primarily used to determine what
+## commands can interact with this thing.[br]
 ## [br]
-## [b]Lightweight[/b]: Able to be taken by the player.[br]
+## [b]Lightweight[/b]: Can be taken.[br]
 ## [br]
-## [b]Touched[/b]: Set automatically after player has taken object at least once. Switches active
-## description text from [member first_description] to [member floor_description].[br]
+## [b]On-Off[/b]: Can be turned on/off or activated.[br]
 ## [br]
-## [b]Hide Description[/b]: Prevent this thing from being listed by room descriptions. Useful if the
-## room's description already contains text indicating existance of this thing.[br]
-## [br]
-## [b]Light Source[/b]: This thing emits light.[br]
-## [br]
-## [b]Flaming[/b]: This thing is on fire. Does not imply [code]Light Source[/code] or
-## [code]Kindling[/code].[br]
-## [br]
-## [b]Kindling[/b]: This thing can be burned.[br]
-## [br]
-## [b]Invisible[/b]: This object, for all intents and purposes, doesn't exist. Useful for making things
-## appear "via magic" or to make things non-interactable when hidden by other things.
+## [b]Kindling[/b]: Can be burned.[br]
 @export_flags("Lightweight", "On-Off", "Kindling") var capability_flags: int
+## State defines what this thing "is" or "is doing". Represents properties of the object itself.[br]
+## [br]
+## [b]Touched[/b]: Set automatically after the player has taken this thing at least once. Changes
+## active description text from [member first_description] to [member floor_description].[br]
+## [br]
+## [b]Hidden[/b]: This thing will not be listed by room descriptions. Useful if the
+## room's description already contains text indicating existence of this thing.[br]
+## [br]
+## [b]Invisible[/b]: This thing, for all intents and purposes, doesn't exist. Useful for making things
+## appear "via magic" or to make things non-interactable when obscured by other things.[br]
+## [br]
+## [b]Lit[/b]: This thing is emitting light.[br]
+## [br]
+## [b]Flaming[/b]: This thing is on fire or is otherwise capable of burning other objects. Does not
+## imply [code]Lit[/code] or the [code]Kindling[/code] capability.[br]
 @export_flags("Touched", "Hidden", "Invisible", "Lit", "Flaming") var state_flags: int
 @export_range(0, 0, 1, "or_greater") var weight: int
 @export var score : int = 0
