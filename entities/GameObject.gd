@@ -4,7 +4,7 @@ class_name GameObject
 const INDENT = "  "
 
 func find_things(noun: String = "", adjective: String = "", recursive: bool = true) -> Array:
-	var things = get_children().filter(func(c): return c is Thing and not c.parser_flags & Thing.FLAG_INVISIBLE)
+	var things = get_children().filter(func(c): return c is Thing and not c.is_invisible())
 
 	if recursive:
 		var child_things = []

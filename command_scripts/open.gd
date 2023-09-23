@@ -17,13 +17,13 @@ func _handle_bag(bag: Bag, _command: Command, _player: Player) -> String:
 	if bag.is_open(): return "It is already open."
 
 	bag.open = true
-	bag.parser_flags |= Thing.FLAG_TOUCHED
+	bag.state_flags |= Thing.StateFlags.TOUCHED
 
 	var contents = bag.find_things()
 
 	if contents.is_empty() or bag.behavior_flags & Bag.FLAG_TRANSPARENT:
 		return "Opened."
-	elif len(contents) == 1 and not contents[0].parser_flags & Thing.FLAG_TOUCHED and not contents[0].first_description.is_empty():
+	elif len(contents) == 1 and not contents[0].is_touched() and not contents[0].first_description.is_empty():
 		return "The %s opens.\n%s" % [bag.description, contents[0].first_description]
 	else:
 		if len(contents) == 1:

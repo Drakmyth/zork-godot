@@ -1,14 +1,21 @@
 extends GameObject
 class_name Thing
 
-# parser_flags
-const FLAG_LIGHTWEIGHT = 1
-const FLAG_TOUCHED = 2
-const FLAG_HIDE_DESCRIPTION = 4
-const FLAG_LIGHT_SOURCE = 8
-const FLAG_FLAMING = 16
-const FLAG_KINDLING = 32
-const FLAG_INVISIBLE = 64
+enum CapabilityFlags {
+	NONE = 0,
+	LIGHTWEIGHT = 1,
+	ONOFF = 2,
+	KINDLING = 4
+}
+
+enum StateFlags {
+	NONE = 0,
+	TOUCHED = 1,
+	HIDDEN = 2,
+	INVISIBLE = 4,
+	LIT = 8,
+	FLAMING = 16
+}
 
 const DEFAULT_FLOOR_DESC = "There is a %s here."
 
@@ -42,7 +49,8 @@ const DEFAULT_FLOOR_DESC = "There is a %s here."
 ## [br]
 ## [b]Invisible[/b]: This object, for all intents and purposes, doesn't exist. Useful for making things
 ## appear "via magic" or to make things non-interactable when hidden by other things.
-@export_flags("Lightweight", "Touched", "Hide Description", "Light Source", "Flaming", "Kindling", "Invisible") var parser_flags: int
+@export_flags("Lightweight", "On-Off", "Kindling") var capability_flags: int
+@export_flags("Touched", "Hidden", "Invisible", "Lit", "Flaming") var state_flags: int
 @export_range(0, 0, 1, "or_greater") var weight: int
 @export var score : int = 0
 @export var nouns: Array[String] = []
@@ -52,7 +60,7 @@ func _ready() -> void:
 	add_to_group(Vocabulary.Groups.OBJECTS, true)
 
 func describe(indent_level: int = 0) -> String:
-	if is_hiding_description():
+	if is_hidden():
 		return ""
 
 	if not is_touched() and not first_description.is_empty():
@@ -71,17 +79,32 @@ func _floor_description_tokens() -> Array:
 	# Implemented by thing script
 	return [description] if floor_description.is_empty() else []
 
-func is_hiding_description() -> bool:
-	return parser_flags & FLAG_HIDE_DESCRIPTION
+func can_be_taken() -> bool:
+	return capability_flags & CapabilityFlags.LIGHTWEIGHT
+
+func can_be_onoff() -> bool:
+	return capability_flags & CapabilityFlags.ONOFF
+
+func can_be_burned() -> bool:
+	return capability_flags & CapabilityFlags.KINDLING
 
 func is_touched() -> bool:
-	return parser_flags & FLAG_TOUCHED
+	return state_flags & StateFlags.TOUCHED
+
+func is_hidden() -> bool:
+	return state_flags & StateFlags.HIDDEN
+
+func is_invisible() -> bool:
+	return state_flags & StateFlags.INVISIBLE
+
+func is_lit() -> bool:
+	return state_flags & StateFlags.LIT
+
+func is_flaming() -> bool:
+	return state_flags & StateFlags.FLAMING
 
 func is_in_bag() -> bool:
 	return get_parent() is Bag
-
-func is_lit() -> bool:
-	return parser_flags & FLAG_LIGHT_SOURCE
 
 func on_failed_preaction(_command: Command, _player: Player) -> String:
 	# Implemented by thing script

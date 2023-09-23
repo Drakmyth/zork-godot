@@ -19,12 +19,12 @@ func describe(indent_level: int = 0) -> String:
 	var responses = []
 	var contents = find_things("", "", false)
 
-	var first_things = contents.filter(func(c): return not c.is_touched() and not c.first_description.is_empty() and not c.is_hiding_description())
+	var first_things = contents.filter(func(c): return not c.is_touched() and not c.first_description.is_empty() and not c.is_hidden())
 	for thing in first_things:
 		responses.append(indent(indent_level, thing.describe()))
 		contents.erase(thing)
 
-	if not is_hiding_description():
+	if not is_hidden():
 		if indent_level == 0:
 			responses.append(super(indent_level))
 		else:
