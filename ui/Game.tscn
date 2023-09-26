@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://cqgple0nvjstt"]
+[gd_scene load_steps=101 format=3 uid="uid://cqgple0nvjstt"]
 
 [ext_resource type="PackedScene" uid="uid://dv4bbp626njre" path="res://ui/Header.tscn" id="1_ciir3"]
 [ext_resource type="Script" path="res://managers/CommandParser.gd" id="1_f4dba"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" path="res://object_scripts/FrontDoor.gd" id="14_5wcjq"]
 [ext_resource type="Script" path="res://object_scripts/BoardedWindow.gd" id="14_e4mdf"]
 [ext_resource type="Script" path="res://room_scripts/living-room.gd" id="14_ghroo"]
+[ext_resource type="Script" path="res://object_scripts/Lamp.gd" id="19_8ux3q"]
 [ext_resource type="Script" path="res://object_scripts/Rug.gd" id="19_44ob7"]
 [ext_resource type="Script" path="res://object_scripts/TrophyCase.gd" id="20_cps6l"]
 [ext_resource type="Script" path="res://object_scripts/Chimney.gd" id="20_ygl32"]
@@ -477,7 +478,7 @@ nouns = Array[String](["sword", "orcrist", "glamdring", "blade"])
 adjectives = Array[String](["elvish", "old", "antique"])
 
 [node name="lamp" type="Node" parent="Rooms/living-room"]
-script = ExtResource("5_ot5vp")
+script = ExtResource("19_8ux3q")
 description = "brass lantern"
 first_description = "A battery-powered brass lantern is on the trophy case."
 floor_description = "There is a brass lantern (battery-powered) here."

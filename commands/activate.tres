@@ -1,9 +1,9 @@
 [gd_resource type="Resource" load_steps=2 format=3 uid="uid://blv5h735yo2dm"]
 
-[ext_resource type="Script" path="res://command_scripts/brief.gd" id="1_e0fwg"]
+[ext_resource type="Script" path="res://command_scripts/activate.gd" id="1_sfx5w"]
 
 [resource]
-script = ExtResource("1_e0fwg")
+script = ExtResource("1_sfx5w")
 instantaneous = false
 verb = "activate"
 first_preposition = ""

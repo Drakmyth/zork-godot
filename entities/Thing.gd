@@ -20,6 +20,8 @@ enum StateFlags {
 
 const DEFAULT_FLOOR_DESC = "There is a %s here."
 
+signal state_changed
+
 ## Short description of this thing. Primarily used when showing the player's inventory.
 @export var description: String
 ## Description text shown in room descriptions prior to player having picked this thing up (if able to
@@ -57,7 +59,7 @@ const DEFAULT_FLOOR_DESC = "There is a %s here."
 ## [br]
 ## [b]Flaming[/b]: This thing is on fire or is otherwise capable of burning other objects. Does not
 ## imply [code]Lit[/code] or the [code]Kindling[/code] capability.[br]
-@export_flags("Touched", "Hidden", "Invisible", "Activated", "Lit", "Flaming") var state_flags: int
+@export_flags("Touched", "Hidden", "Invisible", "Activated", "Lit", "Flaming") var state_flags: int : set = _on_state_flags_set
 @export_range(0, 0, 1, "or_greater") var weight: int
 @export var score : int = 0
 @export var nouns: Array[String] = []
@@ -77,6 +79,11 @@ func describe(indent_level: int = 0) -> String:
 		return indent(indent_level, floor_description % _floor_description_tokens())
 
 	return indent(indent_level, DEFAULT_FLOOR_DESC % _floor_description_tokens())
+
+func _on_state_flags_set(new_state_flags: int) -> void:
+	var old_state_flags = state_flags
+	state_flags = new_state_flags
+	state_changed.emit(new_state_flags, old_state_flags)
 
 func _first_description_tokens() -> Array:
 	# Implemented by thing script

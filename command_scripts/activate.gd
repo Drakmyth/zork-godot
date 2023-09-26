@@ -1,6 +1,6 @@
 extends Command
 
-func action(command: Command, player: Player) -> String:
+func action(command: Command, _player: Player) -> String:
 	var thing = command.direct_objects[0]
 	if thing.can_be_onoff():
 		if thing.is_activated(): return "It is already on."
