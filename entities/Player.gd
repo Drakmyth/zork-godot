@@ -15,6 +15,7 @@ enum DescriptionMode {
 @export var description_mode: DescriptionMode = DescriptionMode.Brief
 @export_range(0, SCORE_MAX, 1) var score = 0 : set = _set_score
 @export_range(0, 0, 1, "or_greater") var moves = 0 : set = _set_moves
+@export var dead: bool = false
 
 signal room_changed
 signal score_changed
@@ -43,8 +44,63 @@ func get_rank() -> String:
 
 	return "Beginner"
 
-func action(_command: Command, _player: Player) -> String:
-	return ""
+func action(command: Command, _player: Player) -> String:
+	if not dead: return ""
+
+	const ATTACK_MESSAGE = "All such attacks are vain in your condition."
+	const INTERACT_MESSAGE = "Even such an action is beyond your capabilities."
+	const INVENTORY_MESSAGE = "You have no possessions."
+
+	match command.verb:
+		Vocabulary.Verbs.WALK: return ""
+		Vocabulary.Verbs.BRIEF: return ""
+		Vocabulary.Verbs.VERBOSE: return ""
+		Vocabulary.Verbs.SUPER: return ""
+		Vocabulary.Verbs.SAVE: return ""
+		Vocabulary.Verbs.RESTORE: return ""
+		Vocabulary.Verbs.RESTART: return ""
+		Vocabulary.Verbs.QUIT: return ""
+		Vocabulary.Verbs.ATTACK: return ATTACK_MESSAGE
+		Vocabulary.Verbs.DESTROY: return ATTACK_MESSAGE
+		Vocabulary.Verbs.WAKE: return ATTACK_MESSAGE
+		Vocabulary.Verbs.SWING: return ATTACK_MESSAGE
+		Vocabulary.Verbs.OPEN: return INTERACT_MESSAGE
+		Vocabulary.Verbs.CLOSE: return INTERACT_MESSAGE
+		Vocabulary.Verbs.EAT: return INTERACT_MESSAGE
+		Vocabulary.Verbs.DRINK: return INTERACT_MESSAGE
+		Vocabulary.Verbs.INFLATE: return INTERACT_MESSAGE
+		Vocabulary.Verbs.DEFLATE: return INTERACT_MESSAGE
+		Vocabulary.Verbs.TURN: return INTERACT_MESSAGE
+		Vocabulary.Verbs.BURN: return INTERACT_MESSAGE
+		Vocabulary.Verbs.TIE: return INTERACT_MESSAGE
+		Vocabulary.Verbs.UNTIE: return INTERACT_MESSAGE
+		Vocabulary.Verbs.RUB: return INTERACT_MESSAGE
+		Vocabulary.Verbs.WAIT: return "Might as well. You've got an eternity."
+		Vocabulary.Verbs.ACTIVATE: return "You need no light to guide you."
+		Vocabulary.Verbs.SCORE: return "You're dead! How can you think of your score?"
+		Vocabulary.Verbs.TAKE: return "Your hand passes through its object."
+		Vocabulary.Verbs.DROP: return INVENTORY_MESSAGE
+		Vocabulary.Verbs.THROW: return INVENTORY_MESSAGE
+		Vocabulary.Verbs.INVENTORY: return INVENTORY_MESSAGE
+		Vocabulary.Verbs.DIAGNOSE: return "You are dead."
+		Vocabulary.Verbs.LOOK: return _handle_look_while_dead()
+		Vocabulary.Verbs.PRAY:
+			return "Your prayers are not heard."
+	return "You can't even do that."
+
+func look(force: bool = false) -> String:
+	if not get_room().is_lit() and not dead: return "It is pitch black. You are likely to be eaten by a grue."
+
+	return get_room().describe(force)
+
+func _handle_look_while_dead() -> String:
+	var responses = ["The room looks strange and unearthly%s." % " and objects appear indistinct" if get_room().has_things() else ""]
+	if (not get_room().is_lit()):
+		responses.append("Although there is no light, the room seems dimly illuminated.")
+	responses.append(" ")
+	responses.append(look(true))
+
+	return "\n".join(responses)
 
 func describe_inventory() -> String:
 	var things = find_things("", "", false)
@@ -104,7 +160,7 @@ func move_to(room: Room) -> String:
 	room_changed.emit(room)
 	score += room.score
 	room.score = 0
-	var room_description = room.describe()
+	var room_description = look()
 	if room.is_lit():
 		room.flags |= Room.FLAG_VISITED
 	return room_description

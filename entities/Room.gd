@@ -26,11 +26,7 @@ const FLAG_LIT = 2
 @export var exit_land: Exit
 
 func describe(force: bool = false) -> String:
-	var descriptions = []
-	if not is_lit():
-		return "It is pitch black. You are likely to be eaten by a grue."
-
-	descriptions.append(title)
+	var descriptions = [title]
 	if not is_visited() or force:
 		descriptions.append(description % _describe_tokens())
 	descriptions.append(_describe_contents())
@@ -82,6 +78,9 @@ func find_things(noun: String = "", adjective: String = "", recursive: bool = tr
 
 	things.append_array(other_things)
 	return things
+
+func has_things() -> bool:
+	return not find_things("", "", false).is_empty()
 
 func get_exit(direction: String) -> Exit:
 	match direction:

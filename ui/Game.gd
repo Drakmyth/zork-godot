@@ -21,7 +21,7 @@ func _ready() -> void:
 	initialize()
 
 	history.add_response(HIDE_PROMPT, BEGIN_TEXT)
-	history.add_response(HIDE_PROMPT, player.get_room().describe())
+	history.add_response(HIDE_PROMPT, player.look())
 	player.get_room().flags |= Room.FLAG_VISITED
 
 func initialize():
