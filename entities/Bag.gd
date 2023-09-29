@@ -34,6 +34,16 @@ func describe(indent_level: int = 0) -> String:
 	if not can_see_inside() or contents.is_empty():
 		return "\n".join(responses)
 
+	responses.append(describe_contents())
+	return "\n".join(responses)
+
+func describe_contents(indent_level: int = 0) -> String:
+	if not can_see_inside(): return "The %s is closed." % description
+
+	var contents = find_things("", "", false)
+	if contents.is_empty(): return "The %s is empty." % description
+
+	var responses = []
 	if is_surface():
 		responses.append(indent(indent_level, "Sitting on the %s is:" % description))
 	else:
@@ -48,6 +58,9 @@ func describe(indent_level: int = 0) -> String:
 		responses.append(indent(indent_level + 1, "%s %s" % [article, thing.description]))
 
 	return "\n".join(responses)
+
+func examine() -> String:
+	return describe_contents()
 
 func is_open() -> bool:
 	return open

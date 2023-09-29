@@ -9,8 +9,6 @@ func action(command: Command, player: Player) -> String:
 	match(command.verb):
 		Vocabulary.Verbs.FIND:
 			return _handle_find(player)
-		Vocabulary.Verbs.EXAMINE:
-			return "The house is a beautiful colonial house which is painted white. It is clear that the owners must have been extremely wealthy."
 		Vocabulary.Verbs.ENTER:
 			return _handle_open(player)
 		Vocabulary.Verbs.OPEN:

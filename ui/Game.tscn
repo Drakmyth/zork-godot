@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://managers/GlobalObjects.gd" id="3_auqbi"]
 [ext_resource type="PackedScene" uid="uid://cj6g5k4dxx8q0" path="res://ui/Prompt.tscn" id="3_hb5rq"]
 [ext_resource type="Script" path="res://entities/Room.gd" id="3_i2kar"]
+[ext_resource type="Script" path="res://object_scripts/Grue.gd" id="4_5j876"]
 [ext_resource type="Script" path="res://managers/Rooms.gd" id="4_5l8cf"]
 [ext_resource type="Script" path="res://object_scripts/KitchenWindow.gd" id="4_bmbhw"]
 [ext_resource type="Script" path="res://entities/Player.gd" id="4_ewft8"]
@@ -27,7 +28,6 @@
 [ext_resource type="Script" path="res://object_scripts/Lamp.gd" id="19_8ux3q"]
 [ext_resource type="Script" path="res://object_scripts/Rug.gd" id="19_44ob7"]
 [ext_resource type="Script" path="res://object_scripts/TrophyCase.gd" id="20_cps6l"]
-[ext_resource type="Script" path="res://object_scripts/Chimney.gd" id="20_ygl32"]
 [ext_resource type="Script" path="res://entities/Door.gd" id="21_hgg5y"]
 [ext_resource type="Script" path="res://entities/Stairs.gd" id="21_w3t7k"]
 [ext_resource type="Script" path="res://object_scripts/SandwichBag.gd" id="22_3ybyl"]
@@ -325,6 +325,21 @@ script = ExtResource("1_f4dba")
 [node name="GlobalObjects" type="Node" parent="."]
 script = ExtResource("3_auqbi")
 
+[node name="grue" type="Node" parent="GlobalObjects"]
+script = ExtResource("4_5j876")
+description = "lurking grue"
+examine_description = "The grue is a sinister, lurking presence in the dark places of the earth. Its favorite diet is adventurers, but its insatiable appetite is tempered by its fear of light. No grue has ever been seen by the light of day, and few have survived its fearsome jaws to tell the tale."
+state_flags = 2
+nouns = Array[String](["grue"])
+adjectives = Array[String](["lurking", "sinister", "hungry", "silent"])
+
+[node name="zorkmid" type="Node" parent="GlobalObjects"]
+script = ExtResource("5_ot5vp")
+description = "zorkmid"
+examine_description = "The zorkmid is the unit of currency of the Great Underground Empire."
+state_flags = 2
+nouns = Array[String](["zorkmid"])
+
 [node name="Rooms" type="Node" parent="."]
 script = ExtResource("4_5l8cf")
 
@@ -352,6 +367,9 @@ adjectives = Array[String](["small"])
 script = ExtResource("5_ot5vp")
 description = "leaflet"
 floor_description = "A small leaflet is on the ground."
+examine_description = "\"WELCOME TO ZORK!
+
+ZORK is a game of adventure, danger, and low cunning. In it you will explore some of the most amazing territory ever seen by mortals. No computer should be without one!\""
 capability_flags = 5
 weight = 2
 nouns = Array[String](["advertisement", "leaflet", "booklet", "mail"])
@@ -373,6 +391,7 @@ adjectives = Array[String](["front", "boarded"])
 [node name="white-house" type="Node" parent="Rooms/west-of-house"]
 script = ExtResource("5_u2got")
 description = "white house"
+examine_description = "The house is a beautiful colonial house which is painted white. It is clear that the owners must have been extremely wealthy."
 state_flags = 2
 nouns = Array[String](["house"])
 adjectives = Array[String](["white", "beautiful", "colonial"])
@@ -520,6 +539,7 @@ adjectives = Array[String](["stone", "dark", "marble", "forbidding", "steep"])
 [node name="wooden-door" type="Node" parent="Rooms/living-room"]
 script = ExtResource("14_5wcjq")
 description = "wooden door"
+examine_description = "The engravings translate to \"This space intentionally left blank.\""
 state_flags = 2
 nouns = Array[String](["door", "lettering", "writing"])
 adjectives = Array[String](["wooden", "gothic", "strange", "west"])
@@ -588,8 +608,9 @@ weight = 4
 nouns = Array[String](["water", "quantity", "liquid", "h2o"])
 
 [node name="chimney" type="Node" parent="Rooms/kitchen"]
-script = ExtResource("20_ygl32")
+script = ExtResource("21_w3t7k")
 description = "chimney"
+examine_description = "The chimney leads downward, and looks climbable."
 state_flags = 2
 nouns = Array[String](["chimney"])
 adjectives = Array[String](["dark", "narrow"])

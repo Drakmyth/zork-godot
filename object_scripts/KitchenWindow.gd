@@ -6,8 +6,6 @@ func action(command: Command, player: Player) -> String:
 			return _handle_open_close(command)
 		Vocabulary.Verbs.CLOSE:
 			return _handle_open_close(command)
-		Vocabulary.Verbs.EXAMINE:
-			return "The window is slightly ajar, but not enough to allow entry." if is_touched() else ""
 		Vocabulary.Verbs.WALK:
 			return _handle_walk(player)
 		Vocabulary.Verbs.BOARD:
@@ -18,6 +16,9 @@ func action(command: Command, player: Player) -> String:
 			return _handle_look(command, player)
 
 	return ""
+
+func examine() -> String:
+	return "The window is slightly ajar, but not enough to allow entry." if not is_touched() else super()
 
 func _handle_open_close(command:Command) -> String:
 	state_flags |= Thing.StateFlags.TOUCHED

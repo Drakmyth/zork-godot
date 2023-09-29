@@ -19,19 +19,27 @@ enum StateFlags {
 }
 
 const DEFAULT_FLOOR_DESC = "There is a %s here."
+const DEFAULT_EXAMINE_DESC = "There's nothing special about the %s."
 
 signal state_changed
 
 ## Short description of this thing. Primarily used when showing the player's inventory.
 @export var description: String
+
 ## Description text shown in room descriptions prior to player having picked this thing up (if able to
-## do so). Defaults to [member floor_description] if not provided. Override [member _first_description_tokens]
+## do so). Defaults to [member floor_description] if not provided. Override [method _first_description_tokens]
 ## to provide values for placeholder symbols.
 @export_multiline var first_description: String
+
 ## Default description text shown in room descriptions. If [member first_description] is provided, this
-## will override it when [member FLAG_TOUCHED] is set. Override [member _floor_description_tokens]
+## will override it when [member StateFlags.TOUCHED] is set. Override [method _floor_description_tokens]
 ## to provide values for placeholder symbols.
 @export_placeholder(DEFAULT_FLOOR_DESC) var floor_description: String
+
+## Description shown in response to [code]EXAMINE[/code] and/or [code]READ[/code] commands. Override
+## [method _examine_description_tokens] to provide values for placeholder symbols. Defaults to
+## "There's nothing special about the %s." if not provided.
+@export_multiline var examine_description: String
 
 ## Capabilities define what this thing "can do" or "can be". Primarily used to determine what
 ## commands can interact with this thing.[br]
@@ -42,6 +50,7 @@ signal state_changed
 ## [br]
 ## [b]Kindling[/b]: Can be burned.[br]
 @export_flags("Lightweight", "On-Off", "Kindling") var capability_flags: int
+
 ## State defines what this thing "is" or "is doing". Represents properties of the object itself.[br]
 ## [br]
 ## [b]Touched[/b]: Set automatically after the player has taken this thing at least once. Changes
@@ -69,8 +78,7 @@ func _ready() -> void:
 	add_to_group(Vocabulary.Groups.OBJECTS, true)
 
 func describe(indent_level: int = 0) -> String:
-	if is_hidden():
-		return ""
+	if is_hidden(): return ""
 
 	if not is_touched() and not first_description.is_empty():
 		return indent(indent_level, first_description % _first_description_tokens())
@@ -79,6 +87,10 @@ func describe(indent_level: int = 0) -> String:
 		return indent(indent_level, floor_description % _floor_description_tokens())
 
 	return indent(indent_level, DEFAULT_FLOOR_DESC % _floor_description_tokens())
+
+func examine() -> String:
+	var ex_desc = examine_description if not examine_description.is_empty() else DEFAULT_EXAMINE_DESC
+	return ex_desc % _examine_description_tokens()
 
 func _on_state_flags_set(new_state_flags: int) -> void:
 	var old_state_flags = state_flags
@@ -92,6 +104,10 @@ func _first_description_tokens() -> Array:
 func _floor_description_tokens() -> Array:
 	# Implemented by thing script
 	return [description] if floor_description.is_empty() else []
+
+func _examine_description_tokens() -> Array:
+	# Implemented by thing script
+	return [description] if examine_description.is_empty() else []
 
 func can_be_taken() -> bool:
 	return capability_flags & CapabilityFlags.LIGHTWEIGHT

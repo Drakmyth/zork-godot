@@ -19,8 +19,6 @@ func action(command: Command, _player: Player) -> String:
 			if is_broken(): return "The lamp has already burned out."
 			# TODO: Stop lamp fuel timer
 			return ""
-		Vocabulary.Verbs.EXAMINE:
-			return _handle_examine()
 
 	return ""
 
@@ -39,7 +37,7 @@ func _break() -> void:
 	adjectives.erase("brass")
 	adjectives.append("broken")
 
-func _handle_examine() -> String:
+func examine() -> String:
 	if is_broken(): return "The %s has burned out." % description
 	if is_activated(): return "The %s is on." % description
 	return "The %s is turned off." % description
