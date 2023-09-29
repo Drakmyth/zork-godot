@@ -10,3 +10,6 @@ static func UnknownDirection():
 
 func execute(_player: Player) -> String:
 	return response
+
+func can_exit(_player: Player) -> bool:
+	return false

@@ -5,3 +5,6 @@ class_name FunctionExit
 
 func execute(_player: Player) -> String:
 	return "You can't go this way... yet!"
+
+func can_exit(_player: Player) -> bool:
+	return false

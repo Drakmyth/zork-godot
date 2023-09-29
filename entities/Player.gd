@@ -16,6 +16,8 @@ enum DescriptionMode {
 @export_range(0, SCORE_MAX, 1) var score = 0 : set = _set_score
 @export_range(0, 0, 1, "or_greater") var moves = 0 : set = _set_moves
 @export var dead: bool = false
+@export var deaths: int = 0
+@export var lucky: bool = true
 
 signal room_changed
 signal score_changed
@@ -87,6 +89,46 @@ func action(command: Command, _player: Player) -> String:
 		Vocabulary.Verbs.PRAY:
 			return "Your prayers are not heard."
 	return "You can't even do that."
+
+func die() -> String:
+	if dead:
+		return " \nIt takes a talented person to be killed while already dead. YOU are such a talent. \
+Unfortunately, it takes a talented person to deal with it. I am not such a talent. Sorry."
+		# TODO: Quit
+
+	var responses = []
+	if not lucky:
+		responses.append("Bad luck, huh?")
+	score -= 10
+	responses.append(" \n    ****  You have died  ****\n ")
+	if deaths >= 2:
+		responses.append("You clearly are a suicidal maniac. We don't allow psychotics in the cave, \
+since they may harm other adventurers. Your remains will be installed in the Land of the Living Dead, \
+where your fellow adventurers may gloat over them.")
+		return "\n".join(responses)
+		# TODO: Quit
+
+	deaths += 1
+
+	var altar_room = get_node(ROOMS_PATH).find_child("south-temple", false)
+	if altar_room and altar_room.is_visited():
+		# var hades_room = get_node(ROOMS_PATH).find_child("entrance-to-hades", false)
+		responses.append("As you take your last breath, you feel relieved of your burdens. The \
+feeling passes as you find yourself before the gates of Hell, where the spirits jeer at you and \
+deny you entry. Your senses are disturbed. The objects in the dungeon appear indistinct, bleached \
+of color, even unreal.\n ")
+		dead = true
+		# TODO: responses.append(move_to(hades_room))
+	else:
+		var forest_room = get_node(ROOMS_PATH).find_child("west-forest", false)
+		responses.append("Now, let's take a look here... Well, you probably deserve another chance. \
+I can't quite fix you up completely, but you can't have everything.\n ")
+		responses.append(move_to(forest_room))
+
+	# TODO?: Clear trap-door touched
+	# TODO: Randomize Objects
+	# TODO: Kill timers
+	return "\n".join(responses)
 
 func look(force: bool = false) -> String:
 	if not get_room().is_lit() and not dead: return "It is pitch black. You are likely to be eaten by a grue."

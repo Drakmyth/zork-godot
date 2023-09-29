@@ -289,6 +289,7 @@ const _syntax_synonyms := {
 const _dummy_responses := [ "Look around.", "Too late for that.", "Have your eyes checked." ]
 const _yuk_responses := [ "A valiant attempt.", "You can't be serious.", "An interesting idea...", "What a concept!" ]
 const _hello_responses := [ "Hello.", "Good day.", "Nice weather we've been having lately.", "Goodbye." ]
+const _skip_responses := [ "Very good. Now you can go to the second grade.", "Are you enjoying yourself?", "Wheeeeeeeeee!!!!!", "Do you expect me to applaud?" ]
 const _vowels := [ "a", "e", "i", "o", "u" ]
 
 var _synonym_map := {}
@@ -346,6 +347,9 @@ func get_random_dummy_response() -> String:
 
 func get_random_yuk_response() -> String:
 	return _yuk_responses.pick_random()
+
+func get_random_skip_response() -> String:
+	return _skip_responses.pick_random()
 
 func resolve(word: String) -> String:
 	return _synonym_map.get(word, word)

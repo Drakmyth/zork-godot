@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=3 uid="uid://cqgple0nvjstt"]
+[gd_scene load_steps=102 format=3 uid="uid://cqgple0nvjstt"]
 
 [ext_resource type="PackedScene" uid="uid://dv4bbp626njre" path="res://ui/Header.tscn" id="1_ciir3"]
 [ext_resource type="Script" path="res://managers/CommandParser.gd" id="1_f4dba"]
@@ -161,6 +161,10 @@ destination = NodePath("../east-of-house")
 [sub_resource type="Resource" id="Resource_io8lv"]
 script = ExtResource("6_yfin1")
 destination = NodePath("../attic")
+
+[sub_resource type="Resource" id="Resource_xx8kj"]
+script = ExtResource("5_krq4v")
+response = "Only Santa Claus climbs down chimneys."
 
 [sub_resource type="Resource" id="Resource_5cwd6"]
 script = ExtResource("6_yfin1")
@@ -555,6 +559,7 @@ exit_east = SubResource("Resource_r0pn6")
 exit_west = SubResource("Resource_8dral")
 exit_out = SubResource("Resource_b7cpq")
 exit_up = SubResource("Resource_io8lv")
+exit_down = SubResource("Resource_xx8kj")
 
 [node name="kitchen-table" type="Node" parent="Rooms/kitchen"]
 script = ExtResource("8_dgj43")

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://gm1n8n3w7k4o"]
+
+[ext_resource type="Script" path="res://command_scripts/jump.gd" id="1_30kvw"]
+
+[resource]
+script = ExtResource("1_30kvw")
+instantaneous = false
+verb = "jump"
+first_preposition = ""
+max_direct_objects = 0
+direct_object_execution_flags = 0
+second_preposition = ""
+max_indirect_objects = 0
+indirect_object_execution_flags = 0
