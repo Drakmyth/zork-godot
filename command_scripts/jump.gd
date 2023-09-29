@@ -20,6 +20,6 @@ func action(command: Command, player: Player) -> String:
 
 	return Vocabulary.get_random_skip_response()
 
-func _handle_jump_object(thing: Thing, player: Player) -> String:
+func _handle_jump_object(_thing: Thing, _player: Player) -> String:
 	# TODO: handle jump over actor
 	return "That would be a good trick."

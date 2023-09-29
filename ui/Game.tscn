@@ -374,7 +374,7 @@ floor_description = "A small leaflet is on the ground."
 examine_description = "\"WELCOME TO ZORK!
 
 ZORK is a game of adventure, danger, and low cunning. In it you will explore some of the most amazing territory ever seen by mortals. No computer should be without one!\""
-capability_flags = 5
+capability_flags = 13
 weight = 2
 nouns = Array[String](["advertisement", "leaflet", "booklet", "mail"])
 adjectives = Array[String](["small"])
@@ -452,7 +452,7 @@ nouns = Array[String](["boards", "board"])
 [node name="kitchen-window" type="Node" parent="Rooms/east-of-house"]
 script = ExtResource("4_bmbhw")
 description = "kitchen window"
-state_flags = 2
+state_flags = 10
 nouns = Array[String](["window"])
 adjectives = Array[String](["kitchen", "small"])
 
@@ -529,7 +529,7 @@ adjectives = Array[String](["trap", "dusty"])
 script = ExtResource("20_cps6l")
 capacity = 10000
 description = "trophy case"
-state_flags = 2
+state_flags = 10
 nouns = Array[String](["case"])
 adjectives = Array[String](["trophy"])
 
@@ -544,6 +544,7 @@ adjectives = Array[String](["stone", "dark", "marble", "forbidding", "steep"])
 script = ExtResource("14_5wcjq")
 description = "wooden door"
 examine_description = "The engravings translate to \"This space intentionally left blank.\""
+capability_flags = 8
 state_flags = 2
 nouns = Array[String](["door", "lettering", "writing"])
 adjectives = Array[String](["wooden", "gothic", "strange", "west"])
@@ -602,6 +603,7 @@ behavior_flags = 2
 description = "glass bottle"
 first_description = "A bottle is sitting on the table."
 capability_flags = 1
+state_flags = 8
 nouns = Array[String](["bottle", "container"])
 adjectives = Array[String](["clear", "glass"])
 

@@ -46,6 +46,9 @@ func get_rank() -> String:
 
 	return "Beginner"
 
+func can_see() -> bool:
+	return get_room().is_lit() or has_light()
+
 func action(command: Command, _player: Player) -> String:
 	if not dead: return ""
 

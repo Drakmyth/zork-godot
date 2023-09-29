@@ -5,7 +5,8 @@ enum CapabilityFlags {
 	NONE = 0,
 	LIGHTWEIGHT = 1,
 	ONOFF = 2,
-	KINDLING = 4
+	KINDLING = 4,
+	WRITTEN = 8
 }
 
 enum StateFlags {
@@ -13,9 +14,10 @@ enum StateFlags {
 	TOUCHED = 1,
 	HIDDEN = 2,
 	INVISIBLE = 4,
-	ACTIVATED = 8,
-	LIT = 16,
-	FLAMING = 32
+	TRANSPARENT = 8,
+	ACTIVATED = 16,
+	LIT = 32,
+	FLAMING = 64
 }
 
 const DEFAULT_FLOOR_DESC = "There is a %s here."
@@ -49,7 +51,9 @@ signal state_changed
 ## [b]On-Off[/b]: Can be turned on/off or activated.[br]
 ## [br]
 ## [b]Kindling[/b]: Can be burned.[br]
-@export_flags("Lightweight", "On-Off", "Kindling") var capability_flags: int
+## [br]
+## [b]Written[/b]: Can be read.[br]
+@export_flags("Lightweight", "On-Off", "Kindling", "Written") var capability_flags: int
 
 ## State defines what this thing "is" or "is doing". Represents properties of the object itself.[br]
 ## [br]
@@ -62,13 +66,16 @@ signal state_changed
 ## [b]Invisible[/b]: This thing, for all intents and purposes, doesn't exist. Useful for making things
 ## appear "via magic" or to make things non-interactable when obscured by other things.[br]
 ## [br]
+## [b]Transparent[/b]: This thing can be seen through. If it is a [Bag], it's contents can be seen
+## even while closed.[br]
+## [br]
 ## [b]Activated[/b]: This thing is turned on. Does not imply [code]Lit[/code].[br]
 ## [br]
 ## [b]Lit[/b]: This thing is emitting light. Does not imply [code]Activated[/code].[br]
 ## [br]
 ## [b]Flaming[/b]: This thing is on fire or is otherwise capable of burning other objects. Does not
 ## imply [code]Lit[/code] or the [code]Kindling[/code] capability.[br]
-@export_flags("Touched", "Hidden", "Invisible", "Activated", "Lit", "Flaming") var state_flags: int : set = _on_state_flags_set
+@export_flags("Touched", "Hidden", "Invisible", "Transparent", "Activated", "Lit", "Flaming") var state_flags: int : set = _on_state_flags_set
 @export_range(0, 0, 1, "or_greater") var weight: int
 @export var score : int = 0
 @export var nouns: Array[String] = []
@@ -89,6 +96,12 @@ func describe(indent_level: int = 0) -> String:
 	return indent(indent_level, DEFAULT_FLOOR_DESC % _floor_description_tokens())
 
 func examine() -> String:
+	var ex_desc = examine_description if not examine_description.is_empty() else DEFAULT_EXAMINE_DESC
+	return ex_desc % _examine_description_tokens()
+
+func read() -> String:
+	if not can_be_read(): return "How does one read a %s?" % description
+
 	var ex_desc = examine_description if not examine_description.is_empty() else DEFAULT_EXAMINE_DESC
 	return ex_desc % _examine_description_tokens()
 
@@ -118,6 +131,9 @@ func can_be_onoff() -> bool:
 func can_be_burned() -> bool:
 	return capability_flags & CapabilityFlags.KINDLING
 
+func can_be_read() -> bool:
+	return capability_flags & CapabilityFlags.WRITTEN
+
 func is_touched() -> bool:
 	return state_flags & StateFlags.TOUCHED
 
@@ -126,6 +142,9 @@ func is_hidden() -> bool:
 
 func is_invisible() -> bool:
 	return state_flags & StateFlags.INVISIBLE
+
+func is_transparent() -> bool:
+	return state_flags & StateFlags.TRANSPARENT
 
 func is_activated() -> bool:
 	return state_flags & StateFlags.ACTIVATED

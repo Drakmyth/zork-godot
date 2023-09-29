@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bib00lult7i1j"]
+
+[ext_resource type="Script" path="res://command_scripts/read.gd" id="1_4w6qe"]
+
+[resource]
+script = ExtResource("1_4w6qe")
+instantaneous = false
+verb = "read"
+first_preposition = ""
+max_direct_objects = 1
+direct_object_execution_flags = 1
+second_preposition = ""
+max_indirect_objects = 0
+indirect_object_execution_flags = 0

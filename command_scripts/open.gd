@@ -21,7 +21,7 @@ func _handle_bag(bag: Bag, _command: Command, _player: Player) -> String:
 
 	var contents = bag.find_things()
 
-	if contents.is_empty() or bag.behavior_flags & Bag.FLAG_TRANSPARENT:
+	if contents.is_empty() or bag.is_transparent():
 		return "Opened."
 	elif len(contents) == 1 and not contents[0].is_touched() and not contents[0].first_description.is_empty():
 		return "The %s opens.\n%s" % [bag.description, contents[0].first_description]
