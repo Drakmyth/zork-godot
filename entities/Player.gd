@@ -94,16 +94,17 @@ func action(command: Command, _player: Player) -> String:
 	return "You can't even do that."
 
 func die() -> String:
-	if dead:
-		return " \nIt takes a talented person to be killed while already dead. YOU are such a talent. \
-Unfortunately, it takes a talented person to deal with it. I am not such a talent. Sorry."
-		# TODO: Quit
-
 	var responses = []
 	if not lucky:
 		responses.append("Bad luck, huh?")
 	score -= 10
 	responses.append(" \n    ****  You have died  ****\n ")
+
+	if dead:
+		DialogManager.quit("It takes a talented person to be killed while already dead. YOU are such a talent. \
+Unfortunately, it takes a talented person to deal with it. I am not such a talent. Sorry.")
+		return "\n".join(responses)
+
 	if deaths >= 2:
 		DialogManager.quit("You clearly are a suicidal maniac. We don't allow psychotics in the cave, \
 since they may harm other adventurers. Your remains will be installed in the Land of the Living Dead, \
