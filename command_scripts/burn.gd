@@ -7,8 +7,10 @@ func action(command: Command, player: Player) -> String:
 	var riding = obj.is_ancestor_of(player)
 	obj.queue_free()
 	if riding or player.is_carrying(obj):
-		# TODO: death
-		return "The %s catches fire. Unfortunately, you were %s it at the time." % [obj.description, "in" if riding else "holding"]
+		var response = []
+		response.append("The %s catches fire. Unfortunately, you were %s it at the time." % [obj.description, "in" if riding else "holding"])
+		response.append(player.die())
+		return "\n".join(response)
 
 	return "The %s catches fire and is consumed." % obj.description
 
