@@ -105,11 +105,10 @@ Unfortunately, it takes a talented person to deal with it. I am not such a talen
 	score -= 10
 	responses.append(" \n    ****  You have died  ****\n ")
 	if deaths >= 2:
-		responses.append("You clearly are a suicidal maniac. We don't allow psychotics in the cave, \
+		DialogManager.quit("You clearly are a suicidal maniac. We don't allow psychotics in the cave, \
 since they may harm other adventurers. Your remains will be installed in the Land of the Living Dead, \
 where your fellow adventurers may gloat over them.")
 		return "\n".join(responses)
-		# TODO: Quit
 
 	deaths += 1
 

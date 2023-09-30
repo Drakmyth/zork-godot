@@ -27,6 +27,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_smp68")
 layout_mode = 2
 
 [node name="Background" type="PanelContainer" parent="Cover/DialogAlignment"]
+custom_minimum_size = Vector2(440, 133)
 layout_mode = 2
 
 [node name="Margin" type="MarginContainer" parent="Cover/DialogAlignment/Background"]
@@ -46,6 +47,7 @@ text = "Your score is 0 (total of 350 points), in 0 moves.
 This gives you the rank of Beginner.
 Do you wish to leave the game?
 "
+autowrap_mode = 3
 
 [node name="ButtonLayout" type="HBoxContainer" parent="Cover/DialogAlignment/Background/Margin/DialogLayout"]
 layout_mode = 2
@@ -71,3 +73,16 @@ focus_neighbor_bottom = NodePath(".")
 focus_next = NodePath("../YesButton")
 focus_previous = NodePath("../YesButton")
 text = "No"
+
+[node name="QuitButton" type="Button" parent="Cover/DialogAlignment/Background/Margin/DialogLayout/ButtonLayout"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+text = "Quit
+"
