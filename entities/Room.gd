@@ -1,8 +1,11 @@
 extends GameObject
 class_name Room
 
-const FLAG_VISITED = 1
-const FLAG_LIT = 2
+enum RoomFlags {
+	NONE = 0,
+	VISITED = 1,
+	LIT = 2
+}
 
 @export var title: String
 @export_multiline var description: String
@@ -54,11 +57,10 @@ func on_end_command(_command: Command, _player: Player) -> String:
 	return ""
 
 func is_lit():
-	var player = get_tree().get_first_node_in_group(Vocabulary.Groups.PLAYER)
-	return flags & FLAG_LIT or player.has_light()
+	return flags & RoomFlags.LIT or find_things().any(func(t): return t.is_lit())
 
 func is_visited():
-	return flags & FLAG_VISITED
+	return flags & RoomFlags.VISITED
 
 func get_local_object(object_name: String) -> Thing:
 	for object_path in local_objects:

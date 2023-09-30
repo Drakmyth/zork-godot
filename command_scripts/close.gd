@@ -12,14 +12,13 @@ func action(command: Command, player: Player) -> String:
 	else:
 		return "You must tell me how to do that to a %s." % object.description
 
-func _handle_bag(bag: Bag, _command: Command, _player: Player) -> String:
+func _handle_bag(bag: Bag, _command: Command, player: Player) -> String:
 	if bag.behavior_flags & Bag.FLAG_SURFACE: return DEFAULT_RESPONSE
 	if bag.capacity <= 0: return DEFAULT_RESPONSE
 
 	if bag.is_open():
 		bag.open = false
-		# TODO: if not room.is_lit(): return "Closed.\nIt is now pitch black."
-		return "Closed."
+		return "Closed.%s" % "\nIt is now pitch black." if not player.can_see() else ""
 	else:
 		return "It is already closed."
 

@@ -47,7 +47,7 @@ func get_rank() -> String:
 	return "Beginner"
 
 func can_see() -> bool:
-	return get_room().is_lit() or has_light()
+	return get_room().is_lit() or has_light() or dead
 
 func action(command: Command, _player: Player) -> String:
 	if not dead: return ""
@@ -134,7 +134,7 @@ I can't quite fix you up completely, but you can't have everything.\n ")
 	return "\n".join(responses)
 
 func look(force: bool = false) -> String:
-	if not get_room().is_lit() and not dead: return "It is pitch black. You are likely to be eaten by a grue."
+	if not can_see(): return "It is pitch black. You are likely to be eaten by a grue."
 
 	return get_room().describe(force)
 
@@ -206,7 +206,7 @@ func move_to(room: Room) -> String:
 	score += room.score
 	room.score = 0
 	var room_description = look()
-	if room.is_lit():
+	if can_see():
 		room.flags |= Room.FLAG_VISITED
 	return room_description
 
