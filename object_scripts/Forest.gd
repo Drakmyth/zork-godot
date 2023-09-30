@@ -16,5 +16,4 @@ func _handle_walk(command: Command, player: Player) -> String:
 	if command.first_preposition != Vocabulary.Prepositions.AROUND: return ""
 	if player.get_room().is_in_group(Vocabulary.Groups.ROOMS_AROUND_HOUSE): return "You aren't even in the forest."
 
-	# TODO: return player.move_to_next_room_in_group(Vocabulary.Groups.ROOMS_IN_FOREST)
-	return ""
+	return player.move_to_next_room_in_group(Vocabulary.Groups.ROOMS_AROUND_FOREST)
