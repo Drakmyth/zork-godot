@@ -18,14 +18,16 @@ All matters of language processing are handled by the auto-loaded `Vocabulary` s
 
 In order to execute a command, the `Game` will get that command's Request Chain. A Request Chain is an array of `Callable` handlers that each have the opportunity to handle the command execution. In order, these handlers are:
 
-1. `Player.action`
-2. `Room.on_begin_command`
-3. `Command.preaction`
-4. First<sup>*</sup> Indirect Object `Thing.action`
-5. First<sup>*</sup> Direct Object `Thing.action`
-6. `Command.action`
+1. `Command.check_holding`*
+2. `Player.action`
+3. `Room.on_begin_command`
+4. `Command.preaction`
+5. First<sup>**</sup> Indirect Object `Thing.action`
+6. First<sup>**</sup> Direct Object `Thing.action`
+7. `Command.action`
 
-<sub>* Additional objects after the first are ignored.</sub>
+<sub>* This is handled here more for convenience. It is not intended to be modified or overridden.</sub>\
+<sub>** Additional objects after the first are ignored.</sub>
 
 Each handler returns a response string. If that response is empty, execution passes to the next handler. If the response is not empty execution of the chain halts. After the chain has been processed, `Room.on_end_command` is called as a final handler before the response is returned and appended to the `ResponseHistory`.
 
