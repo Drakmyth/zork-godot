@@ -207,7 +207,7 @@ func move_to(room: Room) -> String:
 	room.score = 0
 	var room_description = look()
 	if can_see():
-		room.flags |= Room.FLAG_VISITED
+		room.flags |= Room.RoomFlags.VISITED
 	return room_description
 
 func move_to_next_room_in_group(group_name: String) -> String:

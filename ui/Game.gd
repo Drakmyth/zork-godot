@@ -22,7 +22,7 @@ func _ready() -> void:
 
 	history.add_response(HIDE_PROMPT, BEGIN_TEXT)
 	history.add_response(HIDE_PROMPT, player.look())
-	player.get_room().flags |= Room.FLAG_VISITED
+	player.get_room().flags |= Room.RoomFlags.VISITED
 
 func initialize():
 	player = get_tree().get_first_node_in_group(Vocabulary.Groups.PLAYER) as Player
