@@ -176,6 +176,10 @@ func _match_to_known_command(parsed_command: Command) -> Command:
 		matched_commands = matched_commands.filter(func(c): return c.second_preposition == parsed_command.second_preposition)
 		if not matched_commands.is_empty(): last_best_match = matched_commands[0]
 
+	if len(matched_commands) > 1:
+		matched_commands = matched_commands.filter(func(c): return c.max_direct_objects == len(parsed_command.direct_objects))
+		if not matched_commands.is_empty(): last_best_match = matched_commands[0]
+
 	if not parsed_command.second_preposition.is_empty() \
 		and (parsed_command.second_preposition != last_best_match.second_preposition or parsed_command.first_preposition != last_best_match.first_preposition):
 		return Command.ErrorCommand("That sentence isn't one I recognize.")

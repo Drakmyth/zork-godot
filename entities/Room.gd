@@ -113,3 +113,35 @@ func get_exit(direction: String) -> Exit:
 		Vocabulary.Directions.LAND:
 			return exit_land
 	return BlockedExit.UnknownDirection()
+
+func get_door_exit(door: Door) -> Exit:
+	var door_path := door.get_path()
+
+	if exit_north is DoorExit and exit_north.door == door_path:
+		return exit_north
+	if exit_east is DoorExit and exit_east.door == door_path:
+		return exit_east
+	if exit_south is DoorExit and exit_south.door == door_path:
+		return exit_south
+	if exit_west is DoorExit and exit_west.door == door_path:
+		return exit_west
+	if exit_northeast is DoorExit and exit_northeast.door == door_path:
+		return exit_northeast
+	if exit_northwest is DoorExit and exit_northwest.door == door_path:
+		return exit_northwest
+	if exit_southeast is DoorExit and exit_southeast.door == door_path:
+		return exit_southeast
+	if exit_southwest is DoorExit and exit_southwest.door == door_path:
+		return exit_southwest
+	if exit_in is DoorExit and exit_in.door == door_path:
+		return exit_in
+	if exit_out is DoorExit and exit_out.door == door_path:
+		return exit_out
+	if exit_up is DoorExit and exit_up.door == door_path:
+		return exit_up
+	if exit_down is DoorExit and exit_down.door == door_path:
+		return exit_down
+	if exit_land is DoorExit and exit_land.door == door_path:
+		return exit_land
+
+	return BlockedExit.UnknownDoor()

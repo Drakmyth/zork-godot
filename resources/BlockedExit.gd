@@ -8,6 +8,11 @@ static func UnknownDirection():
 	exit.response = "You should supply a direction!"
 	return exit
 
+static func UnknownDoor():
+	var exit = BlockedExit.new()
+	exit.response = "That entrance doesn't seem to be here!"
+	return exit
+
 func execute(_player: Player) -> String:
 	return response
 

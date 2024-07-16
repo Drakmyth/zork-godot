@@ -33,7 +33,7 @@ func _handle_open(player: Player) -> String:
 	var room = player.get_room()
 	if room.name != "east-of-house": return "I can't see how to get in from here."
 
-	var kitchen_window = room.get_local_object("kitchen-window") as Door
+	var kitchen_window = room.find_child("kitchen-window") as Door
 	if kitchen_window.is_open():
 		var kitchen = room.get_node("../kitchen")
 		return player.move_to(kitchen)

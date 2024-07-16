@@ -218,6 +218,9 @@ func move_to_next_room_in_group(group_name: String) -> String:
 
 func move(direction: String) -> String:
 	var exit = get_room().get_exit(direction)
+	return move_exit(exit)
+
+func move_exit(exit: Exit) -> String:
 	if exit == null:
 		return "You can't go that way."
 	return exit.execute(self)
