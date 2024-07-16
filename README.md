@@ -29,7 +29,11 @@ In order to execute a command, the `Game` will get that command's Request Chain.
 
 Each handler returns a response string. If that response is empty, execution passes to the next handler. If the response is not empty execution of the chain halts. After the chain has been processed, `Room.on_end_command` is called as a final handler before the response is returned and appended to the `ResponseHistory`.
 
-:warning: When creating a new `Command` resource, make sure to update the `Script` reference in the inspector to point to the proper script in the `res://command_scripts` directory. Otherwise the default empty implementations of `Command.preaction` and `Command.action` will be called when the command is executed.
+> :thought_balloon: Basing execution on the response string return is a notable design flaw here. Because all the handlers need to execute before the final response can be built, it becomes complicated for commands to add text to the response without interrupting the Request Chain execution or to interrupt execution without providing a response string.
+>
+> This is ultimately why system commands like `restart` and `quit` operate via dialog boxes instead of integrating with the parser. There was no way to pause normal command processing to handle the "Are you sure? y/n" sub-prompt.
+
+When creating a new `Command` resource, make sure to update the `Script` reference in the inspector to point to the proper script in the `res://command_scripts` directory. Otherwise the default empty implementations of `Command.preaction` and `Command.action` will be called when the command is executed.
 
 ## License
 
